@@ -1,0 +1,14 @@
+CREATE DATABASE IF NOT EXISTS ENSTA;
+USE ENSTA;
+
+CREATE TABLE IF NOT EXISTS FILM(
+	ID BIGINT PRIMARY KEY AUTO_INCREMENT,
+	TITRE TEXT,
+	DUREE INT
+);
+
+INSERT INTO FILM(TITRE, DUREE) 
+	VALUES
+		("Les Aventuriers de l'arche perdue", 115),
+		("Star Wars, épisode IV : Un nouvel espoir", 121),
+		("Pulp Fiction", 154);
