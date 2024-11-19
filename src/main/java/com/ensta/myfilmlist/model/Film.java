@@ -10,6 +10,7 @@ public class Film {
 	private String titre;
 
 	private int duree;
+	private Realisateur realisateur;
 
 	public long getId() {
 		return id;
@@ -35,4 +36,11 @@ public class Film {
 		this.duree = duree;
 	}
 
+	public Realisateur getRealisateur(){
+		return realisateur;
+	}
+
+	public void setRealisateur(Realisateur realisateur){
+		this.realisateur = realisateur;
+	}
 }
