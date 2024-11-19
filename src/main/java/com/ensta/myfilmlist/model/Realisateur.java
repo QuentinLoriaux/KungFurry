@@ -11,6 +11,15 @@ public class Realisateur {
     private List<Film> filmRealises;
     private Boolean celebre;
 
+    public Realisateur() {
+        this.id = 0;
+        this.nom = "";
+        this.prenom = "";
+        this.dateNaissance = LocalDate.now();
+        this.filmRealises = null;
+        this.celebre = false;
+    }
+
     public void setId(long id) {
         this.id = id;
     }
@@ -32,7 +41,7 @@ public class Realisateur {
         return prenom;
     }
 
-    private void setDateNaissance(LocalDate dateNaissance) {
+    public void setDateNaissance(LocalDate dateNaissance) {
         this.dateNaissance = dateNaissance;
     }
     public LocalDate getDateNaissance() {
@@ -49,7 +58,7 @@ public class Realisateur {
     public void setCelebre(Boolean celebre) {
         this.celebre = celebre;
     }
-    public Boolean getCelebre() {
+    public Boolean isCelebre() {
         return celebre;
     }
 }

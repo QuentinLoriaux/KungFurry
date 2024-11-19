@@ -4,13 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="dd72b9eb-4ed8-430d-952f-c200be1988a3" name="Changes" comment="init">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/ensta/myfilmlist/model/Realisateur.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/ensta/myfilmlist/model/Utilisateur.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/ensta/myfilmlist/service/MyFilmsService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/ensta/myfilmlist/service/impl/MyFilmsServiceImpl.java" afterDir="false" />
+    <list default="true" id="dd72b9eb-4ed8-430d-952f-c200be1988a3" name="Changes" comment="PART1 + début P2">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ensta/myfilmlist/model/Film.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ensta/myfilmlist/model/Film.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ensta/myfilmlist/MyfilmlistTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ensta/myfilmlist/MyfilmlistTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ensta/myfilmlist/model/Realisateur.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ensta/myfilmlist/model/Realisateur.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ensta/myfilmlist/model/Utilisateur.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ensta/myfilmlist/model/Utilisateur.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ensta/myfilmlist/service/MyFilmsService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ensta/myfilmlist/service/MyFilmsService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ensta/myfilmlist/service/impl/MyFilmsServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ensta/myfilmlist/service/impl/MyFilmsServiceImpl.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -21,6 +21,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Class" />
+        <option value="Interface" />
       </list>
     </option>
   </component>
@@ -73,6 +74,11 @@
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
+  <component name="RecentsManager">
+    <key name="ExtractSuperBase.RECENT_KEYS">
+      <recent name="com.ensta.myfilmlist.service" />
+    </key>
+  </component>
   <component name="RunManager">
     <configuration name="MyfilmlistApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
       <option name="FRAME_DEACTIVATION_UPDATE_POLICY" value="UpdateClassesAndResources" />
@@ -108,7 +114,7 @@
       <workItem from="1732020790652" duration="235000" />
       <workItem from="1732021034171" duration="194000" />
       <workItem from="1732021236044" duration="78000" />
-      <workItem from="1732021315522" duration="1574000" />
+      <workItem from="1732021315522" duration="3482000" />
     </task>
     <task id="LOCAL-00001" summary="docx -&gt; pdf :)">
       <option name="closed" value="true" />
@@ -134,7 +140,15 @@
       <option name="project" value="LOCAL" />
       <updated>1732015387760</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="PART1 + début P2">
+      <option name="closed" value="true" />
+      <created>1732022929394</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1732022929394</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -143,7 +157,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="docx -&gt; pdf :)" />
     <MESSAGE value="init" />
-    <option name="LAST_COMMIT_MESSAGE" value="init" />
+    <MESSAGE value="PART1 + début P2" />
+    <option name="LAST_COMMIT_MESSAGE" value="PART1 + début P2" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

@@ -5,6 +5,12 @@ public class Utilisateur {
     private String nom;
     private String prenom;
 
+    public Utilisateur() {
+        this.id = 0;
+        this.nom = "";
+        this.prenom = "";
+    }
+
     public void setId(long id) {
         this.id = id;
     }
