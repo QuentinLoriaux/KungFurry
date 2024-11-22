@@ -4,14 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="dd72b9eb-4ed8-430d-952f-c200be1988a3" name="Changes" comment="2.2.8">
+    <list default="true" id="dd72b9eb-4ed8-430d-952f-c200be1988a3" name="Changes" comment="2.2.11">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/ensta/myfilmlist/MyfilmlistTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ensta/myfilmlist/MyfilmlistTests.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ensta/myfilmlist/dao/RealisateurDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ensta/myfilmlist/dao/RealisateurDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ensta/myfilmlist/dao/FilmDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ensta/myfilmlist/dao/FilmDAO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/ensta/myfilmlist/dao/impl/JdbcFilmDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ensta/myfilmlist/dao/impl/JdbcFilmDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ensta/myfilmlist/dto/RealisateurDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ensta/myfilmlist/dto/RealisateurDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ensta/myfilmlist/mapper/FilmMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ensta/myfilmlist/mapper/FilmMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ensta/myfilmlist/mapper/RealisateurMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ensta/myfilmlist/mapper/RealisateurMapper.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/ensta/myfilmlist/service/MyFilmsService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ensta/myfilmlist/service/MyFilmsService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/ensta/myfilmlist/service/impl/MyFilmsServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ensta/myfilmlist/service/impl/MyFilmsServiceImpl.java" afterDir="false" />
     </list>
@@ -144,7 +141,7 @@
       <workItem from="1732021315522" duration="7025000" />
       <workItem from="1732215588682" duration="14486000" />
       <workItem from="1732274068645" duration="836000" />
-      <workItem from="1732278323454" duration="3342000" />
+      <workItem from="1732278323454" duration="5499000" />
     </task>
     <task id="LOCAL-00001" summary="docx -&gt; pdf :)">
       <option name="closed" value="true" />
@@ -242,7 +239,15 @@
       <option name="project" value="LOCAL" />
       <updated>1732274178503</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="2.2.11">
+      <option name="closed" value="true" />
+      <created>1732281711338</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1732281711338</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -257,7 +262,8 @@
     <MESSAGE value="2.2.4" />
     <MESSAGE value="2.2.7" />
     <MESSAGE value="2.2.8" />
-    <option name="LAST_COMMIT_MESSAGE" value="2.2.8" />
+    <MESSAGE value="2.2.11" />
+    <option name="LAST_COMMIT_MESSAGE" value="2.2.11" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

@@ -75,4 +75,19 @@ public interface MyFilmsService {
      * @throws ServiceException
      */
     public RealisateurDTO findRealisateurByNomAndPrenom(String nom, String prenom) throws ServiceException;
+
+    /**
+     * Récupère un film par son id.
+     * @param id
+     * @return FilmDTO
+     * @throws ServiceException
+     */
+    public FilmDTO findFilmById(long id) throws ServiceException;
+
+    /**
+     * Supprime un film par son id.
+     * @param id
+     * @throws ServiceException
+     */
+    public void deleteFilm(long id) throws ServiceException;
 }

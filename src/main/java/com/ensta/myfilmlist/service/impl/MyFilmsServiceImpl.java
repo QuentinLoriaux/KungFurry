@@ -129,4 +129,28 @@ public class MyFilmsServiceImpl implements com.ensta.myfilmlist.service.MyFilmsS
             throw new ServiceException("Erreur lors de la récupération du réalisateur", e);
         }
     }
+
+    @Override
+    public FilmDTO findFilmById(long id) throws ServiceException {
+        try {
+            Optional<Film> film = this.filmDAO.findById(id);
+
+            return film.map(FilmMapper::convertFilmToFilmDTO).orElse(null);
+        } catch (RuntimeException e) {
+            throw new ServiceException("Erreur lors de la récupération du film", e);
+        }
+    }
+
+    @Override
+    public void deleteFilm(long id) throws ServiceException {
+        try {
+            FilmDTO filmDTO = findFilmById(id);
+            if (filmDTO == null) {
+                throw new ServiceException("Le film n'existe pas");
+            }
+            this.filmDAO.delete(FilmMapper.convertFilmDTOToFilm(filmDTO));
+        } catch (RuntimeException e) {
+            throw new ServiceException("Erreur lors de la suppression du film", e);
+        }
+    }
 }
