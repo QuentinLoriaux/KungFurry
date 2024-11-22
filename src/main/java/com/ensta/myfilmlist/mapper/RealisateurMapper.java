@@ -3,6 +3,8 @@ package com.ensta.myfilmlist.mapper;
 import com.ensta.myfilmlist.dto.RealisateurDTO;
 import com.ensta.myfilmlist.model.Realisateur;
 
+import java.util.List;
+
 public class RealisateurMapper {
     /**
      * Transforme un Realisateur en RealisateurDTO
@@ -32,6 +34,17 @@ public class RealisateurMapper {
         realisateur.setCelebre(realisateurDTO.getCelebre());
         realisateur.setDateNaissance(realisateurDTO.getDateNaissance());
         return realisateur;
+    }
+
+    /**
+     * Transforme une liste de Realisateur en une liste de RealisateurDTO
+     * @param realisateurs
+     * @return List<RealisateurDTO>
+     */
+    public static List<RealisateurDTO> convertRealisateurToRealisateurDTOs(List<Realisateur> realisateurs){
+        return realisateurs.stream()
+                .map(RealisateurMapper::convertRealisateurToRealisateurDTO)
+                .collect(java.util.stream.Collectors.toList());
     }
 
 }

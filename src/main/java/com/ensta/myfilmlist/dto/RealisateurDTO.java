@@ -50,6 +50,6 @@ public class RealisateurDTO {
 
     @Override
     public String toString(){
-        return "RealisateurDTO [id=" + id + ", nom=" + nom + ", prenom=" + prenom + ", dateNaissance=" + dateNaissance + ", filmRealises=" + filmRealises + ", celebre=" + celebre + "]";
+        return "RealisateurDTO [id=" + id + ", nom=" + nom + ", prenom=" + prenom + ", dateNaissance=" + dateNaissance + ", celebre=" + celebre + "]";
     }
 }

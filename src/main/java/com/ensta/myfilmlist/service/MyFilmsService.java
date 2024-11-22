@@ -1,6 +1,7 @@
 package com.ensta.myfilmlist.service;
 
 import com.ensta.myfilmlist.dto.FilmDTO;
+import com.ensta.myfilmlist.dto.RealisateurDTO;
 import com.ensta.myfilmlist.exception.ServiceException;
 import com.ensta.myfilmlist.form.FilmForm;
 import com.ensta.myfilmlist.model.Film;
@@ -59,4 +60,19 @@ public interface MyFilmsService {
      *
      */
     public FilmDTO createFilm(FilmForm form) throws ServiceException;
+
+    /**
+     * Récupère la liste des réalisateurs.
+     * @return la liste des réalisateurs.
+     */
+    public List<RealisateurDTO> findAllRealisateurs() throws ServiceException;
+
+    /**
+     * Récupère un réalisateurs par son nom et prénom.
+     * @param nom
+     * @param prenom
+     * @return RealisateurDTO
+     * @throws ServiceException
+     */
+    public RealisateurDTO findRealisateurByNomAndPrenom(String nom, String prenom) throws ServiceException;
 }

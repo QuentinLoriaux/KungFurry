@@ -5,11 +5,13 @@ import com.ensta.myfilmlist.dao.RealisateurDAO;
 import com.ensta.myfilmlist.dao.impl.JdbcFilmDAO;
 import com.ensta.myfilmlist.dao.impl.JdbcRealisateurDAO;
 import com.ensta.myfilmlist.dto.FilmDTO;
+import com.ensta.myfilmlist.dto.RealisateurDTO;
 import com.ensta.myfilmlist.exception.ServiceException;
 import com.ensta.myfilmlist.form.FilmForm;
 import com.ensta.myfilmlist.model.Film;
 import com.ensta.myfilmlist.model.Realisateur;
 import com.ensta.myfilmlist.mapper.FilmMapper;
+import com.ensta.myfilmlist.mapper.RealisateurMapper;
 
 import java.util.Arrays;
 import java.util.List;
@@ -101,9 +103,30 @@ public class MyFilmsServiceImpl implements com.ensta.myfilmlist.service.MyFilmsS
             if (realisateur.isEmpty()){
                 throw new ServiceException("Le réalisateur n'existe pas");
             }
-            return FilmMapper.convertFilmToFilmDTO(this.filmDAO.save(FilmMapper.convertFilmFormToFilm(form)));
+            Film film = FilmMapper.convertFilmFormToFilm(form);
+            film.setRealisateur(realisateur.get());
+            return FilmMapper.convertFilmToFilmDTO(this.filmDAO.save(film));
         } catch (Exception e) {
             throw new ServiceException("Impossible de récupérer le réalisateur :" + e.getMessage());
+        }
+    }
+
+    @Override
+    public List<RealisateurDTO> findAllRealisateurs() throws ServiceException {
+        try {
+            return RealisateurMapper.convertRealisateurToRealisateurDTOs(this.realisateurDAO.findAll());
+        } catch (RuntimeException e) {
+            throw new ServiceException("Erreur lors de la récupération des réalisateurs", e);
+        }
+    }
+
+    @Override
+    public RealisateurDTO findRealisateurByNomAndPrenom(String nom, String prenom) throws ServiceException {
+        try {
+            Optional<Realisateur> realisateur = this.realisateurDAO.findByNomAndPrenom(nom, prenom);
+            return realisateur.map(RealisateurMapper::convertRealisateurToRealisateurDTO).orElse(null);
+        } catch (RuntimeException e) {
+            throw new ServiceException("Erreur lors de la récupération du réalisateur", e);
         }
     }
 }
