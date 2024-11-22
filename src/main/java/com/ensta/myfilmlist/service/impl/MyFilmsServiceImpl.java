@@ -83,7 +83,7 @@ public class MyFilmsServiceImpl implements com.ensta.myfilmlist.service.MyFilmsS
         try {
             List<Film> films = this.filmDAO.findAll();
             return FilmMapper.convertFilmToFilmDTOs(films);
-        } catch (Exception e) {
+        } catch (RuntimeException e) {
             throw new ServiceException("Erreur lors de la récupération des films", e);
         }
     }
