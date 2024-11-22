@@ -46,7 +46,8 @@ public class MyFilmsServiceImpl implements com.ensta.myfilmlist.service.MyFilmsS
         if (notes == null) {
             return 0;
         }
-        return (double) Arrays.stream(notes).average().orElse(0.0);
+        double moyenne = Arrays.stream(notes).average().orElse(0.0);
+        return round(moyenne * pow(10,2)) / pow(10,2);
     }
 
     @Override
