@@ -25,5 +25,5 @@ public interface RealisateurDAO {
      * @param id l'id du réalisateur
      * @return le réalisateur
      */
-    Optional<Realisateur> findById(int id);
+    Optional<Realisateur> findById(long id);
 }

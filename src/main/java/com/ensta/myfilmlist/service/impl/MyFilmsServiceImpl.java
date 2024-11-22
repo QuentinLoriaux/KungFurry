@@ -1,15 +1,19 @@
 package com.ensta.myfilmlist.service.impl;
 
 import com.ensta.myfilmlist.dao.FilmDAO;
+import com.ensta.myfilmlist.dao.RealisateurDAO;
 import com.ensta.myfilmlist.dao.impl.JdbcFilmDAO;
+import com.ensta.myfilmlist.dao.impl.JdbcRealisateurDAO;
 import com.ensta.myfilmlist.dto.FilmDTO;
 import com.ensta.myfilmlist.exception.ServiceException;
+import com.ensta.myfilmlist.form.FilmForm;
 import com.ensta.myfilmlist.model.Film;
 import com.ensta.myfilmlist.model.Realisateur;
 import com.ensta.myfilmlist.mapper.FilmMapper;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -21,9 +25,11 @@ public class MyFilmsServiceImpl implements com.ensta.myfilmlist.service.MyFilmsS
     private static final int NB_FILMS_MIN_REALISATEUR_CELEBRE = 3;
 
     private FilmDAO filmDAO;
+    private RealisateurDAO realisateurDAO;
 
     public MyFilmsServiceImpl() {
         this.filmDAO = new JdbcFilmDAO();
+        this.realisateurDAO = new JdbcRealisateurDAO();
     }
 
     @Override
@@ -85,6 +91,19 @@ public class MyFilmsServiceImpl implements com.ensta.myfilmlist.service.MyFilmsS
             return FilmMapper.convertFilmToFilmDTOs(films);
         } catch (RuntimeException e) {
             throw new ServiceException("Erreur lors de la récupération des films", e);
+        }
+    }
+
+    @Override
+    public FilmDTO createFilm(FilmForm form) throws ServiceException {
+        try {
+            Optional<Realisateur> realisateur = this.realisateurDAO.findById(form.getRealisateurId());
+            if (realisateur.isEmpty()){
+                throw new ServiceException("Le réalisateur n'existe pas");
+            }
+            return FilmMapper.convertFilmToFilmDTO(this.filmDAO.save(FilmMapper.convertFilmFormToFilm(form)));
+        } catch (Exception e) {
+            throw new ServiceException("Impossible de récupérer le réalisateur :" + e.getMessage());
         }
     }
 }

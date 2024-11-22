@@ -2,6 +2,7 @@ package com.ensta.myfilmlist.service;
 
 import com.ensta.myfilmlist.dto.FilmDTO;
 import com.ensta.myfilmlist.exception.ServiceException;
+import com.ensta.myfilmlist.form.FilmForm;
 import com.ensta.myfilmlist.model.Film;
 import com.ensta.myfilmlist.model.Realisateur;
 
@@ -49,4 +50,13 @@ public interface MyFilmsService {
      * @throws ServiceException si une erreur survient pendant la récupération.
      */
     List<FilmDTO> findAllFilms() throws ServiceException;
+
+    /**
+     * Crée un film.
+     * @param form le formulaire de création du film
+     *
+     * @return le film créé
+     *
+     */
+    public FilmDTO createFilm(FilmForm form) throws ServiceException;
 }

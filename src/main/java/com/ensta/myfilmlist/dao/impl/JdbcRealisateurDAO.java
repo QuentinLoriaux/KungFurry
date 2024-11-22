@@ -50,7 +50,7 @@ public class JdbcRealisateurDAO implements com.ensta.myfilmlist.dao.RealisateurD
     }
 
     @Override
-    public Optional<Realisateur> findById(int id){
+    public Optional<Realisateur> findById(long id){
         String query = "SELECT id, nom, prenom, date_naissance FROM realisateur WHERE id = ?";
 
         try {
