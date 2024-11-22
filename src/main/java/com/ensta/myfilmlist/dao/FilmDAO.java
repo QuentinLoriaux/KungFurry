@@ -14,4 +14,12 @@ public interface FilmDAO {
      * @return la liste de tous les films
      */
     public List<Film> findAll();
+
+    /**
+     * Ajoute un film.
+     *
+     * @param film le film à ajouter
+     * @return le film ajouté avec son id
+     */
+    public Film save(Film film);
 }
