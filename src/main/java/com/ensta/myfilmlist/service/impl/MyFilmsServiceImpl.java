@@ -12,6 +12,8 @@ import com.ensta.myfilmlist.model.Film;
 import com.ensta.myfilmlist.model.Realisateur;
 import com.ensta.myfilmlist.mapper.FilmMapper;
 import com.ensta.myfilmlist.mapper.RealisateurMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
 import java.util.List;
@@ -22,16 +24,17 @@ import java.util.stream.Stream;
 import static java.lang.Math.pow;
 import static java.lang.Math.round;
 
+@Service
 public class MyFilmsServiceImpl implements com.ensta.myfilmlist.service.MyFilmsService {
 
     private static final int NB_FILMS_MIN_REALISATEUR_CELEBRE = 3;
 
+    @Autowired
     private FilmDAO filmDAO;
+    @Autowired
     private RealisateurDAO realisateurDAO;
 
     public MyFilmsServiceImpl() {
-        this.filmDAO = new JdbcFilmDAO();
-        this.realisateurDAO = new JdbcRealisateurDAO();
     }
 
     @Override
