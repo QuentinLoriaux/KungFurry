@@ -1,5 +1,6 @@
 package com.ensta.myfilmlist.service;
 
+import com.ensta.myfilmlist.dto.FilmDTO;
 import com.ensta.myfilmlist.exception.ServiceException;
 import com.ensta.myfilmlist.model.Film;
 import com.ensta.myfilmlist.model.Realisateur;
@@ -40,4 +41,12 @@ public interface MyFilmsService {
      * @throws ServiceException si une erreur survient pendant la mise à jour ou si la liste des réalisateurs est invalide.
      */
     List<Realisateur> updateRealisateurCelebres(List<Realisateur> realisateurs) throws ServiceException;
+
+    /**
+     * Récupère la liste des films.
+     *
+     * @return la liste des films.
+     * @throws ServiceException si une erreur survient pendant la récupération.
+     */
+    List<FilmDTO> findAllFilms() throws ServiceException;
 }

@@ -5,10 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="dd72b9eb-4ed8-430d-952f-c200be1988a3" name="Changes" comment="P2/3">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/ensta/myfilmlist/dao/FilmDAO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/ensta/myfilmlist/dao/impl/JdbcFilmDAO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ensta/myfilmlist/MyfilmlistMain.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ensta/myfilmlist/MyfilmlistMain.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ensta/myfilmlist/MyfilmlistTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ensta/myfilmlist/MyfilmlistTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ensta/myfilmlist/dao/FilmDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ensta/myfilmlist/dao/FilmDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ensta/myfilmlist/dao/impl/JdbcFilmDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ensta/myfilmlist/dao/impl/JdbcFilmDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ensta/myfilmlist/service/MyFilmsService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ensta/myfilmlist/service/MyFilmsService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/ensta/myfilmlist/service/impl/MyFilmsServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ensta/myfilmlist/service/impl/MyFilmsServiceImpl.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -138,7 +139,7 @@
       <workItem from="1732021034171" duration="194000" />
       <workItem from="1732021236044" duration="78000" />
       <workItem from="1732021315522" duration="7025000" />
-      <workItem from="1732215588682" duration="5479000" />
+      <workItem from="1732215588682" duration="7062000" />
     </task>
     <task id="LOCAL-00001" summary="docx -&gt; pdf :)">
       <option name="closed" value="true" />
@@ -188,7 +189,15 @@
       <option name="project" value="LOCAL" />
       <updated>1732216370707</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="P2/3">
+      <option name="closed" value="true" />
+      <created>1732268412809</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1732268412809</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

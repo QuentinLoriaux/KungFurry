@@ -1,5 +1,6 @@
 package com.ensta.myfilmlist;
 
+import com.ensta.myfilmlist.dto.FilmDTO;
 import com.ensta.myfilmlist.service.MyFilmsService;
 import com.ensta.myfilmlist.service.impl.MyFilmsServiceImpl;
 import com.ensta.myfilmlist.exception.ServiceException;
@@ -133,16 +134,16 @@ public class MyfilmlistTests {
 	 * Permet de tester la recuperation des films.
 	 */
 	public void findAllFilmsTest() {
-//		try {
-//			List<FilmDTO> films = myFilmsService.findAllFilms();
-//
-//			// Attendue : 4
-//			System.out.println("Combien y a-t-il de films ? " + films.size());
-//
-//			films.forEach(System.out::println);
-//		} catch (ServiceException e) {
-//			e.printStackTrace();
-//		}
+		try {
+			List<FilmDTO> films = myFilmsService.findAllFilms();
+
+			// Attendue : 4
+			System.out.println("Combien y a-t-il de films ? " + films.size());
+
+			films.forEach(System.out::println);
+		} catch (ServiceException e) {
+			e.printStackTrace();
+		}
 	}
 
 	/**

@@ -10,6 +10,9 @@ import java.util.*;
 
 public class JdbcFilmDAO implements com.ensta.myfilmlist.dao.FilmDAO {
 
+    public JdbcFilmDAO() {
+    }
+
     @Override
     public List<Film> findAll() {
         List<Film> films = new ArrayList<>();

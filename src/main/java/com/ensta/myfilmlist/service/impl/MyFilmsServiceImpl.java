@@ -1,8 +1,12 @@
 package com.ensta.myfilmlist.service.impl;
 
+import com.ensta.myfilmlist.dao.FilmDAO;
+import com.ensta.myfilmlist.dao.impl.JdbcFilmDAO;
+import com.ensta.myfilmlist.dto.FilmDTO;
 import com.ensta.myfilmlist.exception.ServiceException;
 import com.ensta.myfilmlist.model.Film;
 import com.ensta.myfilmlist.model.Realisateur;
+import com.ensta.myfilmlist.mapper.FilmMapper;
 
 import java.util.Arrays;
 import java.util.List;
@@ -16,7 +20,10 @@ public class MyFilmsServiceImpl implements com.ensta.myfilmlist.service.MyFilmsS
 
     private static final int NB_FILMS_MIN_REALISATEUR_CELEBRE = 3;
 
+    private FilmDAO filmDAO;
+
     public MyFilmsServiceImpl() {
+        this.filmDAO = new JdbcFilmDAO();
     }
 
     @Override
@@ -68,6 +75,16 @@ public class MyFilmsServiceImpl implements com.ensta.myfilmlist.service.MyFilmsS
                     .collect(Collectors.toList());
         } catch (Exception e) {
             throw new ServiceException("Erreur lors de la mise à jour des réalisateurs", e);
+        }
+    }
+
+    @Override
+    public List<FilmDTO> findAllFilms() throws ServiceException {
+        try {
+            List<Film> films = this.filmDAO.findAll();
+            return FilmMapper.convertFilmToFilmDTOs(films);
+        } catch (Exception e) {
+            throw new ServiceException("Erreur lors de la récupération des films", e);
         }
     }
 }
