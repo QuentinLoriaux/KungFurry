@@ -36,11 +36,10 @@ public class MyFilmsServiceImpl implements com.ensta.myfilmlist.service.MyFilmsS
 
     @Override
     public Realisateur updateRealisateurCelebre(Realisateur realisateur) throws ServiceException{
-        if (realisateur == null || realisateur.getFilmRealises() == null) {
-            throw new ServiceException("Le réalisateur ou la liste de ses films est nulle.");
-        }
         try {
+            realisateur.setFilmRealises(this.filmDAO.findByRealisateurId(realisateur.getId()));
             realisateur.setCelebre(realisateur.getFilmRealises().size() >= NB_FILMS_MIN_REALISATEUR_CELEBRE);
+            this.realisateurDAO.update(realisateur);
             return realisateur;
         } catch (Exception e) {
             throw new ServiceException("Erreur lors de la mise à jour du réalisateur", e);
@@ -67,10 +66,6 @@ public class MyFilmsServiceImpl implements com.ensta.myfilmlist.service.MyFilmsS
 
     @Override
     public List<Realisateur> updateRealisateurCelebres(List<Realisateur> realisateurs) throws ServiceException {
-        if (realisateurs == null || realisateurs.isEmpty()) {
-            throw new ServiceException("La liste des réalisateurs est nulle ou vide.");
-        }
-
         try {
             return realisateurs.stream()
                     .filter(realisateur -> {
@@ -105,7 +100,9 @@ public class MyFilmsServiceImpl implements com.ensta.myfilmlist.service.MyFilmsS
             }
             Film film = FilmMapper.convertFilmFormToFilm(form);
             film.setRealisateur(realisateur.get());
-            return FilmMapper.convertFilmToFilmDTO(this.filmDAO.save(film));
+            film = this.filmDAO.save(film);
+            this.updateRealisateurCelebre(realisateur.get());
+            return FilmMapper.convertFilmToFilmDTO(film);
         } catch (Exception e) {
             throw new ServiceException("Impossible de récupérer le réalisateur :" + e.getMessage());
         }
@@ -149,8 +146,30 @@ public class MyFilmsServiceImpl implements com.ensta.myfilmlist.service.MyFilmsS
                 throw new ServiceException("Le film n'existe pas");
             }
             this.filmDAO.delete(FilmMapper.convertFilmDTOToFilm(filmDTO));
+            this.updateRealisateurCelebre(RealisateurMapper.convertRealisateurDTOToRealisateur(filmDTO.getRealisateur()));
         } catch (RuntimeException e) {
             throw new ServiceException("Erreur lors de la suppression du film", e);
+        }
+    }
+
+    @Override
+    public RealisateurDTO findRealisateurById(long id) throws ServiceException {
+        try {
+            Optional<Realisateur> realisateur = this.realisateurDAO.findById(id);
+            return realisateur.map(RealisateurMapper::convertRealisateurToRealisateurDTO).orElse(null);
+        } catch (RuntimeException e) {
+            throw new ServiceException("Erreur lors de la récupération du réalisateur", e);
+        }
+    }
+
+    @Override
+    public RealisateurDTO createRealisateur(RealisateurDTO realisateurDTO) throws ServiceException {
+        try {
+            Realisateur realisateur = RealisateurMapper.convertRealisateurDTOToRealisateur(realisateurDTO);
+            realisateur = this.realisateurDAO.save(realisateur);
+            return RealisateurMapper.convertRealisateurToRealisateurDTO(realisateur);
+        } catch (Exception e) {
+            throw new ServiceException("Impossible de créer le réalisateur :" + e.getMessage());
         }
     }
 }

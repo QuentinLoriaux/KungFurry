@@ -44,7 +44,7 @@ public class RealisateurDTO {
     public void setCelebre(Boolean celebre){
         this.celebre = celebre;
     }
-    public Boolean getCelebre(){
+    public Boolean isCelebre(){
         return celebre;
     }
 

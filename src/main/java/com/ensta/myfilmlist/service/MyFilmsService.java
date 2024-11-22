@@ -90,4 +90,18 @@ public interface MyFilmsService {
      * @throws ServiceException
      */
     public void deleteFilm(long id) throws ServiceException;
+
+    /**
+     * Récupère un réalisateur par son id.
+     * @param id
+     * @return RealisateurDTO
+     */
+    public RealisateurDTO findRealisateurById(long id) throws ServiceException;
+
+    /**
+     * Crée un réalisateur.
+     * @param realisateurDTO
+     * @return realisateurDTO
+     */
+    public RealisateurDTO createRealisateur(RealisateurDTO realisateurDTO) throws ServiceException;
 }

@@ -31,7 +31,7 @@ public class RealisateurMapper {
         realisateur.setId(realisateurDTO.getId());
         realisateur.setNom(realisateurDTO.getNom());
         realisateur.setPrenom(realisateurDTO.getPrenom());
-        realisateur.setCelebre(realisateurDTO.getCelebre());
+        realisateur.setCelebre(realisateurDTO.isCelebre());
         realisateur.setDateNaissance(realisateurDTO.getDateNaissance());
         return realisateur;
     }
