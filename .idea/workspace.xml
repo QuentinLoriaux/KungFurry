@@ -4,11 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="dd72b9eb-4ed8-430d-952f-c200be1988a3" name="Changes" comment="3.2">
+    <list default="true" id="dd72b9eb-4ed8-430d-952f-c200be1988a3" name="Changes" comment="3.6.1">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/ensta/myfilmlist/handler/ExceptionHandlers.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ensta/myfilmlist/form/FilmForm.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ensta/myfilmlist/form/FilmForm.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/ensta/myfilmlist/persistence/controller/FilmResource.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ensta/myfilmlist/persistence/controller/FilmResource.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/ensta/myfilmlist/persistence/controller/impl/FilmResourceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ensta/myfilmlist/persistence/controller/impl/FilmResourceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ensta/myfilmlist/service/impl/MyFilmsServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ensta/myfilmlist/service/impl/MyFilmsServiceImpl.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -145,7 +146,7 @@
       <workItem from="1732215588682" duration="14486000" />
       <workItem from="1732274068645" duration="836000" />
       <workItem from="1732278323454" duration="11474000" />
-      <workItem from="1732475895966" duration="4822000" />
+      <workItem from="1732475895966" duration="7912000" />
     </task>
     <task id="LOCAL-00001" summary="docx -&gt; pdf :)">
       <option name="closed" value="true" />
@@ -283,7 +284,15 @@
       <option name="project" value="LOCAL" />
       <updated>1732477209442</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="3.6.1">
+      <option name="closed" value="true" />
+      <created>1732481122005</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1732481122005</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -303,7 +312,8 @@
     <MESSAGE value="Fin Partie 2" />
     <MESSAGE value="3.1" />
     <MESSAGE value="3.2" />
-    <option name="LAST_COMMIT_MESSAGE" value="3.2" />
+    <MESSAGE value="3.6.1" />
+    <option name="LAST_COMMIT_MESSAGE" value="3.6.1" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
