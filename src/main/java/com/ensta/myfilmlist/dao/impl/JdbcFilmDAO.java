@@ -1,10 +1,8 @@
 package com.ensta.myfilmlist.dao.impl;
 
-import com.ensta.myfilmlist.dao.FilmDAO;
 import com.ensta.myfilmlist.dao.RealisateurDAO;
 import com.ensta.myfilmlist.model.Film;
-import com.ensta.myfilmlist.model.Realisateur;
-import com.ensta.myfilmlist.persistence.ConnectionManager;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;
@@ -20,8 +18,10 @@ import java.util.*;
 @Repository
 public class JdbcFilmDAO implements com.ensta.myfilmlist.dao.FilmDAO {
 
-    private JdbcTemplate jdbcTemplate = ConnectionManager.getJdbcTemplate();
-    private RealisateurDAO RealisateurDAO = new JdbcRealisateurDAO();
+    @Autowired
+    private JdbcTemplate jdbcTemplate;
+    @Autowired
+    private RealisateurDAO RealisateurDAO;
 
     public JdbcFilmDAO() {
     }
