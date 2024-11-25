@@ -4,6 +4,7 @@ import com.ensta.myfilmlist.dto.FilmDTO;
 import com.ensta.myfilmlist.dto.RealisateurDTO;
 import com.ensta.myfilmlist.exception.ServiceException;
 import com.ensta.myfilmlist.form.FilmForm;
+import com.ensta.myfilmlist.form.RealisateurForm;
 import com.ensta.myfilmlist.model.Film;
 import com.ensta.myfilmlist.model.Realisateur;
 import org.springframework.transaction.annotation.Transactional;
@@ -103,8 +104,8 @@ public interface MyFilmsService {
 
     /**
      * Crée un réalisateur.
-     * @param realisateurDTO
+     * @param realisateurForm
      * @return realisateurDTO
      */
-    RealisateurDTO createRealisateur(RealisateurDTO realisateurDTO) throws ServiceException;
+    RealisateurDTO createRealisateur(RealisateurForm realisateurForm) throws ServiceException;
 }

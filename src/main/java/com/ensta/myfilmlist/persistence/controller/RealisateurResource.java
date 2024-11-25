@@ -2,6 +2,7 @@ package com.ensta.myfilmlist.persistence.controller;
 
 import com.ensta.myfilmlist.dto.RealisateurDTO;
 import com.ensta.myfilmlist.exception.ControllerException;
+import com.ensta.myfilmlist.form.RealisateurForm;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -12,7 +13,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
+import javax.validation.Valid;
 import java.util.List;
 
 // L’API s’appelle « Film » et utilise le Tag « Film »
@@ -60,6 +63,7 @@ public interface RealisateurResource {
     /**
      * Crée un réalisateur.
      *
+     * @param realisateurForm le formulaire de création du réalisateur
      * @return le RealisateurDTO créé
      * @throws ControllerException en cas d'erreur de traitement
      */
@@ -73,5 +77,5 @@ public interface RealisateurResource {
             @ApiResponse(code = 404, message = "Erreur lors de la création du réalisateur"),
     })
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    ResponseEntity<?> createRealisateur() throws ControllerException;
+    ResponseEntity<?> createRealisateur(@RequestBody @Valid RealisateurForm realisateurForm) throws ControllerException;
 }

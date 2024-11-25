@@ -1,18 +1,20 @@
 package com.ensta.myfilmlist.persistence.controller.impl;
 
+import com.ensta.myfilmlist.form.RealisateurForm;
 import com.ensta.myfilmlist.service.MyFilmsService;
 import com.ensta.myfilmlist.dto.RealisateurDTO;
 import com.ensta.myfilmlist.exception.ControllerException;
 import org.springframework.http.ResponseEntity;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/realisateur")
+@Validated
 public class RealisateurResourceImpl implements com.ensta.myfilmlist.persistence.controller.RealisateurResource {
     private final MyFilmsService myFilmsService;
 
@@ -51,10 +53,9 @@ public class RealisateurResourceImpl implements com.ensta.myfilmlist.persistence
 
     @Override
     @PostMapping
-    public ResponseEntity<RealisateurDTO> createRealisateur() throws ControllerException {
+    public ResponseEntity<RealisateurDTO> createRealisateur(@RequestBody @Valid RealisateurForm realisateurForm) throws ControllerException {
         try {
-            //RealisateurDTO realisateur = myFilmsService.createRealisateur();
-            RealisateurDTO realisateur = new RealisateurDTO();
+            RealisateurDTO realisateur = myFilmsService.createRealisateur(realisateurForm);
             return ResponseEntity.ok(realisateur);
         } catch (Exception e) {
             throw new ControllerException("Erreur lors de la création du réalisateur : " + e.getMessage(), e);

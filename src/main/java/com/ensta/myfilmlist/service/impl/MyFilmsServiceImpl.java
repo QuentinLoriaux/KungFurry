@@ -6,6 +6,7 @@ import com.ensta.myfilmlist.dto.FilmDTO;
 import com.ensta.myfilmlist.dto.RealisateurDTO;
 import com.ensta.myfilmlist.exception.ServiceException;
 import com.ensta.myfilmlist.form.FilmForm;
+import com.ensta.myfilmlist.form.RealisateurForm;
 import com.ensta.myfilmlist.model.Film;
 import com.ensta.myfilmlist.model.Realisateur;
 import com.ensta.myfilmlist.mapper.FilmMapper;
@@ -164,9 +165,9 @@ public class MyFilmsServiceImpl implements com.ensta.myfilmlist.service.MyFilmsS
     }
 
     @Override
-    public RealisateurDTO createRealisateur(RealisateurDTO realisateurDTO) throws ServiceException {
+    public RealisateurDTO createRealisateur(RealisateurForm realisateurForm) throws ServiceException {
         try {
-            Realisateur realisateur = RealisateurMapper.convertRealisateurDTOToRealisateur(realisateurDTO);
+            Realisateur realisateur = RealisateurMapper.convertRealisateurFormToRealisateur(realisateurForm);
             realisateur = this.realisateurDAO.save(realisateur);
             return RealisateurMapper.convertRealisateurToRealisateurDTO(realisateur);
         } catch (Exception e) {
