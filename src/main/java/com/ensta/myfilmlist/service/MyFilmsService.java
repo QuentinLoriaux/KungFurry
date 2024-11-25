@@ -91,6 +91,7 @@ public interface MyFilmsService {
      * @param id
      * @throws ServiceException
      */
+    @Transactional
     void deleteFilm(long id) throws ServiceException;
 
     /**
