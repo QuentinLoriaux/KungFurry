@@ -1,26 +1,15 @@
 package com.ensta.myfilmlist.model;
 
-import javax.persistence.*;
-
 /**
  * Represente un Film.
  */
-@Entity
-@Table(name = "film")
 public class Film {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 
-	@Column
 	private String titre;
 
-	@Column
 	private int duree;
-
-	@ManyToOne
-	@JoinColumn(name = "realisateur_id", nullable = false)
 	private Realisateur realisateur;
 
 	public long getId() {

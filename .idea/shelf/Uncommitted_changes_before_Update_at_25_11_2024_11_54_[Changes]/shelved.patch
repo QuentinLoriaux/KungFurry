@@ -1,0 +1,453 @@
+Index: src/main/java/com/ensta/myfilmlist/dao/RealisateurDAO.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.ensta.myfilmlist.dao;\r\n\r\nimport com.ensta.myfilmlist.model.Realisateur;\r\n\r\nimport java.util.List;\r\nimport java.util.Optional;\r\n\r\npublic interface RealisateurDAO {\r\n    /**\r\n     * Récupère la liste des réalisateurs\r\n     * @return la liste des réalisateurs\r\n     */\r\n    public List<Realisateur> findAll();\r\n\r\n    /**\r\n     * Récupère un réalisateur par son nom et prénom\r\n     * @param nom le nom du réalisateur\r\n     * @param prenom le prénom du réalisateur\r\n     * @return le réalisateur\r\n     */\r\n    public Optional<Realisateur> findByNomAndPrenom(String nom, String prenom);\r\n\r\n    /**\r\n     * Récupère un réalisateur par son id\r\n     * @param id l'id du réalisateur\r\n     * @return le réalisateur\r\n     */\r\n    public Optional<Realisateur> findById(long id);\r\n\r\n    /**\r\n     * Met à jour les informations d'un réalisateur\r\n     * @param realisateur le réalisateur à mettre à jour\r\n     * @return le réalisateur mis à jour\r\n     */\r\n    public Realisateur update(Realisateur realisateur);\r\n\r\n    /**\r\n     * Ajoute un réalisateur\r\n     * @param realisateur le réalisateur à ajouter\r\n     * @return le réalisateur ajouté avec son id\r\n     */\r\n    public Realisateur save(Realisateur realisateur);\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/com/ensta/myfilmlist/dao/RealisateurDAO.java b/src/main/java/com/ensta/myfilmlist/dao/RealisateurDAO.java
+--- a/src/main/java/com/ensta/myfilmlist/dao/RealisateurDAO.java	(revision edf9482b8c45c2186f9f978a2d8c3d65ac148422)
++++ b/src/main/java/com/ensta/myfilmlist/dao/RealisateurDAO.java	(date 1732531913528)
+@@ -10,7 +10,7 @@
+      * Récupère la liste des réalisateurs
+      * @return la liste des réalisateurs
+      */
+-    public List<Realisateur> findAll();
++    List<Realisateur> findAll();
+ 
+     /**
+      * Récupère un réalisateur par son nom et prénom
+@@ -18,26 +18,26 @@
+      * @param prenom le prénom du réalisateur
+      * @return le réalisateur
+      */
+-    public Optional<Realisateur> findByNomAndPrenom(String nom, String prenom);
++    Optional<Realisateur> findByNomAndPrenom(String nom, String prenom);
+ 
+     /**
+      * Récupère un réalisateur par son id
+      * @param id l'id du réalisateur
+      * @return le réalisateur
+      */
+-    public Optional<Realisateur> findById(long id);
++    Optional<Realisateur> findById(long id);
+ 
+     /**
+      * Met à jour les informations d'un réalisateur
+      * @param realisateur le réalisateur à mettre à jour
+      * @return le réalisateur mis à jour
+      */
+-    public Realisateur update(Realisateur realisateur);
++    Realisateur update(Realisateur realisateur);
+ 
+     /**
+      * Ajoute un réalisateur
+      * @param realisateur le réalisateur à ajouter
+      * @return le réalisateur ajouté avec son id
+      */
+-    public Realisateur save(Realisateur realisateur);
++    Realisateur save(Realisateur realisateur);
+ }
+Index: src/main/java/com/ensta/myfilmlist/dao/FilmDAO.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.ensta.myfilmlist.dao;\r\n\r\nimport java.util.List;\r\nimport java.util.Optional;\r\n\r\nimport com.ensta.myfilmlist.model.Film;\r\n\r\npublic interface FilmDAO {\r\n\r\n\r\n    /**\r\n     * Renvoie la liste de tous les films.\r\n     *\r\n     * @return la liste de tous les films\r\n     */\r\n    public List<Film> findAll();\r\n\r\n    /**\r\n     * Ajoute un film.\r\n     *\r\n     * @param film le film à ajouter\r\n     * @return le film ajouté avec son id\r\n     */\r\n    public Film save(Film film);\r\n\r\n    /**\r\n     * Récupère un film par son id.\r\n     * @param id l'id du film à récupérer\r\n     * @return le film récupéré\r\n     */\r\n    public Optional<Film> findById(long id);\r\n\r\n    /**\r\n     * Supprime un film.\r\n     * @param film le film à supprimer\r\n     */\r\n    public void delete(Film film);\r\n\r\n    /**\r\n     * Recherche les films par un réalisateur.\r\n     * @param realisateurId l'id du réalisateur\r\n     * @return la liste des films du réalisateur\r\n     */\r\n    public List<Film> findByRealisateurId(long realisateurId);\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/com/ensta/myfilmlist/dao/FilmDAO.java b/src/main/java/com/ensta/myfilmlist/dao/FilmDAO.java
+--- a/src/main/java/com/ensta/myfilmlist/dao/FilmDAO.java	(revision edf9482b8c45c2186f9f978a2d8c3d65ac148422)
++++ b/src/main/java/com/ensta/myfilmlist/dao/FilmDAO.java	(date 1732531913528)
+@@ -21,25 +21,25 @@
+      * @param film le film à ajouter
+      * @return le film ajouté avec son id
+      */
+-    public Film save(Film film);
++    Film save(Film film);
+ 
+     /**
+      * Récupère un film par son id.
+      * @param id l'id du film à récupérer
+      * @return le film récupéré
+      */
+-    public Optional<Film> findById(long id);
++    Optional<Film> findById(long id);
+ 
+     /**
+      * Supprime un film.
+      * @param film le film à supprimer
+      */
+-    public void delete(Film film);
++    void delete(Film film);
+ 
+     /**
+      * Recherche les films par un réalisateur.
+      * @param realisateurId l'id du réalisateur
+      * @return la liste des films du réalisateur
+      */
+-    public List<Film> findByRealisateurId(long realisateurId);
++    List<Film> findByRealisateurId(long realisateurId);
+ }
+Index: src/main/java/com/ensta/myfilmlist/model/Film.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.ensta.myfilmlist.model;\r\n\r\n/**\r\n * Represente un Film.\r\n */\r\npublic class Film {\r\n\r\n\tprivate long id;\r\n\r\n\tprivate String titre;\r\n\r\n\tprivate int duree;\r\n\tprivate Realisateur realisateur;\r\n\r\n\tpublic long getId() {\r\n\t\treturn id;\r\n\t}\r\n\r\n\tpublic void setId(long id) {\r\n\t\tthis.id = id;\r\n\t}\r\n\r\n\tpublic String getTitre() {\r\n\t\treturn titre;\r\n\t}\r\n\r\n\tpublic void setTitre(String titre) {\r\n\t\tthis.titre = titre;\r\n\t}\r\n\r\n\tpublic int getDuree() {\r\n\t\treturn duree;\r\n\t}\r\n\r\n\tpublic void setDuree(int duree) {\r\n\t\tthis.duree = duree;\r\n\t}\r\n\r\n\tpublic Realisateur getRealisateur(){\r\n\t\treturn realisateur;\r\n\t}\r\n\r\n\tpublic void setRealisateur(Realisateur realisateur){\r\n\t\tthis.realisateur = realisateur;\r\n\t}\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/com/ensta/myfilmlist/model/Film.java b/src/main/java/com/ensta/myfilmlist/model/Film.java
+--- a/src/main/java/com/ensta/myfilmlist/model/Film.java	(revision edf9482b8c45c2186f9f978a2d8c3d65ac148422)
++++ b/src/main/java/com/ensta/myfilmlist/model/Film.java	(date 1732531913528)
+@@ -1,15 +1,26 @@
+ package com.ensta.myfilmlist.model;
+ 
++import javax.persistence.*;
++
+ /**
+  * Represente un Film.
+  */
++@Entity
++@Table(name = "film")
+ public class Film {
+ 
++	@Id
++	@GeneratedValue(strategy = GenerationType.IDENTITY)
+ 	private long id;
+ 
++	@Column
+ 	private String titre;
+ 
++	@Column
+ 	private int duree;
++
++	@ManyToOne
++	@JoinColumn(name = "realisateur_id", nullable = false)
+ 	private Realisateur realisateur;
+ 
+ 	public long getId() {
+Index: src/main/java/com/ensta/myfilmlist/dao/impl/JpaFilmDAO.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/com/ensta/myfilmlist/dao/impl/JpaFilmDAO.java b/src/main/java/com/ensta/myfilmlist/dao/impl/JpaFilmDAO.java
+new file mode 100644
+--- /dev/null	(date 1732531913528)
++++ b/src/main/java/com/ensta/myfilmlist/dao/impl/JpaFilmDAO.java	(date 1732531913528)
+@@ -0,0 +1,45 @@
++package com.ensta.myfilmlist.dao.impl;
++
++import com.ensta.myfilmlist.model.Film;
++import org.springframework.context.annotation.Primary;
++import org.springframework.stereotype.Repository;
++
++import javax.persistence.EntityManager;
++import javax.persistence.PersistenceContext;
++import java.util.List;
++import java.util.Optional;
++
++@Repository
++@Primary
++public class JpaFilmDAO implements com.ensta.myfilmlist.dao.FilmDAO {
++    @PersistenceContext
++    private EntityManager entityManager;
++
++    public List<Film> findAll() {
++        return entityManager.createQuery("SELECT f FROM Film f", Film.class).getResultList();
++    }
++
++    public Film save(Film film) {
++        entityManager.persist(film);
++        return film;
++    }
++
++    public Optional<Film> findById(long id) {
++        return Optional.ofNullable(entityManager.find(Film.class, id));
++    }
++
++    public void delete(Film film) {
++        if (entityManager.find(Film.class, film.getId()) != null) {
++            if (!entityManager.contains(film)) {
++                film = entityManager.merge(film);
++            }
++            entityManager.remove(film);
++        }
++    }
++
++    public List<Film> findByRealisateurId(long realisateurId) {
++        return entityManager.createQuery("SELECT f FROM Film f WHERE f.realisateur.id = :realisateurId", Film.class)
++                .setParameter("realisateurId", realisateurId)
++                .getResultList();
++    }
++}
+Index: src/main/java/com/ensta/myfilmlist/dao/impl/JpaRealisateurDAO.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/com/ensta/myfilmlist/dao/impl/JpaRealisateurDAO.java b/src/main/java/com/ensta/myfilmlist/dao/impl/JpaRealisateurDAO.java
+new file mode 100644
+--- /dev/null	(date 1732531913528)
++++ b/src/main/java/com/ensta/myfilmlist/dao/impl/JpaRealisateurDAO.java	(date 1732531913528)
+@@ -0,0 +1,46 @@
++package com.ensta.myfilmlist.dao.impl;
++
++import com.ensta.myfilmlist.model.Realisateur;
++import org.springframework.context.annotation.Primary;
++import org.springframework.stereotype.Repository;
++
++import javax.persistence.EntityManager;
++import javax.persistence.PersistenceContext;
++import java.util.List;
++import java.util.Optional;
++
++@Repository
++@Primary
++public class JpaRealisateurDAO implements com.ensta.myfilmlist.dao.RealisateurDAO {
++
++    @PersistenceContext
++    private EntityManager entityManager;
++
++    public List<Realisateur> findAll() {
++        return entityManager.createQuery("SELECT r FROM Realisateur r", Realisateur.class).getResultList();
++    }
++
++    public Optional<Realisateur> findById(long id) {
++        return Optional.ofNullable(entityManager.find(Realisateur.class, id));
++    }
++
++    public Optional<Realisateur> findByNomAndPrenom(String nom, String prenom) {
++        return entityManager.createQuery("SELECT r FROM Realisateur r WHERE r.nom = :nom AND r.prenom = :prenom", Realisateur.class)
++                .setParameter("nom", nom)
++                .setParameter("prenom", prenom)
++                .getResultList()
++                .stream()
++                .findFirst();
++    }
++
++    public Realisateur update(Realisateur realisateur) {
++        return entityManager.merge(realisateur);
++    }
++
++    public Realisateur save(Realisateur realisateur) {
++        entityManager.persist(realisateur);
++        return realisateur;
++    }
++
++
++}
+Index: src/main/java/com/ensta/myfilmlist/model/Realisateur.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.ensta.myfilmlist.model;\r\n\r\nimport java.time.LocalDate;\r\nimport java.util.List;\r\n\r\npublic class Realisateur {\r\n    private long id;\r\n    private String nom;\r\n    private String prenom;\r\n    private LocalDate dateNaissance;\r\n    private List<Film> filmRealises;\r\n    private Boolean celebre;\r\n\r\n    public Realisateur() {\r\n        this.id = 0;\r\n        this.nom = \"\";\r\n        this.prenom = \"\";\r\n        this.dateNaissance = LocalDate.now();\r\n        this.filmRealises = null;\r\n        this.celebre = false;\r\n    }\r\n\r\n    public void setId(long id) {\r\n        this.id = id;\r\n    }\r\n    public long getId() {\r\n        return id;\r\n    }\r\n\r\n    public void setNom(String nom) {\r\n        this.nom = nom;\r\n    }\r\n    public String getNom() {\r\n        return nom;\r\n    }\r\n\r\n    public void setPrenom(String prenom) {\r\n        this.prenom = prenom;\r\n    }\r\n    public String getPrenom(){\r\n        return prenom;\r\n    }\r\n\r\n    public void setDateNaissance(LocalDate dateNaissance) {\r\n        this.dateNaissance = dateNaissance;\r\n    }\r\n    public LocalDate getDateNaissance() {\r\n        return dateNaissance;\r\n    }\r\n\r\n    public void setFilmRealises(List<Film> filmRealises) {\r\n        this.filmRealises = filmRealises;\r\n    }\r\n    public List<Film> getFilmRealises() {\r\n        return filmRealises;\r\n    }\r\n\r\n    public void setCelebre(Boolean celebre) {\r\n        this.celebre = celebre;\r\n    }\r\n    public Boolean isCelebre() {\r\n        return celebre;\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/com/ensta/myfilmlist/model/Realisateur.java b/src/main/java/com/ensta/myfilmlist/model/Realisateur.java
+--- a/src/main/java/com/ensta/myfilmlist/model/Realisateur.java	(revision edf9482b8c45c2186f9f978a2d8c3d65ac148422)
++++ b/src/main/java/com/ensta/myfilmlist/model/Realisateur.java	(date 1732531913528)
+@@ -1,14 +1,23 @@
+ package com.ensta.myfilmlist.model;
+ 
++import javax.persistence.*;
+ import java.time.LocalDate;
++import java.util.ArrayList;
+ import java.util.List;
+ 
++@Entity
++@Table(name = "realisateur")
+ public class Realisateur {
++
++    @Id
++    @GeneratedValue(strategy = GenerationType.IDENTITY)
+     private long id;
+     private String nom;
+     private String prenom;
+     private LocalDate dateNaissance;
+-    private List<Film> filmRealises;
++
++    @OneToMany(mappedBy = "realisateur", cascade = CascadeType.ALL)
++    private List<Film> filmRealises = new ArrayList<>();
+     private Boolean celebre;
+ 
+     public Realisateur() {
+Index: src/main/java/com/ensta/myfilmlist/service/MyFilmsService.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.ensta.myfilmlist.service;\r\n\r\nimport com.ensta.myfilmlist.dto.FilmDTO;\r\nimport com.ensta.myfilmlist.dto.RealisateurDTO;\r\nimport com.ensta.myfilmlist.exception.ServiceException;\r\nimport com.ensta.myfilmlist.form.FilmForm;\r\nimport com.ensta.myfilmlist.form.RealisateurForm;\r\nimport com.ensta.myfilmlist.model.Film;\r\nimport com.ensta.myfilmlist.model.Realisateur;\r\nimport org.springframework.transaction.annotation.Transactional;\r\n\r\nimport java.util.List;\r\n\r\npublic interface MyFilmsService {\r\n    /**\r\n     * Met à jour le statut \"celebre\" du réalisateur en fonction du nombre de films réalisés.\r\n     *\r\n     * @param realisateur le réalisateur à mettre à jour, contenant la liste non nulle des films réalisés.\r\n     * @return le réalisateur mis à jour avec son statut \"celebre\".\r\n     * @throws ServiceException si une erreur survient pendant la mise à jour ou si le réalisateur est invalide.\r\n     */\r\n    Realisateur updateRealisateurCelebre(Realisateur realisateur) throws ServiceException;\r\n\r\n    /**\r\n     * Calcule la durée totale des films de la liste.\r\n     *\r\n     * @param films la liste des films à additionner.\r\n     * @return la durée totale des films.\r\n     */\r\n    int calculerDureeTotale(List<Film> films);\r\n\r\n    /**\r\n     * Calcule la note moyenne des notes de la liste.\r\n     *\r\n     * @param notes la liste des notes à additionner.\r\n     * @return la note moyenne des notes.\r\n     */\r\n    double calculerNoteMoyenne(double[] notes);\r\n\r\n    /**\r\n     * Met à jour le statut \"celebre\" des réalisateurs en fonction du nombre de films réalisés.\r\n     *\r\n     * @param realisateurs la liste des réalisateurs à mettre à jour.\r\n     * @return la liste des réalisateurs mis à jour avec leur statut \"celebre\".\r\n     * @throws ServiceException si une erreur survient pendant la mise à jour ou si la liste des réalisateurs est invalide.\r\n     */\r\n    List<Realisateur> updateRealisateurCelebres(List<Realisateur> realisateurs) throws ServiceException;\r\n\r\n    /**\r\n     * Récupère la liste des films.\r\n     *\r\n     * @return la liste des films.\r\n     * @throws ServiceException si une erreur survient pendant la récupération.\r\n     */\r\n    List<FilmDTO> findAllFilms() throws ServiceException;\r\n\r\n    /**\r\n     * Crée un film.\r\n     * @param form le formulaire de création du film\r\n     *\r\n     * @return le film créé\r\n     *\r\n     */\r\n    @Transactional\r\n    FilmDTO createFilm(FilmForm form) throws ServiceException;\r\n\r\n    /**\r\n     * Récupère la liste des réalisateurs.\r\n     * @return la liste des réalisateurs.\r\n     */\r\n    List<RealisateurDTO> findAllRealisateurs() throws ServiceException;\r\n\r\n    /**\r\n     * Récupère un réalisateurs par son nom et prénom.\r\n     * @param nom\r\n     * @param prenom\r\n     * @return RealisateurDTO\r\n     * @throws ServiceException\r\n     */\r\n    RealisateurDTO findRealisateurByNomAndPrenom(String nom, String prenom) throws ServiceException;\r\n\r\n    /**\r\n     * Récupère un film par son id.\r\n     * @param id\r\n     * @return FilmDTO\r\n     * @throws ServiceException\r\n     */\r\n    FilmDTO findFilmById(long id) throws ServiceException;\r\n\r\n    /**\r\n     * Supprime un film par son id.\r\n     * @param id\r\n     * @throws ServiceException\r\n     */\r\n    @Transactional\r\n    void deleteFilm(long id) throws ServiceException;\r\n\r\n    /**\r\n     * Récupère un réalisateur par son id.\r\n     * @param id\r\n     * @return RealisateurDTO\r\n     */\r\n    RealisateurDTO findRealisateurById(long id) throws ServiceException;\r\n\r\n    /**\r\n     * Crée un réalisateur.\r\n     * @param realisateurForm\r\n     * @return realisateurDTO\r\n     */\r\n    RealisateurDTO createRealisateur(RealisateurForm realisateurForm) throws ServiceException;\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/com/ensta/myfilmlist/service/MyFilmsService.java b/src/main/java/com/ensta/myfilmlist/service/MyFilmsService.java
+--- a/src/main/java/com/ensta/myfilmlist/service/MyFilmsService.java	(revision edf9482b8c45c2186f9f978a2d8c3d65ac148422)
++++ b/src/main/java/com/ensta/myfilmlist/service/MyFilmsService.java	(date 1732531913528)
+@@ -72,39 +72,39 @@
+ 
+     /**
+      * Récupère un réalisateurs par son nom et prénom.
+-     * @param nom
+-     * @param prenom
++     * @param nom le nom du réalisateur
++     * @param prenom le prénom du réalisateur
+      * @return RealisateurDTO
+-     * @throws ServiceException
++     * @throws ServiceException si une erreur survient pendant la récupération.
+      */
+     RealisateurDTO findRealisateurByNomAndPrenom(String nom, String prenom) throws ServiceException;
+ 
+     /**
+      * Récupère un film par son id.
+-     * @param id
++     * @param id l'id du film
+      * @return FilmDTO
+-     * @throws ServiceException
++     * @throws ServiceException si une erreur survient pendant la récupération.
+      */
+     FilmDTO findFilmById(long id) throws ServiceException;
+ 
+     /**
+      * Supprime un film par son id.
+-     * @param id
+-     * @throws ServiceException
++     * @param id l'id du film
++     * @throws ServiceException si une erreur survient pendant la suppression.
+      */
+     @Transactional
+     void deleteFilm(long id) throws ServiceException;
+ 
+     /**
+      * Récupère un réalisateur par son id.
+-     * @param id
++     * @param id l'id du réalisateur
+      * @return RealisateurDTO
+      */
+     RealisateurDTO findRealisateurById(long id) throws ServiceException;
+ 
+     /**
+      * Crée un réalisateur.
+-     * @param realisateurForm
++     * @param realisateurForm le formulaire de création du réalisateur
+      * @return realisateurDTO
+      */
+     RealisateurDTO createRealisateur(RealisateurForm realisateurForm) throws ServiceException;
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"AutoImportSettings\">\r\n    <option name=\"autoReloadType\" value=\"SELECTIVE\" />\r\n  </component>\r\n  <component name=\"ChangeListManager\">\r\n    <list default=\"true\" id=\"3f33d0b0-f025-4b32-a2dc-aa274b1afdc8\" name=\"Changes\" comment=\"\">\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/workspace.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/workspace.xml\" afterDir=\"false\" />\r\n    </list>\r\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\r\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\r\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\r\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\r\n  </component>\r\n  <component name=\"FileTemplateManagerImpl\">\r\n    <option name=\"RECENT_TEMPLATES\">\r\n      <list>\r\n        <option value=\"Interface\" />\r\n        <option value=\"Class\" />\r\n      </list>\r\n    </option>\r\n  </component>\r\n  <component name=\"Git.Settings\">\r\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\r\n  </component>\r\n  <component name=\"GitHubPullRequestSearchHistory\">{\r\n  &quot;lastFilter&quot;: {\r\n    &quot;state&quot;: &quot;OPEN&quot;,\r\n    &quot;assignee&quot;: &quot;FredericCassagnou&quot;\r\n  }\r\n}</component>\r\n  <component name=\"GithubPullRequestsUISettings\">{\r\n  &quot;selectedUrlAndAccountId&quot;: {\r\n    &quot;url&quot;: &quot;https://github.com/QuentinLoriaux/KungFurry.git&quot;,\r\n    &quot;accountId&quot;: &quot;b25ea768-9a1c-4356-ba57-b849452bc039&quot;\r\n  }\r\n}</component>\r\n  <component name=\"MavenImportPreferences\">\r\n    <option name=\"generalSettings\">\r\n      <MavenGeneralSettings>\r\n        <option name=\"mavenHomeTypeForPersistence\" value=\"WRAPPER\" />\r\n      </MavenGeneralSettings>\r\n    </option>\r\n  </component>\r\n  <component name=\"ProjectColorInfo\">{\r\n  &quot;associatedIndex&quot;: 8\r\n}</component>\r\n  <component name=\"ProjectId\" id=\"2p2BYMcDwAKdAgo4NtNDY2sAfB1\" />\r\n  <component name=\"ProjectLevelVcsManager\" settingsEditedManually=\"true\">\r\n    <ConfirmationsSetting value=\"1\" id=\"Add\" />\r\n  </component>\r\n  <component name=\"ProjectViewState\">\r\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\r\n    <option name=\"showLibraryContents\" value=\"true\" />\r\n    <option name=\"sortByType\" value=\"true\" />\r\n    <option name=\"sortKey\" value=\"BY_TYPE\" />\r\n  </component>\r\n  <component name=\"PropertiesComponent\"><![CDATA[{\r\n  \"keyToString\": {\r\n    \"Application.MyfilmlistMain.executor\": \"Run\",\r\n    \"Maven.myfilmlist [test].executor\": \"Run\",\r\n    \"RequestMappingsPanelOrder0\": \"0\",\r\n    \"RequestMappingsPanelOrder1\": \"1\",\r\n    \"RequestMappingsPanelWidth0\": \"75\",\r\n    \"RequestMappingsPanelWidth1\": \"75\",\r\n    \"RunOnceActivity.ShowReadmeOnStart\": \"true\",\r\n    \"RunOnceActivity.git.unshallow\": \"true\",\r\n    \"Spring Boot.MyfilmlistApplication.executor\": \"Run\",\r\n    \"git-widget-placeholder\": \"master\",\r\n    \"kotlin-language-version-configured\": \"true\",\r\n    \"last_opened_file_path\": \"C:/Users/LENOVO/Desktop/ENSTA/KungFurry\",\r\n    \"node.js.detected.package.eslint\": \"true\",\r\n    \"node.js.detected.package.tslint\": \"true\",\r\n    \"node.js.selected.package.eslint\": \"(autodetect)\",\r\n    \"node.js.selected.package.tslint\": \"(autodetect)\",\r\n    \"nodejs_package_manager_path\": \"npm\",\r\n    \"project.structure.last.edited\": \"Project\",\r\n    \"project.structure.proportion\": \"0.0\",\r\n    \"project.structure.side.proportion\": \"0.0\",\r\n    \"settings.editor.selected.configurable\": \"preferences.pluginManager\",\r\n    \"vue.rearranger.settings.migration\": \"true\"\r\n  }\r\n}]]></component>\r\n  <component name=\"RecentsManager\">\r\n    <key name=\"CreateClassDialog.RecentsKey\">\r\n      <recent name=\"com.ensta.myfilmlist.persistence.controller\" />\r\n    </key>\r\n    <key name=\"ExtractSuperBase.RECENT_KEYS\">\r\n      <recent name=\"com.ensta.myfilmlist.dao\" />\r\n      <recent name=\"com.ensta.myfilmlist.service\" />\r\n    </key>\r\n    <key name=\"MoveClassesOrPackagesDialog.RECENTS_KEY\">\r\n      <recent name=\"com.ensta.myfilmlist.dao\" />\r\n    </key>\r\n  </component>\r\n  <component name=\"RunManager\" selected=\"Application.MyfilmlistMain\">\r\n    <configuration name=\"MyfilmlistMain\" type=\"Application\" factoryName=\"Application\" temporary=\"true\" nameIsGenerated=\"true\">\r\n      <option name=\"MAIN_CLASS_NAME\" value=\"com.ensta.myfilmlist.MyfilmlistMain\" />\r\n      <module name=\"myfilmlist\" />\r\n      <extension name=\"coverage\">\r\n        <pattern>\r\n          <option name=\"PATTERN\" value=\"com.ensta.myfilmlist.*\" />\r\n          <option name=\"ENABLED\" value=\"true\" />\r\n        </pattern>\r\n      </extension>\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n    <configuration name=\"MyfilmlistApplication\" type=\"SpringBootApplicationConfigurationType\" factoryName=\"Spring Boot\" nameIsGenerated=\"true\">\r\n      <option name=\"FRAME_DEACTIVATION_UPDATE_POLICY\" value=\"UpdateClassesAndResources\" />\r\n      <module name=\"myfilmlist\" />\r\n      <option name=\"SPRING_BOOT_MAIN_CLASS\" value=\"com.ensta.myfilmlist.MyfilmlistApplication\" />\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n    <recent_temporary>\r\n      <list>\r\n        <item itemvalue=\"Application.MyfilmlistMain\" />\r\n      </list>\r\n    </recent_temporary>\r\n  </component>\r\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"application-level\" UseSingleDictionary=\"true\" transferred=\"true\" />\r\n  <component name=\"TaskManager\">\r\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\r\n      <changelist id=\"3f33d0b0-f025-4b32-a2dc-aa274b1afdc8\" name=\"Changes\" comment=\"\" />\r\n      <created>1731954337732</created>\r\n      <option name=\"number\" value=\"Default\" />\r\n      <option name=\"presentableId\" value=\"Default\" />\r\n      <updated>1731954337732</updated>\r\n      <workItem from=\"1731954339107\" duration=\"1858000\" />\r\n      <workItem from=\"1731956204902\" duration=\"18000\" />\r\n      <workItem from=\"1731956231180\" duration=\"1110000\" />\r\n      <workItem from=\"1732005930966\" duration=\"7000\" />\r\n      <workItem from=\"1732009457203\" duration=\"374000\" />\r\n      <workItem from=\"1732014453751\" duration=\"1683000\" />\r\n      <workItem from=\"1732020790652\" duration=\"235000\" />\r\n      <workItem from=\"1732021034171\" duration=\"194000\" />\r\n      <workItem from=\"1732021236044\" duration=\"78000\" />\r\n      <workItem from=\"1732021315522\" duration=\"7025000\" />\r\n      <workItem from=\"1732215588682\" duration=\"14486000\" />\r\n      <workItem from=\"1732274068645\" duration=\"836000\" />\r\n      <workItem from=\"1732278323454\" duration=\"11474000\" />\r\n      <workItem from=\"1732475895966\" duration=\"8679000\" />\r\n      <workItem from=\"1732525826678\" duration=\"89000\" />\r\n      <workItem from=\"1732526007938\" duration=\"2880000\" />\r\n    </task>\r\n    <task id=\"LOCAL-00001\" summary=\"docx -&gt; pdf :)\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1731954772841</created>\r\n      <option name=\"number\" value=\"00001\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00001\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1731954772841</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00002\" summary=\"init\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1732015303766</created>\r\n      <option name=\"number\" value=\"00002\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00002\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1732015303766</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00003\" summary=\"init\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1732015387759</created>\r\n      <option name=\"number\" value=\"00003\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00003\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1732015387760</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00004\" summary=\"PART1 + début P2\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1732022929394</created>\r\n      <option name=\"number\" value=\"00004\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00004\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1732022929394</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00005\" summary=\"P2/3\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1732024936169</created>\r\n      <option name=\"number\" value=\"00005\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00005\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1732024936169</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00006\" summary=\"P2/3\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1732216370707</created>\r\n      <option name=\"number\" value=\"00006\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00006\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1732216370707</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00007\" summary=\"P2/3\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1732268412809</created>\r\n      <option name=\"number\" value=\"00007\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00007\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1732268412809</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00008\" summary=\"P2/3\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1732269963162</created>\r\n      <option name=\"number\" value=\"00008\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00008\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1732269963162</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00009\" summary=\"2.2.1\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1732271124452</created>\r\n      <option name=\"number\" value=\"00009\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00009\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1732271124452</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00010\" summary=\"2.2.4\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1732274359854</created>\r\n      <option name=\"number\" value=\"00010\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00010\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1732274359854</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00011\" summary=\"2.2.7\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1732272756837</created>\r\n      <option name=\"number\" value=\"00011\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00011\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1732272756837</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00012\" summary=\"2.2.8\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1732274178503</created>\r\n      <option name=\"number\" value=\"00012\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00012\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1732274178503</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00013\" summary=\"2.2.11\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1732281711338</created>\r\n      <option name=\"number\" value=\"00013\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00013\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1732281711338</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00014\" summary=\"2.4.0\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1732286164299</created>\r\n      <option name=\"number\" value=\"00014\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00014\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1732286164299</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00015\" summary=\"Fin Partie 2\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1732288295991</created>\r\n      <option name=\"number\" value=\"00015\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00015\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1732288295991</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00016\" summary=\"3.1\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1732288787239</created>\r\n      <option name=\"number\" value=\"00016\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00016\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1732288787239</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00017\" summary=\"3.2\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1732477209442</created>\r\n      <option name=\"number\" value=\"00017\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00017\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1732477209442</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00018\" summary=\"3.6.1\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1732481122005</created>\r\n      <option name=\"number\" value=\"00018\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00018\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1732481122005</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00019\" summary=\"3.9\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1732486548721</created>\r\n      <option name=\"number\" value=\"00019\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00019\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1732486548721</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00020\" summary=\"3.9.1\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1732526385081</created>\r\n      <option name=\"number\" value=\"00020\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00020\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1732526385081</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00021\" summary=\"3.9.2\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1732526488889</created>\r\n      <option name=\"number\" value=\"00021\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00021\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1732526488889</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00022\" summary=\"Partie 3 Bonus\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1732527532047</created>\r\n      <option name=\"number\" value=\"00022\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00022\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1732527532047</updated>\r\n    </task>\r\n    <option name=\"localTasksCounter\" value=\"23\" />\r\n    <servers />\r\n  </component>\r\n  <component name=\"TypeScriptGeneratedFilesManager\">\r\n    <option name=\"version\" value=\"3\" />\r\n  </component>\r\n  <component name=\"VcsManagerConfiguration\">\r\n    <MESSAGE value=\"docx -&gt; pdf :)\" />\r\n    <MESSAGE value=\"init\" />\r\n    <MESSAGE value=\"PART1 + début P2\" />\r\n    <MESSAGE value=\"P2/3\" />\r\n    <MESSAGE value=\"2.2.1\" />\r\n    <MESSAGE value=\"2.2.4\" />\r\n    <MESSAGE value=\"2.2.7\" />\r\n    <MESSAGE value=\"2.2.8\" />\r\n    <MESSAGE value=\"2.2.11\" />\r\n    <MESSAGE value=\"2.4.0\" />\r\n    <MESSAGE value=\"Fin Partie 2\" />\r\n    <MESSAGE value=\"3.1\" />\r\n    <MESSAGE value=\"3.2\" />\r\n    <MESSAGE value=\"3.6.1\" />\r\n    <MESSAGE value=\"3.9\" />\r\n    <MESSAGE value=\"3.9.1\" />\r\n    <MESSAGE value=\"3.9.2\" />\r\n    <MESSAGE value=\"Partie 3 Bonus\" />\r\n    <option name=\"LAST_COMMIT_MESSAGE\" value=\"Partie 3 Bonus\" />\r\n  </component>\r\n  <component name=\"XSLT-Support.FileAssociations.UIState\">\r\n    <expand />\r\n    <select />\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	(revision edf9482b8c45c2186f9f978a2d8c3d65ac148422)
++++ b/.idea/workspace.xml	(date 1732532039933)
+@@ -4,8 +4,15 @@
+     <option name="autoReloadType" value="SELECTIVE" />
+   </component>
+   <component name="ChangeListManager">
+-    <list default="true" id="3f33d0b0-f025-4b32-a2dc-aa274b1afdc8" name="Changes" comment="">
++    <list default="true" id="dd72b9eb-4ed8-430d-952f-c200be1988a3" name="Changes" comment="">
++      <change afterPath="$PROJECT_DIR$/src/main/java/com/ensta/myfilmlist/dao/impl/JpaFilmDAO.java" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/src/main/java/com/ensta/myfilmlist/dao/impl/JpaRealisateurDAO.java" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/java/com/ensta/myfilmlist/dao/FilmDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ensta/myfilmlist/dao/FilmDAO.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/java/com/ensta/myfilmlist/dao/RealisateurDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ensta/myfilmlist/dao/RealisateurDAO.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/java/com/ensta/myfilmlist/model/Film.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ensta/myfilmlist/model/Film.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/java/com/ensta/myfilmlist/model/Realisateur.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ensta/myfilmlist/model/Realisateur.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/java/com/ensta/myfilmlist/service/MyFilmsService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ensta/myfilmlist/service/MyFilmsService.java" afterDir="false" />
+     </list>
+     <option name="SHOW_DIALOG" value="false" />
+     <option name="HIGHLIGHT_CONFLICTS" value="true" />
+@@ -66,17 +73,14 @@
+     "RunOnceActivity.ShowReadmeOnStart": "true",
+     "RunOnceActivity.git.unshallow": "true",
+     "Spring Boot.MyfilmlistApplication.executor": "Run",
+-    "git-widget-placeholder": "master",
++    "git-widget-placeholder": "Merging master",
+     "kotlin-language-version-configured": "true",
+-    "last_opened_file_path": "C:/Users/LENOVO/Desktop/ENSTA/KungFurry",
++    "last_opened_file_path": "/home/fred/IdeaProjects/KungFurry",
+     "node.js.detected.package.eslint": "true",
+     "node.js.detected.package.tslint": "true",
+     "node.js.selected.package.eslint": "(autodetect)",
+     "node.js.selected.package.tslint": "(autodetect)",
+     "nodejs_package_manager_path": "npm",
+-    "project.structure.last.edited": "Project",
+-    "project.structure.proportion": "0.0",
+-    "project.structure.side.proportion": "0.0",
+     "settings.editor.selected.configurable": "preferences.pluginManager",
+     "vue.rearranger.settings.migration": "true"
+   }
+@@ -120,11 +124,19 @@
+         <item itemvalue="Application.MyfilmlistMain" />
+       </list>
+     </recent_temporary>
++  </component>
++  <component name="SharedIndexes">
++    <attachedChunks>
++      <set>
++        <option value="bundled-jdk-9823dce3aa75-fdfe4dae3a2d-intellij.indexing.shared.core-IU-243.21565.193" />
++        <option value="bundled-js-predefined-d6986cc7102b-e768b9ed790e-JavaScript-IU-243.21565.193" />
++      </set>
++    </attachedChunks>
+   </component>
+   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+   <component name="TaskManager">
+     <task active="true" id="Default" summary="Default task">
+-      <changelist id="3f33d0b0-f025-4b32-a2dc-aa274b1afdc8" name="Changes" comment="" />
++      <changelist id="dd72b9eb-4ed8-430d-952f-c200be1988a3" name="Changes" comment="" />
+       <created>1731954337732</created>
+       <option name="number" value="Default" />
+       <option name="presentableId" value="Default" />
+@@ -144,7 +156,7 @@
+       <workItem from="1732278323454" duration="11474000" />
+       <workItem from="1732475895966" duration="8679000" />
+       <workItem from="1732525826678" duration="89000" />
+-      <workItem from="1732526007938" duration="2880000" />
++      <workItem from="1732526007938" duration="7716000" />
+     </task>
+     <task id="LOCAL-00001" summary="docx -&gt; pdf :)">
+       <option name="closed" value="true" />
+@@ -322,7 +334,31 @@
+       <option name="project" value="LOCAL" />
+       <updated>1732527532047</updated>
+     </task>
+-    <option name="localTasksCounter" value="23" />
++    <task id="LOCAL-00023" summary="Partie 3 Bonus">
++      <option name="closed" value="true" />
++      <created>1732529033228</created>
++      <option name="number" value="00023" />
++      <option name="presentableId" value="LOCAL-00023" />
++      <option name="project" value="LOCAL" />
++      <updated>1732529033229</updated>
++    </task>
++    <task id="LOCAL-00024" summary="Partie 5">
++      <option name="closed" value="true" />
++      <created>1732531884997</created>
++      <option name="number" value="00024" />
++      <option name="presentableId" value="LOCAL-00024" />
++      <option name="project" value="LOCAL" />
++      <updated>1732531884997</updated>
++    </task>
++    <task id="LOCAL-00025" summary="Partie 6">
++      <option name="closed" value="true" />
++      <created>1732534293186</created>
++      <option name="number" value="00025" />
++      <option name="presentableId" value="LOCAL-00025" />
++      <option name="project" value="LOCAL" />
++      <updated>1732534293186</updated>
++    </task>
++    <option name="localTasksCounter" value="26" />
+     <servers />
+   </component>
+   <component name="TypeScriptGeneratedFilesManager">
+@@ -347,7 +383,9 @@
+     <MESSAGE value="3.9.1" />
+     <MESSAGE value="3.9.2" />
+     <MESSAGE value="Partie 3 Bonus" />
+-    <option name="LAST_COMMIT_MESSAGE" value="Partie 3 Bonus" />
++    <MESSAGE value="Partie 5" />
++    <MESSAGE value="Partie 6" />
++    <option name="LAST_COMMIT_MESSAGE" value="" />
+   </component>
+   <component name="XSLT-Support.FileAssociations.UIState">
+     <expand />

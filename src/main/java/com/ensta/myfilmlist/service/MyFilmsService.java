@@ -72,39 +72,39 @@ public interface MyFilmsService {
 
     /**
      * Récupère un réalisateurs par son nom et prénom.
-     * @param nom le nom du réalisateur
-     * @param prenom le prénom du réalisateur
+     * @param nom
+     * @param prenom
      * @return RealisateurDTO
-     * @throws ServiceException si une erreur survient pendant la récupération.
+     * @throws ServiceException
      */
     RealisateurDTO findRealisateurByNomAndPrenom(String nom, String prenom) throws ServiceException;
 
     /**
      * Récupère un film par son id.
-     * @param id l'id du film
+     * @param id
      * @return FilmDTO
-     * @throws ServiceException si une erreur survient pendant la récupération.
+     * @throws ServiceException
      */
     FilmDTO findFilmById(long id) throws ServiceException;
 
     /**
      * Supprime un film par son id.
-     * @param id l'id du film
-     * @throws ServiceException si une erreur survient pendant la suppression.
+     * @param id
+     * @throws ServiceException
      */
     @Transactional
     void deleteFilm(long id) throws ServiceException;
 
     /**
      * Récupère un réalisateur par son id.
-     * @param id l'id du réalisateur
+     * @param id
      * @return RealisateurDTO
      */
     RealisateurDTO findRealisateurById(long id) throws ServiceException;
 
     /**
      * Crée un réalisateur.
-     * @param realisateurForm le formulaire de création du réalisateur
+     * @param realisateurForm
      * @return realisateurDTO
      */
     RealisateurDTO createRealisateur(RealisateurForm realisateurForm) throws ServiceException;

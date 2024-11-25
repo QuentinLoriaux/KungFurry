@@ -21,25 +21,25 @@ public interface FilmDAO {
      * @param film le film à ajouter
      * @return le film ajouté avec son id
      */
-    Film save(Film film);
+    public Film save(Film film);
 
     /**
      * Récupère un film par son id.
      * @param id l'id du film à récupérer
      * @return le film récupéré
      */
-    Optional<Film> findById(long id);
+    public Optional<Film> findById(long id);
 
     /**
      * Supprime un film.
      * @param film le film à supprimer
      */
-    void delete(Film film);
+    public void delete(Film film);
 
     /**
      * Recherche les films par un réalisateur.
      * @param realisateurId l'id du réalisateur
      * @return la liste des films du réalisateur
      */
-    List<Film> findByRealisateurId(long realisateurId);
+    public List<Film> findByRealisateurId(long realisateurId);
 }
