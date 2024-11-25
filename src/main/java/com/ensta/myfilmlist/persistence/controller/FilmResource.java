@@ -1,6 +1,7 @@
 package com.ensta.myfilmlist.persistence.controller;
 
 import com.ensta.myfilmlist.dto.FilmDTO;
+import com.ensta.myfilmlist.dto.RealisateurDTO;
 import com.ensta.myfilmlist.exception.ControllerException;
 import com.ensta.myfilmlist.form.FilmForm;
 import org.springframework.http.ResponseEntity;
@@ -18,7 +19,7 @@ import java.util.List;
 // L’API s’appelle « Film » et utilise le Tag « Film »
 // Le tag « Film » contient la description de l’API
 @Api(tags = "Film")
-@Tag(name = "Film", description = "Opération sur les films")
+@Tag(name = "Film", description = "Opérations sur les films")
 public interface FilmResource {
 
     /**
