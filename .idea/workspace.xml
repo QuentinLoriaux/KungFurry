@@ -5,13 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="dd72b9eb-4ed8-430d-952f-c200be1988a3" name="Changes" comment="Partie 3 Bonus">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/ensta/myfilmlist/form/RealisateurForm.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ensta/myfilmlist/mapper/RealisateurMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ensta/myfilmlist/mapper/RealisateurMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ensta/myfilmlist/persistence/controller/RealisateurResource.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ensta/myfilmlist/persistence/controller/RealisateurResource.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ensta/myfilmlist/persistence/controller/impl/RealisateurResourceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ensta/myfilmlist/persistence/controller/impl/RealisateurResourceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ensta/myfilmlist/service/MyFilmsService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ensta/myfilmlist/service/MyFilmsService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ensta/myfilmlist/service/impl/MyFilmsServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ensta/myfilmlist/service/impl/MyFilmsServiceImpl.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -153,7 +147,7 @@
       <workItem from="1732278323454" duration="11474000" />
       <workItem from="1732475895966" duration="8679000" />
       <workItem from="1732525826678" duration="89000" />
-      <workItem from="1732526007938" duration="2880000" />
+      <workItem from="1732526007938" duration="4646000" />
     </task>
     <task id="LOCAL-00001" summary="docx -&gt; pdf :)">
       <option name="closed" value="true" />
@@ -331,7 +325,15 @@
       <option name="project" value="LOCAL" />
       <updated>1732527532047</updated>
     </task>
-    <option name="localTasksCounter" value="23" />
+    <task id="LOCAL-00023" summary="Partie 3 Bonus">
+      <option name="closed" value="true" />
+      <created>1732529033228</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1732529033229</updated>
+    </task>
+    <option name="localTasksCounter" value="24" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
