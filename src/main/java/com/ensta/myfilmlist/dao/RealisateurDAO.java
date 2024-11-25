@@ -10,7 +10,7 @@ public interface RealisateurDAO {
      * Récupère la liste des réalisateurs
      * @return la liste des réalisateurs
      */
-    public List<Realisateur> findAll();
+    List<Realisateur> findAll();
 
     /**
      * Récupère un réalisateur par son nom et prénom
@@ -18,26 +18,26 @@ public interface RealisateurDAO {
      * @param prenom le prénom du réalisateur
      * @return le réalisateur
      */
-    public Optional<Realisateur> findByNomAndPrenom(String nom, String prenom);
+    Optional<Realisateur> findByNomAndPrenom(String nom, String prenom);
 
     /**
      * Récupère un réalisateur par son id
      * @param id l'id du réalisateur
      * @return le réalisateur
      */
-    public Optional<Realisateur> findById(long id);
+    Optional<Realisateur> findById(long id);
 
     /**
      * Met à jour les informations d'un réalisateur
      * @param realisateur le réalisateur à mettre à jour
      * @return le réalisateur mis à jour
      */
-    public Realisateur update(Realisateur realisateur);
+    Realisateur update(Realisateur realisateur);
 
     /**
      * Ajoute un réalisateur
      * @param realisateur le réalisateur à ajouter
      * @return le réalisateur ajouté avec son id
      */
-    public Realisateur save(Realisateur realisateur);
+    Realisateur save(Realisateur realisateur);
 }
