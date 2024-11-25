@@ -4,12 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="dd72b9eb-4ed8-430d-952f-c200be1988a3" name="Changes" comment="Partie 6">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ensta/myfilmlist/dao/FilmDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ensta/myfilmlist/dao/FilmDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ensta/myfilmlist/dao/RealisateurDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ensta/myfilmlist/dao/RealisateurDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ensta/myfilmlist/service/MyFilmsService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ensta/myfilmlist/service/MyFilmsService.java" afterDir="false" />
-    </list>
+    <list default="true" id="dd72b9eb-4ed8-430d-952f-c200be1988a3" name="Changes" comment="Partie 6" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -150,7 +145,7 @@
       <workItem from="1732278323454" duration="11474000" />
       <workItem from="1732475895966" duration="8679000" />
       <workItem from="1732525826678" duration="89000" />
-      <workItem from="1732526007938" duration="7716000" />
+      <workItem from="1732526007938" duration="8027000" />
     </task>
     <task id="LOCAL-00001" summary="docx -&gt; pdf :)">
       <option name="closed" value="true" />
@@ -352,7 +347,15 @@
       <option name="project" value="LOCAL" />
       <updated>1732534293186</updated>
     </task>
-    <option name="localTasksCounter" value="26" />
+    <task id="LOCAL-00026" summary="Partie 6">
+      <option name="closed" value="true" />
+      <created>1732534761260</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1732534761260</updated>
+    </task>
+    <option name="localTasksCounter" value="27" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
