@@ -6,6 +6,7 @@ import com.ensta.myfilmlist.exception.ServiceException;
 import com.ensta.myfilmlist.form.FilmForm;
 import com.ensta.myfilmlist.model.Film;
 import com.ensta.myfilmlist.model.Realisateur;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -25,7 +26,7 @@ public interface MyFilmsService {
      * @param films la liste des films à additionner.
      * @return la durée totale des films.
      */
-    public int calculerDureeTotale(List<Film> films);
+    int calculerDureeTotale(List<Film> films);
 
     /**
      * Calcule la note moyenne des notes de la liste.
@@ -33,7 +34,7 @@ public interface MyFilmsService {
      * @param notes la liste des notes à additionner.
      * @return la note moyenne des notes.
      */
-    public double calculerNoteMoyenne(double[] notes);
+    double calculerNoteMoyenne(double[] notes);
 
     /**
      * Met à jour le statut "celebre" des réalisateurs en fonction du nombre de films réalisés.
@@ -59,13 +60,14 @@ public interface MyFilmsService {
      * @return le film créé
      *
      */
-    public FilmDTO createFilm(FilmForm form) throws ServiceException;
+    @Transactional
+    FilmDTO createFilm(FilmForm form) throws ServiceException;
 
     /**
      * Récupère la liste des réalisateurs.
      * @return la liste des réalisateurs.
      */
-    public List<RealisateurDTO> findAllRealisateurs() throws ServiceException;
+    List<RealisateurDTO> findAllRealisateurs() throws ServiceException;
 
     /**
      * Récupère un réalisateurs par son nom et prénom.
@@ -74,7 +76,7 @@ public interface MyFilmsService {
      * @return RealisateurDTO
      * @throws ServiceException
      */
-    public RealisateurDTO findRealisateurByNomAndPrenom(String nom, String prenom) throws ServiceException;
+    RealisateurDTO findRealisateurByNomAndPrenom(String nom, String prenom) throws ServiceException;
 
     /**
      * Récupère un film par son id.
@@ -82,26 +84,26 @@ public interface MyFilmsService {
      * @return FilmDTO
      * @throws ServiceException
      */
-    public FilmDTO findFilmById(long id) throws ServiceException;
+    FilmDTO findFilmById(long id) throws ServiceException;
 
     /**
      * Supprime un film par son id.
      * @param id
      * @throws ServiceException
      */
-    public void deleteFilm(long id) throws ServiceException;
+    void deleteFilm(long id) throws ServiceException;
 
     /**
      * Récupère un réalisateur par son id.
      * @param id
      * @return RealisateurDTO
      */
-    public RealisateurDTO findRealisateurById(long id) throws ServiceException;
+    RealisateurDTO findRealisateurById(long id) throws ServiceException;
 
     /**
      * Crée un réalisateur.
      * @param realisateurDTO
      * @return realisateurDTO
      */
-    public RealisateurDTO createRealisateur(RealisateurDTO realisateurDTO) throws ServiceException;
+    RealisateurDTO createRealisateur(RealisateurDTO realisateurDTO) throws ServiceException;
 }

@@ -35,7 +35,6 @@ public interface FilmResource {
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Liste des films trouvée avec succès"),
             @ApiResponse(code = 404, message = "Liste des films vide"),
-            @ApiResponse(code = 500, message = "Erreur interne du serveur")
     })
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     ResponseEntity<List<FilmDTO>> getAllFilms() throws ControllerException;
@@ -55,7 +54,6 @@ public interface FilmResource {
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Film trouvé avec succès"),
             @ApiResponse(code = 404, message = "Film non trouvé"),
-            @ApiResponse(code = 500, message = "Erreur interne du serveur")
     })
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     ResponseEntity<FilmDTO> getFilmById(@PathVariable long id) throws ControllerException;
@@ -75,7 +73,6 @@ public interface FilmResource {
     @ApiResponses(value = {
             @ApiResponse(code = 201, message = "Film créé avec succès"),
             @ApiResponse(code = 400, message = "Requête incorrecte"),
-            @ApiResponse(code = 500, message = "Erreur interne du serveur")
     })
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     ResponseEntity<FilmDTO> createFilm(@RequestBody @Valid FilmForm filmForm) throws ControllerException;
@@ -94,7 +91,6 @@ public interface FilmResource {
     @ApiResponses(value = {
             @ApiResponse(code = 204, message = "Film supprimé avec succès"),
             @ApiResponse(code = 404, message = "Film non trouvé"),
-            @ApiResponse(code = 500, message = "Erreur interne du serveur")
     })
     @DeleteMapping(value = "/{id}")
     ResponseEntity<?> deleteFilm(@PathVariable long id) throws ControllerException;

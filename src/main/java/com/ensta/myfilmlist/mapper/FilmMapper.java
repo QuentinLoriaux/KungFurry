@@ -39,7 +39,7 @@ public class FilmMapper {
 		filmDTO.setTitre(film.getTitre());
 		filmDTO.setDuree(film.getDuree());
 		Realisateur realisateur = film.getRealisateur();
-		if (realisateur != null){
+		if (realisateur != null) {
 			filmDTO.setRealisateur(RealisateurMapper.convertRealisateurToRealisateurDTO(realisateur));
 		}
 		return filmDTO;

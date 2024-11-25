@@ -25,6 +25,7 @@ public class FilmResourceImpl implements com.ensta.myfilmlist.persistence.contro
     }
 
     @Override
+    @GetMapping
     public ResponseEntity<List<FilmDTO>> getAllFilms() throws ControllerException {
         try {
             List<FilmDTO> films = myFilmsService.findAllFilms();
@@ -32,8 +33,6 @@ public class FilmResourceImpl implements com.ensta.myfilmlist.persistence.contro
                 return ResponseEntity.noContent().build();
             }
             return ResponseEntity.ok(films);
-        } catch (ServiceException e) {
-            return ResponseEntity.badRequest().build();
         } catch (Exception e) {
             throw new ControllerException("Erreur lors de la récupération des films", e);
         }
@@ -48,10 +47,8 @@ public class FilmResourceImpl implements com.ensta.myfilmlist.persistence.contro
                 return ResponseEntity.notFound().build();
             }
             return ResponseEntity.ok(film);
-        } catch (ServiceException e) {
-            return ResponseEntity.notFound().build();
         } catch (Exception e) {
-            throw new ControllerException("Erreur lors de la récupération du film", e);
+            throw new ControllerException("Erreur lors de la récupération du film : " + e.getMessage(), e);
         }
     }
 
@@ -62,9 +59,7 @@ public class FilmResourceImpl implements com.ensta.myfilmlist.persistence.contro
             FilmDTO film = myFilmsService.createFilm(filmForm);
             return ResponseEntity.ok(film);
         } catch (ServiceException e) {
-            return ResponseEntity.badRequest().build();
-        } catch (Exception e) {
-            throw new ControllerException("Erreur lors de la création du film", e);
+            throw new ControllerException("Erreur lors de la création du film : " + e.getMessage(), e);
         }
     }
 
