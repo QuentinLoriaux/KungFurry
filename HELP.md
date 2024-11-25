@@ -18,3 +18,14 @@ The following guides illustrate how to use some features concretely:
 * [Building REST services with Spring](https://spring.io/guides/tutorials/bookmarks/)
 * [Accessing Data with JPA](https://spring.io/guides/gs/accessing-data-jpa/)
 
+### to test
+- in my-film
+```
+npm run-script start
+```
+- in root
+```
+mvn exec:java -Dexec.mainClass="com.ensta.myfilmlist.MyfilmlistApplication"
+```
+
+- TODO : solve post/edit/del film issue (back&frontend)

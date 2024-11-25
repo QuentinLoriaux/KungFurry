@@ -1,23 +1,19 @@
 import React from 'react';
 import './App.css';
 import Header from './Header';
-import FilmCard from './components/FilmCard'
-
+import RealisateurList from './components/RealisateurList';
+import FilmContainer from './components/FilmContainer';
 
 function App() {
-    const films = [
-        { titre: 'Inception', duree: 148 },
-        { titre: 'The Matrix', duree: 136 },
-        { titre: 'Interstellar', duree: 169 },
-      ];
 
   return (
     <div>
       <Header />
       <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center' }}>
-        {films.map((film, index) => (
-          <FilmCard key={index} film={film} />
-        ))}
+        <FilmContainer />
+      </div>
+      <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center' }}>
+        <RealisateurList/>
       </div>
     </div>
   );

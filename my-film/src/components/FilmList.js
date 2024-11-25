@@ -1,6 +1,10 @@
-export default function FilmList() {
-    const films= ["film1", "film2", "film3"];
-    return films.map((film)=> {
-    return <h1>{film}</h1>
+import FilmCard from "./FilmCard";
+
+export default function FilmList(props) {
+
+    return props.films.map((film)=> {
+    return <FilmCard key={film.id} film={film} />
     })
 }
+
+;
