@@ -38,7 +38,9 @@ const handleEditSubmit = (updatedFilm) => {
     });
 };
 
-const handleClickOnDeleteButton = (id) => {
+const handleClickOnDeleteButton = () => {
+    const id = props.film.id;
+    console.log('Delete film with ID:', id);
     deleteFilm(id).then(() => {
         //setFilms(films.filter(film => film.id !== id)); // Remove the deleted film from the list
     }).catch(error => {

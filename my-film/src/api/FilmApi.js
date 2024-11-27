@@ -21,7 +21,7 @@ export function postFilm(film) {
     const payload = {
         titre: film.title,              // Map title to titre
         duree: parseInt(film.duration),           // Map duration to duree
-        realisateur: film.realisateur // Map director to realisateur_id
+        realisateurId: film.realisateur // Map director to realisateur_id
     };
     console.log('payload:', payload);
     
