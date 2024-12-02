@@ -16,12 +16,11 @@ export function getAllFilms() {
  * @returns {Promise} Axios response promise.
  */
 
-// MUST FIX, NOT WORKING
 export function postFilm(film) {
     const payload = {
-        titre: film.title,              // Map title to titre
-        duree: parseInt(film.duration),           // Map duration to duree
-        realisateurId: film.realisateur // Map director to realisateur_id
+        titre: film.title,
+        duree: parseInt(film.duration),
+        realisateurId: film.realisateur
     };
     console.log('payload:', payload);
     

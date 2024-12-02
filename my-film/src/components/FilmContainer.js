@@ -7,11 +7,12 @@ const FilmContainer = () => {
     const [films, setFilms] = useState([]);
 
     useEffect(() => {
-        getAllFilms().then((response) => {
-            setFilms(response.data);
-        });
-    }
-    , []);
+        getAllFilms().then(reponse => {
+            setFilms(reponse.data);
+        }).catch(err => {
+            console.log(err);
+        })
+    }, []);
 
     const handleCreateFilm = (newFilm) => {
          postFilm(newFilm)

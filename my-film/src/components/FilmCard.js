@@ -31,10 +31,12 @@ const handleClose = () => {
 const handleEditSubmit = (updatedFilm) => {
     putFilm(updatedFilm).then(response => {
         // Update the films list with the edited film
-        getAllFilms()// (films.map(film => film.id === updatedFilm.id ? updatedFilm : film));
+        //setFilms(films.map(film => film.id === updatedFilm.id ? updatedFilm : film));
+        //films.map(film => film.id === updatedFilm.id ? updatedFilm : film);
         handleClose(); // Close the dialog after editing
     }).catch(error => {
         console.error('Error editing film:', error);
+        handleClose(); // Close the dialog even if an error occurred
     });
 };
 
@@ -42,6 +44,7 @@ const handleClickOnDeleteButton = () => {
     const id = props.film.id;
     console.log('Delete film with ID:', id);
     deleteFilm(id).then(() => {
+
         //setFilms(films.filter(film => film.id !== id)); // Remove the deleted film from the list
     }).catch(error => {
         console.error('Error deleting film:', error);
