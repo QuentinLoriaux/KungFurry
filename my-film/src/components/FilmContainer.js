@@ -28,11 +28,15 @@ const FilmContainer = () => {
 
     
     return (
-        <div>
-            <CreateFilmForm film={null} onSubmit={handleCreateFilm}/>
-            <FilmList films={films} setFilms={setFilms} />
-
+        <div style={{display: "flex", alignItems: "flex-start"}}>
+            <div style={{width: "400px", margin: "20px"}}>
+                <CreateFilmForm film={null} onSubmit={handleCreateFilm}/>
+            </div>
+            <div style={{flex: 1, marginLeft: "20px", display: "flex", justifyContent: "center"}}>
+                <FilmList films={films} setFilms={setFilms}/>
+            </div>
         </div>
+
     );
 }
 
