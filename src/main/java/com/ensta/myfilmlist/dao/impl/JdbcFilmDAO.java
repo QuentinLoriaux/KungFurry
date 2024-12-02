@@ -69,14 +69,25 @@ public class JdbcFilmDAO implements com.ensta.myfilmlist.dao.FilmDAO {
         String query = "SELECT id, titre, duree, realisateur_id FROM film WHERE id = ?";
 
         try {
-            Film film = jdbcTemplate.queryForObject(query, new Object[]{id}, (ResultSet rs, int rowNum) -> {
+            // https://www.baeldung.com/spring-boot-replace-deprecated-jdbctemplate-queryforobject-query
+            // @SuppressWarnings("deprecation")
+            // Film film = jdbcTemplate.queryForObject(query, new Object[]{id}, (ResultSet rs, int rowNum) -> {
+            //     Film f = new Film();
+            //     f.setId(rs.getInt("id"));
+            //     f.setTitre(rs.getString("titre"));
+            //     f.setDuree(rs.getInt("duree"));
+            //     f.setRealisateur(RealisateurDAO.findById(rs.getInt("realisateur_id")).orElse(null));
+            //     return f;
+            // });
+            
+            Film film = jdbcTemplate.queryForObject(query, (ResultSet rs, int rowNum) -> {
                 Film f = new Film();
                 f.setId(rs.getInt("id"));
                 f.setTitre(rs.getString("titre"));
                 f.setDuree(rs.getInt("duree"));
                 f.setRealisateur(RealisateurDAO.findById(rs.getInt("realisateur_id")).orElse(null));
                 return f;
-            });
+            }, id);
             return Optional.ofNullable(film);
         } catch (EmptyResultDataAccessException e){
             return Optional.empty();
@@ -98,13 +109,22 @@ public class JdbcFilmDAO implements com.ensta.myfilmlist.dao.FilmDAO {
     public List<Film> findByRealisateurId(long realisateurId) {
         String query = "SELECT id, titre, duree, realisateur_id FROM film WHERE realisateur_id = ?";
 
-        return jdbcTemplate.query(query, new Object[]{realisateurId}, (ResultSet rs, int rowNum) -> {
+        // return jdbcTemplate.query(query, new Object[]{realisateurId}, (ResultSet rs, int rowNum) -> {
+        //     Film film = new Film();
+        //     film.setId(rs.getInt("id"));
+        //     film.setTitre(rs.getString("titre"));
+        //     film.setDuree(rs.getInt("duree"));
+        //     film.setRealisateur(RealisateurDAO.findById(rs.getInt("realisateur_id")).orElse(null));
+        //     return film;
+        // });
+
+        return jdbcTemplate.query(query, (ResultSet rs, int rowNum) -> {
             Film film = new Film();
             film.setId(rs.getInt("id"));
             film.setTitre(rs.getString("titre"));
             film.setDuree(rs.getInt("duree"));
             film.setRealisateur(RealisateurDAO.findById(rs.getInt("realisateur_id")).orElse(null));
             return film;
-        });
+        }, realisateurId);
     }
 }
