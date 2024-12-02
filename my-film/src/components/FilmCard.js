@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
@@ -15,43 +15,51 @@ import CreateFilmForm from './CreateFilmForm';
 
 
 export default function FilmCard(props) {
-  const [open, setOpen] = React.useState(false);
+    const [open, setOpen] = React.useState(false);
+    const [films, setFilms] = useState([]);
 
-  // Handle the opening of the dialog
-const handleClickOnEditButton = (film) => {
-    setOpen(true); // Open the dialog
-};
+    useEffect(() => {
+        getAllFilms().then(reponse => {
+            setFilms(reponse.data);
+        }).catch(err => {
+            console.log(err);
+        })
+    }, []);
 
-// Handle closing of the dialog
-const handleClose = () => {
-    setOpen(false); // Close the dialog
-};
+    // Handle the opening of the dialog
+    const handleClickOnEditButton = (film) => {
+        setOpen(true); // Open the dialog
+    };
 
-// Handle the film edit submit
-const handleEditSubmit = (updatedFilm) => {
-    putFilm(updatedFilm).then(response => {
-        // Update the films list with the edited film
-        //setFilms(films.map(film => film.id === updatedFilm.id ? updatedFilm : film));
-        //films.map(film => film.id === updatedFilm.id ? updatedFilm : film);
-        handleClose(); // Close the dialog after editing
-    }).catch(error => {
-        console.error('Error editing film:', error);
-        handleClose(); // Close the dialog even if an error occurred
-    });
-};
+    // Handle closing of the dialog
+    const handleClose = () => {
+        setOpen(false); // Close the dialog
+    };
 
-const handleClickOnDeleteButton = () => {
-    const id = props.film.id;
-    console.log('Delete film with ID:', id);
-    deleteFilm(id).then(() => {
+    // Handle the film edit submit
+    const handleEditSubmit = (updatedFilm) => {
+        putFilm(updatedFilm).then(response => {
+            console.log('Film edited successfully:', response.data);
+            setFilms(films.map(film => film.id === updatedFilm.id ? updatedFilm : film)); // Update the film in the list
+            handleClose(); // Close the dialog after editing
+        }).catch(error => {
+            console.error('Error editing film:', error);
+            handleClose(); // Close the dialog even if an error occurred
+        });
+    };
 
-        //setFilms(films.filter(film => film.id !== id)); // Remove the deleted film from the list
-    }).catch(error => {
-        console.error('Error deleting film:', error);
-    });
-};
+    const handleClickOnDeleteButton = () => {
+        const id = props.film.id;
+        console.log('Delete film with ID:', id);
+        deleteFilm(id).then(() => {
 
-  return (
+            setFilms(films.filter(film => film.id !== id));
+        }).catch(error => {
+            console.error('Error deleting film:', error);
+        });
+    };
+
+    return (
     <Card variant="outlined" sx={{ margin: 2, maxWidth: 300 }}>
       <CardContent>
         <Typography variant="h5" gutterBottom>
@@ -71,9 +79,9 @@ const handleClickOnDeleteButton = () => {
           <DialogContent>
               <CreateFilmForm film={props.film} onSubmit={handleEditSubmit}/>
           </DialogContent>
-          </Dialog> 
+          </Dialog>
           <EditIcon/>
     </IconButton>
     </Card>
-  );
+    );
 }

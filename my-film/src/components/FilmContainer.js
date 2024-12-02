@@ -19,6 +19,7 @@ const FilmContainer = () => {
             .then((response) => {
                 console.log('Film created successfully:', response.data);
                 alert('Film ajouté avec succès');
+                setFilms([...films, response.data]);
             })
             .catch((error) => {
                 console.error('Erreur lors de la création du film:', error);
