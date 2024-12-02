@@ -41,4 +41,8 @@ public class JpaFilmDAO implements com.ensta.myfilmlist.dao.FilmDAO {
                 .setParameter("realisateurId", realisateurId)
                 .getResultList();
     }
+
+    public Film update(Film film) {
+        return entityManager.merge(film);
+    }
 }

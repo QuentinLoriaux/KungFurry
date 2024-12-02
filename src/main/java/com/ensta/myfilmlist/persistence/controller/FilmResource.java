@@ -95,4 +95,24 @@ public interface FilmResource {
     })
     @DeleteMapping(value = "/{id}")
     ResponseEntity<?> deleteFilm(@PathVariable long id) throws ControllerException;
+
+    /**
+     * Met à jour un film à partir de son identifiant et des informations fournies.
+     *
+     * @param id l'identifiant du film à mettre à jour
+     * @param filmForm les informations du film à mettre à jour
+     * @return le FilmDTO mis à jour
+     * @throws ControllerException en cas d'erreur de traitement
+     */
+    @ApiOperation(
+            value = "Mettre à jour un film",
+            notes = "Permet de mettre à jour un film à partir de son identifiant et des informations fournies.",
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Film mis à jour avec succès"),
+            @ApiResponse(code = 404, message = "Film non trouvé"),
+    })
+    @PutMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    ResponseEntity<FilmDTO> updateFilm(@PathVariable long id, @RequestBody @Valid FilmForm filmForm) throws ControllerException;
 }

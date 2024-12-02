@@ -174,4 +174,15 @@ public class MyFilmsServiceImpl implements com.ensta.myfilmlist.service.MyFilmsS
             throw new ServiceException("Impossible de créer le réalisateur :" + e.getMessage());
         }
     }
+
+    @Override
+    public FilmDTO updateFilm(Film film) throws ServiceException {
+        try {
+            film = this.filmDAO.update(film);
+            this.updateRealisateurCelebre(film.getRealisateur());
+            return FilmMapper.convertFilmToFilmDTO(film);
+        } catch (Exception e) {
+            throw new ServiceException("Impossible de mettre à jour le film : " + e.getMessage());
+        }
+    }
 }

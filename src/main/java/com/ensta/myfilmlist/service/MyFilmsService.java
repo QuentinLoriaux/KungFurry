@@ -108,4 +108,12 @@ public interface MyFilmsService {
      * @return realisateurDTO
      */
     RealisateurDTO createRealisateur(RealisateurForm realisateurForm) throws ServiceException;
+
+    /**
+     * Met à jour un film.
+     * @param film
+     * @return filmDTO
+     */
+    @Transactional
+    FilmDTO updateFilm(Film film) throws ServiceException;
 }

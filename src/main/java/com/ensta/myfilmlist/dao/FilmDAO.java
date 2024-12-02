@@ -42,4 +42,11 @@ public interface FilmDAO {
      * @return la liste des films du réalisateur
      */
     public List<Film> findByRealisateurId(long realisateurId);
+
+    /**
+     * Met à jour un film.
+     * @param film le film à mettre à jour
+     * @return le film mis à jour
+     */
+    public Film update(Film film);
 }

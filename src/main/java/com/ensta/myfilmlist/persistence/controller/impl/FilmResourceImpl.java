@@ -2,6 +2,7 @@ package com.ensta.myfilmlist.persistence.controller.impl;
 
 import com.ensta.myfilmlist.exception.ControllerException;
 import com.ensta.myfilmlist.dto.FilmDTO;
+import com.ensta.myfilmlist.model.Film;
 import com.ensta.myfilmlist.exception.ServiceException;
 import com.ensta.myfilmlist.form.FilmForm;
 import com.ensta.myfilmlist.service.MyFilmsService;
@@ -12,6 +13,9 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
+
+import static com.ensta.myfilmlist.mapper.FilmMapper.convertFilmFormToFilm;
+import static com.ensta.myfilmlist.mapper.RealisateurMapper.convertRealisateurDTOToRealisateur;
 
 @RestController
 @RequestMapping("/film")
@@ -73,6 +77,20 @@ public class FilmResourceImpl implements com.ensta.myfilmlist.persistence.contro
             return ResponseEntity.notFound().build();
         } catch (Exception e) {
             throw new ControllerException("Erreur lors de la suppression du film", e);
+        }
+    }
+
+    @Override
+    @PutMapping("/{id}")
+    public ResponseEntity<FilmDTO> updateFilm(@PathVariable long id, @RequestBody @Valid FilmForm filmForm) throws ControllerException {
+        try {
+            Film film = convertFilmFormToFilm(filmForm);
+            film.setId(id);
+            film.setRealisateur(convertRealisateurDTOToRealisateur(myFilmsService.findRealisateurById(filmForm.getRealisateurId())));
+            FilmDTO filmDTO = myFilmsService.updateFilm(film);
+            return ResponseEntity.ok(filmDTO);
+        } catch (ServiceException e) {
+            throw new ControllerException("Erreur lors de la mise à jour du film : " + e.getMessage(), e);
         }
     }
 }

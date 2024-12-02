@@ -127,4 +127,16 @@ public class JdbcFilmDAO implements com.ensta.myfilmlist.dao.FilmDAO {
             return film;
         }, realisateurId);
     }
+
+    @Override
+    public Film update(Film film){
+        String UPDATE_FILM_QUERY = "UPDATE film SET titre = ?, duree = ?, realisateur_id = ? WHERE id = ?";
+
+        try {
+            jdbcTemplate.update(UPDATE_FILM_QUERY, film.getTitre(), film.getDuree(), film.getRealisateur().getId(), film.getId());
+            return film;
+        } catch (Exception e) {
+            throw new RuntimeException("Erreur lors de la mise à jour du film", e);
+        }
+    }
 }
