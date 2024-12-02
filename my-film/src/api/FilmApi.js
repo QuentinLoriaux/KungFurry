@@ -35,7 +35,7 @@ export function putFilm(filmId, film) {
     const payload = {
         titre: film.title,
         duree: parseInt(film.duration),
-        realisateurId: film.realisateur.id
+        realisateurId: film.realisateur
     }
     console.log('payload:', payload);
     console.log('film:', film);
