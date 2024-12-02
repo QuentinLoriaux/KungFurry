@@ -50,14 +50,17 @@ export default function FilmCard(props) {
 
     const handleClickOnDeleteButton = () => {
         const id = props.film.id;
-        console.log('Delete film with ID:', id);
-        deleteFilm(id).then(() => {
-
-            setFilms(films.filter(film => film.id !== id));
-        }).catch(error => {
-            console.error('Error deleting film:', error);
-        });
+        deleteFilm(id)
+            .then(() => {
+                props.setFilms((prevFilms) => prevFilms.filter((film) => film.id !== id));
+                alert('Film supprimé avec succès');
+            })
+            .catch((error) => {
+                console.error('Erreur lors de la suppression du film:', error);
+                alert('Une erreur est survenue lors de la suppression du film.');
+            });
     };
+
 
     return (
     <Card variant="outlined" sx={{ margin: 2, maxWidth: 300 }}>

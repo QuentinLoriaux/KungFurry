@@ -31,7 +31,8 @@ const FilmContainer = () => {
     return (
         <div>
             <CreateFilmForm film={null} onSubmit={handleCreateFilm}/>
-            <FilmList films={films} />
+            <FilmList films={films} setFilms={setFilms} />
+
         </div>
     );
 }
