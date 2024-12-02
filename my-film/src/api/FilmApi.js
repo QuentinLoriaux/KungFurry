@@ -28,6 +28,7 @@ export function postFilm(film) {
 
 /**
  * Update an existing film.
+ * @param {number} filmId - The ID of the film to be updated.
  * @param {Object} film - The updated film object.
  * @returns {Promise} Axios response promise.
  */
