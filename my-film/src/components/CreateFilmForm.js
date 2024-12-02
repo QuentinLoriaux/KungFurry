@@ -3,8 +3,9 @@ import { TextField, Select, MenuItem, InputLabel, FormControl, Button, Box } fro
 import { getAllRealisateurs } from '../api/RealisateurApi';
 
 function CreateFilmForm({ film , onSubmit }) {
-    const [title, setTitle] = useState(film?.title ||'');
-    const [duration, setDuration] = useState(film?.duration || '');
+    console.log(film)
+    const [title, setTitle] = useState(film?.titre ||'');
+    const [duration, setDuration] = useState(film?.duree || '');
     const [realisateur, setRealisateur] = useState(film?.realisateur || '');
 
     const [realisateurs, setRealisateurs] = useState([]);

@@ -7,17 +7,19 @@ const FilmContainer = () => {
     const [films, setFilms] = useState([]);
 
     useEffect(() => {
-        getAllFilms().then((response) => {
-            setFilms(response.data);
-        });
-    }
-    , []);
+        getAllFilms().then(reponse => {
+            setFilms(reponse.data);
+        }).catch(err => {
+            console.log(err);
+        })
+    }, []);
 
     const handleCreateFilm = (newFilm) => {
          postFilm(newFilm)
             .then((response) => {
                 console.log('Film created successfully:', response.data);
                 alert('Film ajouté avec succès');
+                setFilms([...films, response.data]);
             })
             .catch((error) => {
                 console.error('Erreur lors de la création du film:', error);
@@ -29,7 +31,8 @@ const FilmContainer = () => {
     return (
         <div>
             <CreateFilmForm film={null} onSubmit={handleCreateFilm}/>
-            <FilmList films={films} />
+            <FilmList films={films} setFilms={setFilms} />
+
         </div>
     );
 }
