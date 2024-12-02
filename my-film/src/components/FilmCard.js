@@ -40,10 +40,16 @@ export default function FilmCard(props) {
     const handleEditSubmit = (updatedFilm) => {
         putFilm(props.film.id ,updatedFilm).then(response => {
             console.log('Film edited successfully:', response.data);
-            setFilms(films.map(film => film.id === updatedFilm.id ? updatedFilm : film)); // Update the film in the list
-            handleClose(); // Close the dialog after editing
+            props.setFilms((prevFilms) => prevFilms.map((film) => {
+                if (film.id === response.data.id) {
+                    return response.data;
+                }
+                return film;
+            }));
+            handleClose();
         }).catch(error => {
             console.error('Error editing film:', error);
+            alert('An error occurred while editing the film.');
             handleClose(); // Close the dialog even if an error occurred
         });
     };
@@ -53,7 +59,6 @@ export default function FilmCard(props) {
         deleteFilm(id)
             .then(() => {
                 props.setFilms((prevFilms) => prevFilms.filter((film) => film.id !== id));
-                alert('Film supprimé avec succès');
             })
             .catch((error) => {
                 console.error('Erreur lors de la suppression du film:', error);
