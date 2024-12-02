@@ -22,20 +22,25 @@ export function postFilm(film) {
         duree: parseInt(film.duration),
         realisateurId: film.realisateur
     };
-    console.log('payload:', payload);
-    
     return axios.post(FILM_URI, payload);
 }
 
 
 /**
  * Update an existing film.
- * @param {number} id - The ID of the film to be updated.
  * @param {Object} film - The updated film object.
  * @returns {Promise} Axios response promise.
  */
-export function putFilm(id, film) {
-    return axios.put(`${FILM_URI}/${id}`, film);
+export function putFilm(film) {
+    const payload = {
+        titre: film.title,
+        duree: parseInt(film.duration),
+        realisateurId: film.realisateur
+    }
+    console.log('payload:', payload);
+    console.log('film:', film);
+    console.log('film.id:', film.id);
+    return axios.put(`${FILM_URI}/${film.id}`, payload);
 }
 
 /**
