@@ -31,7 +31,7 @@ export function postFilm(film) {
  * @param {Object} film - The updated film object.
  * @returns {Promise} Axios response promise.
  */
-export function putFilm(film) {
+export function putFilm(filmId, film) {
     const payload = {
         titre: film.title,
         duree: parseInt(film.duration),
@@ -39,8 +39,8 @@ export function putFilm(film) {
     }
     console.log('payload:', payload);
     console.log('film:', film);
-    console.log('film.id:', film.id);
-    return axios.put(`${FILM_URI}/${film.id}`, payload);
+    console.log('film.id:', filmId);
+    return axios.put(`${FILM_URI}/${filmId}`, payload);
 }
 
 /**

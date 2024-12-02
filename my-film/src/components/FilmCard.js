@@ -38,7 +38,7 @@ export default function FilmCard(props) {
 
     // Handle the film edit submit
     const handleEditSubmit = (updatedFilm) => {
-        putFilm(updatedFilm).then(response => {
+        putFilm(props.film.id ,updatedFilm).then(response => {
             console.log('Film edited successfully:', response.data);
             setFilms(films.map(film => film.id === updatedFilm.id ? updatedFilm : film)); // Update the film in the list
             handleClose(); // Close the dialog after editing
