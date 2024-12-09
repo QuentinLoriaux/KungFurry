@@ -2,13 +2,13 @@ package com.ensta.myfilmlist.model;
 
 public class Utilisateur {
     private long id;
-    private String nom;
-    private String prenom;
+    private String username;
+    private String password;
 
     public Utilisateur() {
         this.id = 0;
-        this.nom = "";
-        this.prenom = "";
+        this.username = "";
+        this.password = "";
     }
 
     public void setId(long id) {
@@ -19,19 +19,19 @@ public class Utilisateur {
         return id;
     }
 
-    public void setNom(String nom) {
-        this.nom = nom;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
-    public String getNom() {
-        return nom;
+    public String getUsername() {
+        return username;
     }
 
-    public void setPrenom(String prenom) {
-        this.prenom = prenom;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
-    public String getPrenom(){
-        return prenom;
+    public String getPassword(){
+        return password;
     }
 }
