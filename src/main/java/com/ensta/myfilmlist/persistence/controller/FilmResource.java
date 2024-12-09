@@ -38,6 +38,7 @@ public interface FilmResource {
             @ApiResponse(code = 404, message = "Liste des films vide"),
     })
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+
     ResponseEntity<List<FilmDTO>> getAllFilms() throws ControllerException;
 
     /**

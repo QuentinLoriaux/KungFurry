@@ -23,7 +23,7 @@ public class SecurityConfig {
                 .csrf().disable()
                 .authorizeHttpRequests(auth -> auth
                         .antMatchers(HttpMethod.GET, "/film/**", "/realisateur/**", "/film", "/realisateur").permitAll()
-                        .antMatchers(HttpMethod.POST, "/film", "/realisateur").permitAll()
+                        .antMatchers(HttpMethod.POST, "/film", "/realisateur", "/login").permitAll()
                         .antMatchers(HttpMethod.PUT, "/film/**", "/realisateur/**").permitAll()
                         .antMatchers(HttpMethod.DELETE, "/film/**", "/realisateur/**").permitAll()
                         .anyRequest().authenticated()
