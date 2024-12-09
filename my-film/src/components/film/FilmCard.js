@@ -8,7 +8,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import Dialog from '@mui/material/Dialog';
 import DialogTitle from '@mui/material/DialogTitle';
 import DialogContent from '@mui/material/DialogContent';
-import { deleteFilm, putFilm, getAllFilms } from '../api/FilmApi';
+import { deleteFilm, putFilm, getAllFilms } from '../../api/FilmApi';
 import CreateFilmForm from './CreateFilmForm';
 
 

@@ -19,15 +19,6 @@ public class Realisateur {
     private List<Film> filmRealises = new ArrayList<>();
     private Boolean celebre;
 
-    public Realisateur() {
-        this.id = 0;
-        this.nom = "";
-        this.prenom = "";
-        this.dateNaissance = LocalDate.now();
-        this.filmRealises = null;
-        this.celebre = false;
-    }
-
     public void setId(long id) {
         this.id = id;
     }

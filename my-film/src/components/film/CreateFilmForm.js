@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { TextField, Select, MenuItem, InputLabel, FormControl, Button, Box } from '@mui/material';
-import { getAllRealisateurs } from '../api/RealisateurApi';
+import { getAllRealisateurs } from '../../api/RealisateurApi';
 
 function CreateFilmForm({ film , onSubmit }) {
-    console.log(film)
     const [title, setTitle] = useState(film?.titre ||'');
     const [duration, setDuration] = useState(film?.duree || '');
     const [realisateur, setRealisateur] = useState(film?.realisateur || '');

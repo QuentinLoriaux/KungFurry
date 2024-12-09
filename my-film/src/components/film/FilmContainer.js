@@ -1,7 +1,7 @@
 import CreateFilmForm from "./CreateFilmForm";
 import FilmList from "./FilmList";
 import { useState, useEffect } from "react";
-import { getAllFilms, postFilm } from "../api/FilmApi";
+import { getAllFilms, postFilm } from "../../api/FilmApi";
 
 const FilmContainer = () => {
     const [films, setFilms] = useState([]);
