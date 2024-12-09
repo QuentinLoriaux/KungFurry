@@ -42,6 +42,7 @@ public class JpaUtilisateurDAO implements com.ensta.myfilmlist.dao.UtilisateurDA
     }
 
     public Utilisateur update(Utilisateur user) {
+        System.out.println(user.getId());
         return entityManager.merge(user);
     }
 }

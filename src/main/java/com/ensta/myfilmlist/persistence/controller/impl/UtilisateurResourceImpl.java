@@ -92,6 +92,7 @@ public class UtilisateurResourceImpl implements com.ensta.myfilmlist.persistence
     public ResponseEntity<UtilisateurDTO> updateUtilisateur(@PathVariable long id, @RequestBody @Valid UtilisateurForm userForm) throws ControllerException {
         try {
             Utilisateur user = convertUtilisateurFormToUtilisateur(userForm);
+            user.setId(id);
             UtilisateurDTO userDTO = myFilmsService.updateUtilisateur(user);
             return ResponseEntity.ok(userDTO);
         } catch (ServiceException e) {
