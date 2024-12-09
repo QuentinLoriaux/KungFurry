@@ -111,6 +111,7 @@ public interface MyFilmsService {
      * @param realisateurForm
      * @return realisateurDTO
      */
+    @Transactional
     RealisateurDTO createRealisateur(RealisateurForm realisateurForm) throws ServiceException;
 
     /**
@@ -160,5 +161,21 @@ public interface MyFilmsService {
     
     @Transactional
     UtilisateurDTO updateUtilisateur(Utilisateur utilisateur) throws ServiceException;
+
+    /**
+     * Met à jour un réalisateur.
+     * @param realisateur
+     * @return realisateurDTO
+     */
+    @Transactional
+    RealisateurDTO updateRealisateur(Realisateur realisateur) throws ServiceException;
+
+    /**
+     * Supprime un réalisateur par son id.
+     * @param id
+     * @throws ServiceException
+     */
+    @Transactional
+    void deleteRealisateur(long id) throws ServiceException;
 
 }

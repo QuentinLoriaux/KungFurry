@@ -120,7 +120,11 @@ public class MyFilmsServiceImpl implements com.ensta.myfilmlist.service.MyFilmsS
     @Override
     public List<RealisateurDTO> findAllRealisateurs() throws ServiceException {
         try {
-            return RealisateurMapper.convertRealisateurToRealisateurDTOs(this.realisateurDAO.findAll());
+            List<RealisateurDTO> realisateurDTOS = RealisateurMapper.convertRealisateurToRealisateurDTOs(this.realisateurDAO.findAll());
+            for (RealisateurDTO realisateurDTO : realisateurDTOS) {
+                realisateurDTO.setFilmRealises(FilmMapper.convertFilmToFilmDTOs(this.filmDAO.findByRealisateurId(realisateurDTO.getId())));
+            }
+            return realisateurDTOS;
         } catch (RuntimeException e) {
             throw new ServiceException("Erreur lors de la récupération des réalisateurs", e);
         }
@@ -130,6 +134,7 @@ public class MyFilmsServiceImpl implements com.ensta.myfilmlist.service.MyFilmsS
     public RealisateurDTO findRealisateurByNomAndPrenom(String nom, String prenom) throws ServiceException {
         try {
             Optional<Realisateur> realisateur = this.realisateurDAO.findByNomAndPrenom(nom, prenom);
+            realisateur.ifPresent(value -> value.setFilmRealises(this.filmDAO.findByRealisateurId(value.getId())));
             return realisateur.map(RealisateurMapper::convertRealisateurToRealisateurDTO).orElse(null);
         } catch (RuntimeException e) {
             throw new ServiceException("Erreur lors de la récupération du réalisateur", e);
@@ -165,6 +170,7 @@ public class MyFilmsServiceImpl implements com.ensta.myfilmlist.service.MyFilmsS
     public RealisateurDTO findRealisateurById(long id) throws ServiceException {
         try {
             Optional<Realisateur> realisateur = this.realisateurDAO.findById(id);
+            realisateur.ifPresent(value -> value.setFilmRealises(this.filmDAO.findByRealisateurId(id)));
             return realisateur.map(RealisateurMapper::convertRealisateurToRealisateurDTO).orElse(null);
         } catch (RuntimeException e) {
             throw new ServiceException("Erreur lors de la récupération du réalisateur", e);
@@ -245,6 +251,25 @@ public class MyFilmsServiceImpl implements com.ensta.myfilmlist.service.MyFilmsS
             return UtilisateurMapper.convertUtilisateurToUtilisateurDTO(utilisateur);
         } catch (Exception e) {
             throw new ServiceException("Impossible de mettre à jour le utilisateur : " + e.getMessage());
+        }
+    }
+
+    @Override
+    public RealisateurDTO updateRealisateur(Realisateur realisateur) throws ServiceException {
+        try {
+            realisateur = this.realisateurDAO.update(realisateur);
+            return RealisateurMapper.convertRealisateurToRealisateurDTO(realisateur);
+        } catch (Exception e) {
+            throw new ServiceException("Impossible de mettre à jour le réalisateur : " + e.getMessage());
+        }
+    }
+
+    @Override
+    public void deleteRealisateur(long id) throws ServiceException {
+        try {
+            this.realisateurDAO.delete(id);
+        } catch (RuntimeException e) {
+            throw new ServiceException("Erreur lors de la suppression du réalisateur", e);
         }
     }
 

@@ -76,4 +76,16 @@ public class FilmMapper {
 
 		return film;
 	}
+
+	/**
+	 * Convertit une liste de DTO en liste de films.
+	 *
+	 * @param filmsDTO la liste des DTO
+	 *                 @return Une liste non nulle de films construite a partir de la liste des DTO.
+	 */
+	public static List<Film> convertFilmsDTOToFilms(List<FilmDTO> filmsDTO) {
+		return filmsDTO.stream()
+				.map(FilmMapper::convertFilmDTOToFilm)
+				.collect(Collectors.toList());
+	}
 }

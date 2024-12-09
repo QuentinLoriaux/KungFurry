@@ -10,10 +10,7 @@ import io.swagger.annotations.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -78,4 +75,41 @@ public interface RealisateurResource {
     })
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     ResponseEntity<?> createRealisateur(@RequestBody @Valid RealisateurForm realisateurForm) throws ControllerException;
+
+    /**
+     * Met à jour un réalisateur.
+     *
+     * @param realisateurForm le formulaire de mise à jour du réalisateur
+     * @return le RealisateurDTO mis à jour
+     * @throws ControllerException en cas d'erreur de traitement
+     */
+    @ApiOperation(
+            value = "Mettre à jour un réalisateur",
+            notes = "Permet de mettre à jour un réalisateur.",
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Réalisateur mis à jour avec succès"),
+            @ApiResponse(code = 404, message = "Erreur lors de la mise à jour du réalisateur"),
+    })
+    @PutMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    ResponseEntity<?> updateRealisateur(@PathVariable long id, @RequestBody @Valid RealisateurForm realisateurForm) throws ControllerException;
+
+    /**
+     * Supprime un réalisateur.
+     *
+     * @param id l'id du réalisateur à supprimer
+     * @throws ControllerException en cas d'erreur de traitement
+     */
+    @ApiOperation(
+            value = "Supprimer un réalisateur",
+            notes = "Permet de supprimer un réalisateur.",
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Réalisateur supprimé avec succès"),
+            @ApiResponse(code = 404, message = "Erreur lors de la suppression du réalisateur"),
+    })
+    @DeleteMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    ResponseEntity<?> deleteRealisateur(@PathVariable long id) throws ControllerException;
 }

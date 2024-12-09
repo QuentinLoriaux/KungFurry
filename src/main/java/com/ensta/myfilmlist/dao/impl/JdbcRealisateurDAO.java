@@ -110,4 +110,10 @@ public class JdbcRealisateurDAO implements com.ensta.myfilmlist.dao.RealisateurD
             throw new RuntimeException("Erreur lors de l'insertion du réalisateur", e);
         }
     }
+
+    @Override
+    public void delete(long id){
+        String query = "DELETE FROM realisateur WHERE id = ?";
+        jdbcTemplate.update(query, id);
+    }
 }

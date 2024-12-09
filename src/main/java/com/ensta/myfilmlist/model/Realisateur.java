@@ -11,12 +11,20 @@ public class Realisateur {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+
+    @Column
     private String nom;
+
+    @Column
     private String prenom;
+
+    @Column
     private LocalDate dateNaissance;
 
-    @OneToMany(mappedBy = "realisateur", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "realisateur", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Film> filmRealises = new ArrayList<>();
+
+    @Column
     private Boolean celebre;
 
     public void setId(long id) {

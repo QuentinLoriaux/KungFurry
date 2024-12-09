@@ -1,10 +1,15 @@
 package com.ensta.myfilmlist.persistence.controller.impl;
 
+import com.ensta.myfilmlist.exception.ServiceException;
 import com.ensta.myfilmlist.form.RealisateurForm;
+import com.ensta.myfilmlist.model.Realisateur;
+import static com.ensta.myfilmlist.mapper.RealisateurMapper.convertRealisateurFormToRealisateur;
 import com.ensta.myfilmlist.service.MyFilmsService;
 import com.ensta.myfilmlist.dto.RealisateurDTO;
 import com.ensta.myfilmlist.exception.ControllerException;
 import org.springframework.http.ResponseEntity;
+
+import java.security.Provider;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
@@ -59,6 +64,32 @@ public class RealisateurResourceImpl implements com.ensta.myfilmlist.persistence
             return ResponseEntity.ok(realisateur);
         } catch (Exception e) {
             throw new ControllerException("Erreur lors de la création du réalisateur : " + e.getMessage(), e);
+        }
+    }
+
+    @Override
+    @PutMapping("/{id}")
+    public ResponseEntity<RealisateurDTO> updateRealisateur(@PathVariable long id, @RequestBody @Valid RealisateurForm realisateurForm) throws ControllerException {
+        try {
+            Realisateur realisateur = convertRealisateurFormToRealisateur(realisateurForm);
+            realisateur.setId(id);
+            RealisateurDTO realisateurDTO = myFilmsService.updateRealisateur(realisateur);
+            return ResponseEntity.ok(realisateurDTO);
+        } catch (Exception e) {
+            throw new ControllerException("Erreur lors de la mise à jour du réalisateur : " + e.getMessage(), e);
+        }
+    }
+
+    @Override
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteRealisateur(@PathVariable long id) throws ControllerException {
+        try {
+            myFilmsService.deleteRealisateur(id);
+            return ResponseEntity.ok().build();
+        } catch (ServiceException e) {
+            return ResponseEntity.notFound().build();
+        } catch (Exception e) {
+            throw new ControllerException("Erreur lors de la suppression du réalisateur : " + e.getMessage(), e);
         }
     }
 

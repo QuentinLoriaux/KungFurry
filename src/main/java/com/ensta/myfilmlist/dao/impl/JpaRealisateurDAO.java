@@ -40,4 +40,9 @@ public class JpaRealisateurDAO implements com.ensta.myfilmlist.dao.RealisateurDA
         entityManager.persist(realisateur);
         return realisateur;
     }
+
+    public void delete(long id) {
+        Realisateur realisateur = entityManager.find(Realisateur.class, id);
+        entityManager.remove(realisateur);
+    }
 }
