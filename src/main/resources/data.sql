@@ -12,6 +12,6 @@ CREATE TABLE IF NOT EXISTS Role(id INT primary key auto_increment, nom VARCHAR(1
 INSERT INTO Role(nom) VALUES('USER');
 INSERT INTO Role(nom) VALUES('ADMIN');
 
-CREATE TABLE IF NOT EXISTS Utilisateur(id INT primary key auto_increment, username VARCHAR(100), password VARCHAR(100), role_id INT);
-INSERT INTO Utilisateur(username, password, role_id) VALUES('user', 'user', 1);
-INSERT INTO Utilisateur(username, password, role_id) VALUES('admin', 'admin', 2);
+CREATE TABLE IF NOT EXISTS Utilisateur(id INT primary key auto_increment, role_id INT, username VARCHAR(100), md5hex VARCHAR(100));
+INSERT INTO Utilisateur(username, md5hex, role_id) VALUES('user', 'user', 1);
+INSERT INTO Utilisateur(username, md5hex, role_id) VALUES('admin', 'admin', 2);

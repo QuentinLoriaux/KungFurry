@@ -1,27 +1,32 @@
 package com.ensta.myfilmlist.service.impl;
 
-import com.ensta.myfilmlist.dao.FilmDAO;
-import com.ensta.myfilmlist.dao.RealisateurDAO;
-import com.ensta.myfilmlist.dto.FilmDTO;
-import com.ensta.myfilmlist.dto.RealisateurDTO;
-import com.ensta.myfilmlist.exception.ServiceException;
-import com.ensta.myfilmlist.form.FilmForm;
-import com.ensta.myfilmlist.form.RealisateurForm;
-import com.ensta.myfilmlist.model.Film;
-import com.ensta.myfilmlist.model.Realisateur;
-import com.ensta.myfilmlist.mapper.FilmMapper;
-import com.ensta.myfilmlist.mapper.RealisateurMapper;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
+import static java.lang.Math.pow;
+import static java.lang.Math.round;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import static java.lang.Math.pow;
-import static java.lang.Math.round;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.ensta.myfilmlist.dao.FilmDAO;
+import com.ensta.myfilmlist.dao.RealisateurDAO;
+import com.ensta.myfilmlist.dao.UtilisateurDAO;
+import com.ensta.myfilmlist.dto.FilmDTO;
+import com.ensta.myfilmlist.dto.RealisateurDTO;
+import com.ensta.myfilmlist.dto.UtilisateurDTO;
+import com.ensta.myfilmlist.exception.ServiceException;
+import com.ensta.myfilmlist.form.FilmForm;
+import com.ensta.myfilmlist.form.RealisateurForm;
+import com.ensta.myfilmlist.form.UtilisateurForm;
+import com.ensta.myfilmlist.mapper.FilmMapper;
+import com.ensta.myfilmlist.mapper.RealisateurMapper;
+import com.ensta.myfilmlist.mapper.UtilisateurMapper;
+import com.ensta.myfilmlist.model.Film;
+import com.ensta.myfilmlist.model.Realisateur;
+import com.ensta.myfilmlist.model.Utilisateur;
 
 @Service
 public class MyFilmsServiceImpl implements com.ensta.myfilmlist.service.MyFilmsService {
@@ -32,6 +37,8 @@ public class MyFilmsServiceImpl implements com.ensta.myfilmlist.service.MyFilmsS
     private FilmDAO filmDAO;
     @Autowired
     private RealisateurDAO realisateurDAO;
+    @Autowired
+    private UtilisateurDAO utilisateurDAO;
 
     public MyFilmsServiceImpl() {
     }
@@ -185,4 +192,63 @@ public class MyFilmsServiceImpl implements com.ensta.myfilmlist.service.MyFilmsS
             throw new ServiceException("Impossible de mettre à jour le film : " + e.getMessage());
         }
     }
+
+    @Override
+    public List<UtilisateurDTO> findAllUtilisateurs() throws ServiceException {
+        try {
+            return UtilisateurMapper.convertUtilisateurToUtilisateurDTOs(this.utilisateurDAO.findAll());
+        } catch (RuntimeException e) {
+            throw new ServiceException("Erreur lors de la récupération des réalisateurs", e);
+        }
+    }
+
+    @Override
+    public UtilisateurDTO findUtilisateurById(long id) throws ServiceException {
+        try {
+            Optional<Utilisateur> utilisateur = this.utilisateurDAO.findById(id);
+            return utilisateur.map(UtilisateurMapper::convertUtilisateurToUtilisateurDTO).orElse(null);
+        } catch (RuntimeException e) {
+            throw new ServiceException("Erreur lors de la récupération de l'utilisateur", e);
+        }
+    }
+
+    @Override
+    public UtilisateurDTO createUtilisateur(UtilisateurForm utilisateurForm) throws ServiceException {
+        try {
+            Utilisateur utilisateur = UtilisateurMapper.convertUtilisateurFormToUtilisateur(utilisateurForm);
+            System.out.println(utilisateur.getId());
+            utilisateur = this.utilisateurDAO.save(utilisateur);
+
+            return UtilisateurMapper.convertUtilisateurToUtilisateurDTO(utilisateur);
+        } catch (Exception e) {
+            throw new ServiceException("Impossible de créer l'utilisateur :" + e.getMessage());
+        }
+    }
+
+    @Override
+    public void deleteUtilisateur(long id) throws ServiceException {
+        try {
+            UtilisateurDTO utilisateurDTO = findUtilisateurById(id);
+            if (utilisateurDTO == null) {
+                throw new ServiceException("Le utilisateur n'existe pas");
+            }
+            this.utilisateurDAO.delete(UtilisateurMapper.convertUtilisateurDTOToUtilisateur(utilisateurDTO));
+        } catch (RuntimeException e) {
+            throw new ServiceException("Erreur lors de la suppression du utilisateur", e);
+        }
+    }
+
+    @Override
+    public UtilisateurDTO updateUtilisateur(Utilisateur utilisateur) throws ServiceException {
+        try {
+            utilisateur = this.utilisateurDAO.update(utilisateur);
+            return UtilisateurMapper.convertUtilisateurToUtilisateurDTO(utilisateur);
+        } catch (Exception e) {
+            throw new ServiceException("Impossible de mettre à jour le utilisateur : " + e.getMessage());
+        }
+    }
+
+
+
+
 }

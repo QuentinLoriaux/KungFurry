@@ -1,15 +1,19 @@
 package com.ensta.myfilmlist.service;
 
+import java.util.List;
+
+import org.springframework.transaction.annotation.Transactional;
+
 import com.ensta.myfilmlist.dto.FilmDTO;
 import com.ensta.myfilmlist.dto.RealisateurDTO;
+import com.ensta.myfilmlist.dto.UtilisateurDTO;
 import com.ensta.myfilmlist.exception.ServiceException;
 import com.ensta.myfilmlist.form.FilmForm;
 import com.ensta.myfilmlist.form.RealisateurForm;
+import com.ensta.myfilmlist.form.UtilisateurForm;
 import com.ensta.myfilmlist.model.Film;
 import com.ensta.myfilmlist.model.Realisateur;
-import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
+import com.ensta.myfilmlist.model.Utilisateur;
 
 public interface MyFilmsService {
     /**
@@ -116,4 +120,45 @@ public interface MyFilmsService {
      */
     @Transactional
     FilmDTO updateFilm(Film film) throws ServiceException;
+
+    /**
+     * Récupère la liste des utilisateurs.
+     * @return la liste des utilisateurs.
+     */
+    List<UtilisateurDTO> findAllUtilisateurs() throws ServiceException;
+
+    /**
+     * Récupère un utilisateur par son id.
+     * @param id
+     * @return UtilisateurDTO
+     */
+    UtilisateurDTO findUtilisateurById(long id) throws ServiceException;
+
+    /**
+     * Crée un utilisateur.
+     * @param utilisateurForm
+     * @return utilisateurDTO
+     */
+
+    @Transactional
+    UtilisateurDTO createUtilisateur(UtilisateurForm utilisateurForm) throws ServiceException;
+
+    /**
+     * Supprime un utilisateur par son id.
+     * @param id
+     * @throws ServiceException
+     */
+
+    @Transactional
+    void deleteUtilisateur(long id) throws ServiceException;
+
+    /**
+     * Met à jour un utilisateur.
+     * @param utilisateur
+     * @return utilisateurDTO
+     */
+    
+    @Transactional
+    UtilisateurDTO updateUtilisateur(Utilisateur utilisateur) throws ServiceException;
+
 }
