@@ -16,7 +16,7 @@ const RealisateurContainer = () => {
 
     const handleCreateRealisateur = (newRealisateur) => {
         postRealisateur(newRealisateur).then(response => {
-            setRealisateurs(response.data)
+            setRealisateurs([...realisateurs, response.data])
         }).catch(err => {
             alert("Une erreur est survenue lors de l'ajout du réalisateur")
             console.log("Erreur lors de l'ajout du réalisateur",err)
