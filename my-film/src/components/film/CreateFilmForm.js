@@ -6,6 +6,7 @@ function CreateFilmForm({ film , onSubmit }) {
     const [title, setTitle] = useState(film?.titre ||'');
     const [duration, setDuration] = useState(film?.duree || '');
     const [realisateur, setRealisateur] = useState(film?.realisateur || '');
+    const [realisateurId, setRealisateurId] = useState(realisateur?.id || 0);
 
     const [realisateurs, setRealisateurs] = useState([]);
 
@@ -25,7 +26,7 @@ function CreateFilmForm({ film , onSubmit }) {
         const newFilm = {
             title,
             duration,
-            realisateur: realisateur.id,
+            realisateurId: realisateurId,
         };
         // Appel de la fonction onSubmit passée en props
         onSubmit(newFilm);
@@ -34,7 +35,7 @@ function CreateFilmForm({ film , onSubmit }) {
         setTitle('');
         setDuration('');
         setRealisateur('')
-
+        setRealisateurId(0);
     };
 
     return (
@@ -72,15 +73,18 @@ function CreateFilmForm({ film , onSubmit }) {
                 <InputLabel id="realisateur-label">Réalisateur</InputLabel>
                 <Select
                     labelId="realisateur-label"
-                    value={realisateur}
-                    onChange={(e) => setRealisateur(e.target.value)}
+                    value={realisateurId}
+                    onChange={(e) => {
+                        const selectedRealisateur = realisateurs.find(r => r.id === e.target.value);
+                        setRealisateur(selectedRealisateur);
+                        setRealisateurId(e.target.value);
+                    }}
                 >
-                    {
-                        realisateurs.map(realisateur => {
-                        return <MenuItem key={realisateur.id} value={realisateur}>
-                        {realisateur.prenom} {realisateur.nom}
-                        </MenuItem>})
-                    }
+                    {realisateurs.map(realisateur => (
+                        <MenuItem key={realisateur.id} value={realisateur.id}>
+                            {realisateur.prenom} {realisateur.nom}
+                        </MenuItem>
+                    ))}
                 </Select>
             </FormControl>
             <Button type="submit" variant="contained" color="primary">

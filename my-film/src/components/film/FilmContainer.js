@@ -17,7 +17,6 @@ const FilmContainer = () => {
     const handleCreateFilm = (newFilm) => {
          postFilm(newFilm)
             .then((response) => {
-                console.log('Film created successfully:', response.data);
                 setFilms([...films, response.data]);
             })
             .catch((error) => {
