@@ -8,6 +8,9 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import com.ensta.myfilmlist.dao.GenreDAO;
+import com.ensta.myfilmlist.dto.GenreDTO;
+import com.ensta.myfilmlist.model.Genre;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,6 +27,7 @@ import com.ensta.myfilmlist.form.UtilisateurForm;
 import com.ensta.myfilmlist.mapper.FilmMapper;
 import com.ensta.myfilmlist.mapper.RealisateurMapper;
 import com.ensta.myfilmlist.mapper.UtilisateurMapper;
+import com.ensta.myfilmlist.mapper.GenreMapper;
 import com.ensta.myfilmlist.model.Film;
 import com.ensta.myfilmlist.model.Realisateur;
 import com.ensta.myfilmlist.model.Utilisateur;
@@ -39,6 +43,8 @@ public class MyFilmsServiceImpl implements com.ensta.myfilmlist.service.MyFilmsS
     private RealisateurDAO realisateurDAO;
     @Autowired
     private UtilisateurDAO utilisateurDAO;
+    @Autowired
+    private GenreDAO genreDAO;
 
     public MyFilmsServiceImpl() {
     }
@@ -270,6 +276,25 @@ public class MyFilmsServiceImpl implements com.ensta.myfilmlist.service.MyFilmsS
             this.realisateurDAO.delete(id);
         } catch (RuntimeException e) {
             throw new ServiceException("Erreur lors de la suppression du réalisateur", e);
+        }
+    }
+
+    @Override
+    public List<GenreDTO> findAllGenres() throws ServiceException {
+        try {
+            return GenreMapper.convertListGenreToListGenreDTO(this.genreDAO.getAllGenres());
+        } catch (RuntimeException e) {
+            throw new ServiceException("Erreur lors de la récupération des genres", e);
+        }
+    }
+
+    @Override
+    public GenreDTO findGenreById(long id) throws ServiceException {
+        try {
+            Optional<Genre> genre = this.genreDAO.getGenreById(id);
+            return genre.map(GenreMapper::convertGenreToGenreDTO).orElse(null);
+        } catch (RuntimeException e) {
+            throw new ServiceException("Erreur lors de la récupération du genre", e);
         }
     }
 

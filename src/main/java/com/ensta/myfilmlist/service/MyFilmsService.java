@@ -2,6 +2,7 @@ package com.ensta.myfilmlist.service;
 
 import java.util.List;
 
+import com.ensta.myfilmlist.dto.GenreDTO;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.ensta.myfilmlist.dto.FilmDTO;
@@ -177,5 +178,18 @@ public interface MyFilmsService {
      */
     @Transactional
     void deleteRealisateur(long id) throws ServiceException;
+
+    /**
+     * Récupère la liste des Genres.
+     * @return la liste des genres.
+     */
+    List<GenreDTO> findAllGenres() throws ServiceException;
+
+    /**
+     * Récupère un genre par son id.
+     * @param id
+     * @return GenreDTO
+     */
+    GenreDTO findGenreById(long id) throws ServiceException;
 
 }
