@@ -80,11 +80,17 @@ function CreateFilmForm({ film , onSubmit }) {
                         setRealisateurId(e.target.value);
                     }}
                 >
-                    {realisateurs.map(realisateur => (
-                        <MenuItem key={realisateur.id} value={realisateur.id}>
-                            {realisateur.prenom} {realisateur.nom}
+                    {realisateurs.length > 0 ? (
+                        realisateurs.map((realisateur) => (
+                            <MenuItem key={realisateur.id} value={realisateur.id}>
+                                {realisateur.prenom} {realisateur.nom}
+                            </MenuItem>
+                        ))
+                    ) : (
+                        <MenuItem disabled>
+                            Aucun réalisateur disponible
                         </MenuItem>
-                    ))}
+                    )}
                 </Select>
             </FormControl>
             <Button type="submit" variant="contained" color="primary">
