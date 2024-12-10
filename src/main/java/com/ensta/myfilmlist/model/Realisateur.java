@@ -21,7 +21,7 @@ public class Realisateur {
     @Column
     private LocalDate dateNaissance;
 
-    @OneToMany(mappedBy = "realisateur", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "realisateur", cascade = CascadeType.ALL)
     private List<Film> filmRealises = new ArrayList<>();
 
     @Column

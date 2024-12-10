@@ -25,7 +25,7 @@ function CreateFilmForm({ film , onSubmit }) {
         const newFilm = {
             title,
             duration,
-            realisateur,
+            realisateur: realisateur.id,
         };
         // Appel de la fonction onSubmit passée en props
         onSubmit(newFilm);
@@ -77,7 +77,7 @@ function CreateFilmForm({ film , onSubmit }) {
                 >
                     {
                         realisateurs.map(realisateur => {
-                        return <MenuItem key={realisateur.id} value={realisateur.id}>
+                        return <MenuItem key={realisateur.id} value={realisateur}>
                         {realisateur.prenom} {realisateur.nom}
                         </MenuItem>})
                     }
