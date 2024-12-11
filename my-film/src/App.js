@@ -4,6 +4,7 @@ import Header from './Header';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import RealisateurContainer from './components/realisateur/RealisateurContainer';
 import FilmContainer from './components/film/FilmContainer';
+import FilmPage from './components/film/FilmPage';
 
 function App() {
     return (
@@ -33,6 +34,12 @@ function App() {
                             <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center' }}>
                                 <h1>Users</h1>
                             </div>
+                        }
+                    />
+                    <Route
+                        path="/film/:id"
+                        element={
+                            <FilmPage/>
                         }
                     />
                 </Routes>

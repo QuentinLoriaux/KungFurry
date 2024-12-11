@@ -51,3 +51,12 @@ export function putFilm(filmId, film) {
 export function deleteFilm(id) {
     return axios.delete(`${FILM_URI}/${id}`);
 }
+
+/**
+ * Get a film by ID.
+ * @param {number} id - The ID of the film to be fetched.
+ * @returns {Promise} Axios response promise.
+ */
+export function getFilmById(id) {
+    return axios.get(`${FILM_URI}/${id}`);
+}

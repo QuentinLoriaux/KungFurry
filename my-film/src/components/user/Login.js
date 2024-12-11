@@ -35,7 +35,6 @@ const Login = ({ setAuth }) => {
                 border: '1px solid #ccc',
                 borderRadius: 2,
                 boxShadow: 3,
-                marginTop: '50px',
             }}
         >
             <TextField

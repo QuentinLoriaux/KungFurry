@@ -5,7 +5,6 @@ import Typography from '@mui/material/Typography';
 import Box from "@mui/material/Box";
 import { Link } from 'react-router-dom';
 import Dialog from "@mui/material/Dialog";
-import DialogTitle from "@mui/material/DialogTitle";
 import DialogContent from "@mui/material/DialogContent";
 import Login from "./components/user/Login";
 
@@ -59,7 +58,6 @@ export default function Header() {
                 </Typography>
 
                 <Dialog open={open} onClose={handleClose}>
-                    <DialogTitle>Connexion</DialogTitle>
                     <DialogContent>
                         <Login />
                     </DialogContent>

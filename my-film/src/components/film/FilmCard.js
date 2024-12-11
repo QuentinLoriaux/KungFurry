@@ -10,6 +10,7 @@ import DialogTitle from '@mui/material/DialogTitle';
 import DialogContent from '@mui/material/DialogContent';
 import { deleteFilm, putFilm, getAllFilms } from '../../api/FilmApi';
 import CreateFilmForm from './CreateFilmForm';
+import {useNavigate} from "react-router-dom";
 
 
 
@@ -66,10 +67,16 @@ export default function FilmCard(props) {
             });
     };
 
+    const navigate = useNavigate();
+
+    const handleCardClick = () => {
+        navigate(`/film/${props.film.id}`);
+    };
+
 
     return (
     <Card variant="outlined" sx={{ margin: 2, maxWidth: 300 }}>
-      <CardContent>
+      <CardContent onClick={handleCardClick}>
         <Typography variant="h5" gutterBottom>
           {props.film.titre}
         </Typography>
