@@ -7,8 +7,8 @@ function CreateFilmForm({ film , onSubmit }) {
     const [title, setTitle] = useState(film?.titre ||'');
     const [duration, setDuration] = useState(film?.duree || '');
     const [realisateur, setRealisateur] = useState(film?.realisateur || '');
-    const [realisateurId, setRealisateurId] = useState(realisateur?.id || 0);
-    const [genreId, setGenreId] = useState(film?.genre?.id || 0);
+    const [realisateurId, setRealisateurId] = useState(realisateur?.id || '');
+    const [genreId, setGenreId] = useState(film?.genre?.id || '');
 
     const [realisateurs, setRealisateurs] = useState([]);
     const [genres, setGenres] = useState([]);
@@ -16,7 +16,6 @@ function CreateFilmForm({ film , onSubmit }) {
     useEffect(() => {
         getAllRealisateurs().then(reponse => {
         setRealisateurs(reponse.data);
-        console.log(reponse.data);
         }).catch(err => {
         console.log(err);
     })
@@ -25,7 +24,6 @@ function CreateFilmForm({ film , onSubmit }) {
     useEffect(() => {
         getAllGenres().then(response => {
             setGenres(response.data);
-            console.log(response.data);
         }).catch(err => {
         console.log(err);
         })
@@ -49,8 +47,8 @@ function CreateFilmForm({ film , onSubmit }) {
         setTitle('');
         setDuration('');
         setRealisateur('')
-        setRealisateurId(0);
-        setGenreId(0);
+        setRealisateurId('');
+        setGenreId('');
     };
 
     return (

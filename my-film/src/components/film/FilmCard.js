@@ -26,26 +26,22 @@ export default function FilmCard(props) {
         })
     }, []);
 
-    // Handle the opening of the dialog
     const handleClickOnEditButton = (film) => {
         setOpen(true); // Open the dialog
     };
-
-    // Handle closing of the dialog
     const handleClose = () => {
         setOpen(false); // Close the dialog
     };
 
-    // Handle the film edit submit
     const handleEditSubmit = (updatedFilm) => {
         putFilm(props.film.id ,updatedFilm).then(response => {
-            console.log('Film edited successfully:', response.data);
-            props.setFilms((prevFilms) => prevFilms.map((film) => {
-                if (film.id === response.data.id) {
-                    return response.data;
-                }
-                return film;
-            }));
+            props.setFilms((prevFilms) => {
+                const updatedFilms = prevFilms.map((film) =>
+                    film.id === response.data.id ? response.data : film
+                );
+                props.applyFilters(updatedFilms);
+                return updatedFilms;
+            });
             handleClose();
         }).catch(error => {
             console.error('Error editing film:', error);
@@ -58,7 +54,11 @@ export default function FilmCard(props) {
         const id = props.film.id;
         deleteFilm(id)
             .then(() => {
-                props.setFilms((prevFilms) => prevFilms.filter((film) => film.id !== id));
+                props.setFilms((prevFilms) => {
+                    const updatedFilms = prevFilms.filter((film) => film.id !== id);
+                    props.applyFilters(updatedFilms);
+                    return updatedFilms;
+                });
             })
             .catch((error) => {
                 console.error('Erreur lors de la suppression du film:', error);
