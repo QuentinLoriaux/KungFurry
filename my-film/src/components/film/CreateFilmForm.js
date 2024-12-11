@@ -1,21 +1,34 @@
 import React, { useState, useEffect } from 'react';
 import { TextField, Select, MenuItem, InputLabel, FormControl, Button, Box } from '@mui/material';
 import { getAllRealisateurs } from '../../api/RealisateurApi';
+import { getAllGenres } from '../../api/GenreApi';
 
 function CreateFilmForm({ film , onSubmit }) {
     const [title, setTitle] = useState(film?.titre ||'');
     const [duration, setDuration] = useState(film?.duree || '');
     const [realisateur, setRealisateur] = useState(film?.realisateur || '');
     const [realisateurId, setRealisateurId] = useState(realisateur?.id || 0);
+    const [genreId, setGenreId] = useState(film?.genre?.id || 0);
 
     const [realisateurs, setRealisateurs] = useState([]);
+    const [genres, setGenres] = useState([]);
 
     useEffect(() => {
         getAllRealisateurs().then(reponse => {
         setRealisateurs(reponse.data);
+        console.log(reponse.data);
         }).catch(err => {
         console.log(err);
     })
+    }, [])
+
+    useEffect(() => {
+        getAllGenres().then(response => {
+            setGenres(response.data);
+            console.log(response.data);
+        }).catch(err => {
+        console.log(err);
+        })
     }, [])
 
      // Handle form submission
@@ -27,6 +40,7 @@ function CreateFilmForm({ film , onSubmit }) {
             title,
             duration,
             realisateurId: realisateurId,
+            genreId: genreId
         };
         // Appel de la fonction onSubmit passée en props
         onSubmit(newFilm);
@@ -36,6 +50,7 @@ function CreateFilmForm({ film , onSubmit }) {
         setDuration('');
         setRealisateur('')
         setRealisateurId(0);
+        setGenreId(0);
     };
 
     return (
@@ -89,6 +104,28 @@ function CreateFilmForm({ film , onSubmit }) {
                     ) : (
                         <MenuItem disabled>
                             Aucun réalisateur disponible
+                        </MenuItem>
+                    )}
+                </Select>
+            </FormControl>
+            <FormControl required>
+                <InputLabel id="genre-label">Genre</InputLabel>
+                <Select
+                    labelId="genre-label"
+                    value={genreId}
+                    onChange={(e) => {
+                        setGenreId(e.target.value);
+                    }}
+                >
+                    {genres.length > 0 ? (
+                        genres.map((genre) => (
+                            <MenuItem key={genre.id} value={genre.id}>
+                                {genre.name}
+                            </MenuItem>
+                        ))
+                    ) : (
+                        <MenuItem disabled>
+                            Aucun genre disponible
                         </MenuItem>
                     )}
                 </Select>

@@ -40,7 +40,7 @@ public class GenreResourceImpl implements com.ensta.myfilmlist.persistence.contr
 
     @Override
     @GetMapping("/{id}")
-    public ResponseEntity<GenreDTO> getGenre(@PathVariable("id") Long id) throws ControllerException {
+    public ResponseEntity<GenreDTO> getGenre(@PathVariable("id") long id) throws ControllerException {
         try {
             GenreDTO genre = myFilmsService.findGenreById(id);
             if (genre == null) {

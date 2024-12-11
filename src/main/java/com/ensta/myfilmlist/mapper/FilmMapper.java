@@ -5,9 +5,11 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import com.ensta.myfilmlist.dto.FilmDTO;
+import com.ensta.myfilmlist.dto.GenreDTO;
 import com.ensta.myfilmlist.dto.RealisateurDTO;
 import com.ensta.myfilmlist.form.FilmForm;
 import com.ensta.myfilmlist.model.Film;
+import com.ensta.myfilmlist.model.Genre;
 import com.ensta.myfilmlist.model.Realisateur;
 
 /**
@@ -42,6 +44,10 @@ public class FilmMapper {
 		if (realisateur != null) {
 			filmDTO.setRealisateur(RealisateurMapper.convertRealisateurToRealisateurDTO(realisateur));
 		}
+		Genre genre = film.getGenre();
+		if (genre != null) {
+			filmDTO.setGenre(GenreMapper.convertGenreToGenreDTO(genre));
+		}
 		return filmDTO;
 	}
 
@@ -59,6 +65,10 @@ public class FilmMapper {
 		RealisateurDTO realisateurDTO = filmDTO.getRealisateur();
 		if (realisateurDTO != null){
 			film.setRealisateur(RealisateurMapper.convertRealisateurDTOToRealisateur(realisateurDTO));
+		}
+		GenreDTO genreDTO = filmDTO.getGenre();
+		if (genreDTO != null){
+			film.setGenre(GenreMapper.convertGenreDTOToGenre(genreDTO));
 		}
 		return film;
 	}

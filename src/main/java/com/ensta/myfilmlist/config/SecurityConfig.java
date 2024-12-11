@@ -22,7 +22,7 @@ public class SecurityConfig {
                 .cors().and()
                 .csrf().disable()
                 .authorizeHttpRequests(auth -> auth
-                        .antMatchers(HttpMethod.GET, "/film/**", "/realisateur/**", "/film", "/realisateur", "/user", "/genre").permitAll()
+                        .antMatchers(HttpMethod.GET, "/film/**", "/realisateur/**", "/film", "/realisateur", "/user", "/genres").permitAll()
                         .antMatchers(HttpMethod.POST, "/film", "/realisateur", "/user").permitAll()
                         .antMatchers(HttpMethod.PUT, "/film/**", "/realisateur/**", "/user").permitAll()
                         .antMatchers(HttpMethod.DELETE, "/film/**", "/realisateur/**", "/user").permitAll()

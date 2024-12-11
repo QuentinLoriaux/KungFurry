@@ -21,6 +21,10 @@ public class Film {
 	@JoinColumn(name = "realisateur_id", nullable = false)
 	private Realisateur realisateur;
 
+	@ManyToOne
+	@JoinColumn(name = "genre_id", nullable = false)
+	private Genre genre;
+
 	public long getId() {
 		return id;
 	}
@@ -51,5 +55,13 @@ public class Film {
 
 	public void setRealisateur(Realisateur realisateur){
 		this.realisateur = realisateur;
+	}
+
+	public Genre getGenre(){
+		return genre;
+	}
+
+	public void setGenre(Genre genre){
+		this.genre = genre;
 	}
 }

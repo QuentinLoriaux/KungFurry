@@ -9,6 +9,7 @@ public class FilmDTO {
 	private String titre;
 	private int duree;
 	private RealisateurDTO realisateur;
+	private GenreDTO genre;
 
 	public long getId() {
 		return id;
@@ -36,6 +37,13 @@ public class FilmDTO {
 	}
 	public void setRealisateur(RealisateurDTO realisateur){
 		this.realisateur = realisateur;
+	}
+
+	public GenreDTO getGenre(){
+		return genre;
+	}
+	public void setGenre(GenreDTO genre){
+		this.genre = genre;
 	}
 
 	@Override

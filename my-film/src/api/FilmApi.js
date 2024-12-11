@@ -20,7 +20,8 @@ export function postFilm(film) {
     const payload = {
         titre: film.title,
         duree: parseInt(film.duration),
-        realisateurId: film.realisateurId
+        realisateurId: film.realisateurId,
+        genreId: film.genreId
     };
     return axios.post(FILM_URI, payload);
 }
@@ -36,7 +37,8 @@ export function putFilm(filmId, film) {
     const payload = {
         titre: film.title,
         duree: parseInt(film.duration),
-        realisateurId: film.realisateurId
+        realisateurId: film.realisateurId,
+        genreId: film.genreId
     }
     return axios.put(`${FILM_URI}/${filmId}`, payload);
 }

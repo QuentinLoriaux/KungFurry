@@ -1,6 +1,7 @@
 package com.ensta.myfilmlist.dao.impl;
 
 import com.ensta.myfilmlist.dao.RealisateurDAO;
+import com.ensta.myfilmlist.dao.GenreDAO;
 import com.ensta.myfilmlist.model.Film;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -22,6 +23,8 @@ public class JdbcFilmDAO implements com.ensta.myfilmlist.dao.FilmDAO {
     private JdbcTemplate jdbcTemplate;
     @Autowired
     private RealisateurDAO RealisateurDAO;
+    @Autowired
+    private GenreDAO GenreDAO;
 
     public JdbcFilmDAO() {
     }
@@ -35,13 +38,14 @@ public class JdbcFilmDAO implements com.ensta.myfilmlist.dao.FilmDAO {
             film.setTitre(rs.getString("titre"));
             film.setDuree(rs.getInt("duree"));
             film.setRealisateur(RealisateurDAO.findById(rs.getInt("realisateur_id")).orElse(null));
+            film.setGenre(GenreDAO.getGenreById(rs.getInt("genre_id")).orElse(null));
             return film;
         });
     }
 
     @Override
     public Film save(Film film){
-        String CREATE_FILM_QUERY = "INSERT INTO film (titre, duree, realisateur_id) VALUES (?, ?, ?)";
+        String CREATE_FILM_QUERY = "INSERT INTO film (titre, duree, realisateur_id, genre_id) VALUES (?, ?, ?, ?)";
 
         KeyHolder keyHolder = new GeneratedKeyHolder();
         PreparedStatementCreator creator = conn -> {
@@ -52,6 +56,7 @@ public class JdbcFilmDAO implements com.ensta.myfilmlist.dao.FilmDAO {
             statement.setString(1, film.getTitre());
             statement.setInt(2, film.getDuree());
             statement.setLong(3, film.getRealisateur().getId());
+            statement.setLong(4, film.getGenre().getId());
             return statement;
         };
 
@@ -85,6 +90,7 @@ public class JdbcFilmDAO implements com.ensta.myfilmlist.dao.FilmDAO {
                 f.setId(rs.getInt("id"));
                 f.setTitre(rs.getString("titre"));
                 f.setDuree(rs.getInt("duree"));
+                f.setGenre(GenreDAO.getGenreById(rs.getInt("genre_id")).orElse(null));
                 f.setRealisateur(RealisateurDAO.findById(rs.getInt("realisateur_id")).orElse(null));
                 return f;
             }, id);
@@ -124,16 +130,17 @@ public class JdbcFilmDAO implements com.ensta.myfilmlist.dao.FilmDAO {
             film.setTitre(rs.getString("titre"));
             film.setDuree(rs.getInt("duree"));
             film.setRealisateur(RealisateurDAO.findById(rs.getInt("realisateur_id")).orElse(null));
+            film.setGenre(GenreDAO.getGenreById(rs.getInt("genre_id")).orElse(null));
             return film;
         }, realisateurId);
     }
 
     @Override
     public Film update(Film film){
-        String UPDATE_FILM_QUERY = "UPDATE film SET titre = ?, duree = ?, realisateur_id = ? WHERE id = ?";
+        String UPDATE_FILM_QUERY = "UPDATE film SET titre = ?, duree = ?, realisateur_id = ?, genre_id = ? WHERE id = ?";
 
         try {
-            jdbcTemplate.update(UPDATE_FILM_QUERY, film.getTitre(), film.getDuree(), film.getRealisateur().getId(), film.getId());
+            jdbcTemplate.update(UPDATE_FILM_QUERY, film.getTitre(), film.getDuree(), film.getRealisateur().getId(), film.getGenre().getId(), film.getId());
             return film;
         } catch (Exception e) {
             throw new RuntimeException("Erreur lors de la mise à jour du film", e);

@@ -16,6 +16,7 @@ import java.util.List;
 
 import static com.ensta.myfilmlist.mapper.FilmMapper.convertFilmFormToFilm;
 import static com.ensta.myfilmlist.mapper.RealisateurMapper.convertRealisateurDTOToRealisateur;
+import static com.ensta.myfilmlist.mapper.GenreMapper.convertGenreDTOToGenre;
 
 @RestController
 @RequestMapping("/film")
@@ -87,6 +88,7 @@ public class FilmResourceImpl implements com.ensta.myfilmlist.persistence.contro
             Film film = convertFilmFormToFilm(filmForm);
             film.setId(id);
             film.setRealisateur(convertRealisateurDTOToRealisateur(myFilmsService.findRealisateurById(filmForm.getRealisateurId())));
+            film.setGenre(convertGenreDTOToGenre(myFilmsService.findGenreById(filmForm.getGenreId())));
             FilmDTO filmDTO = myFilmsService.updateFilm(film);
             return ResponseEntity.ok(filmDTO);
         } catch (ServiceException e) {

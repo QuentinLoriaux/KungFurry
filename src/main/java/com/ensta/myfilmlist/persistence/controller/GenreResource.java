@@ -53,6 +53,6 @@ public interface GenreResource {
             @ApiResponse(code = 404, message = "Genre non trouvé"),
     })
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    ResponseEntity<GenreDTO> getGenre(@PathVariable("id") Long id) throws ControllerException;
+    ResponseEntity<GenreDTO> getGenre(@PathVariable("id") long id) throws ControllerException;
 
 }

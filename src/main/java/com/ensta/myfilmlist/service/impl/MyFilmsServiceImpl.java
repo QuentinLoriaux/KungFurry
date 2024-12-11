@@ -114,12 +114,16 @@ public class MyFilmsServiceImpl implements com.ensta.myfilmlist.service.MyFilmsS
                 throw new ServiceException("Le réalisateur n'existe pas");
             }
             Film film = FilmMapper.convertFilmFormToFilm(form);
+            film.setGenre(this.genreDAO.getGenreById(form.getGenreId()).orElse(null));
+            if (film.getGenre() == null){
+                throw new ServiceException("Le genre n'existe pas");
+            }
             film.setRealisateur(realisateur.get());
             film = this.filmDAO.save(film);
             this.updateRealisateurCelebre(realisateur.get());
             return FilmMapper.convertFilmToFilmDTO(film);
         } catch (Exception e) {
-            throw new ServiceException("Impossible de récupérer le réalisateur : " + e.getMessage());
+            throw new ServiceException("Impossible de créer le film : " + e.getMessage());
         }
     }
 

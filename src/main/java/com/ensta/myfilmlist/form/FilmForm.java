@@ -17,6 +17,9 @@ public class FilmForm {
 	@Positive
 	private long realisateurId;
 
+	@Positive
+	private long genreId;
+
 	public String getTitre() {
 		return titre;
 	}
@@ -39,6 +42,14 @@ public class FilmForm {
 
 	public void setRealisateurId(long realisateurId) {
 		this.realisateurId = realisateurId;
+	}
+
+	public long getGenreId() {
+		return genreId;
+	}
+
+	public void setGenreId(long genreId) {
+		this.genreId = genreId;
 	}
 
 }
