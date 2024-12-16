@@ -3,6 +3,7 @@ package com.ensta.myfilmlist.dao.impl;
 import com.ensta.myfilmlist.dao.RealisateurDAO;
 import com.ensta.myfilmlist.dao.GenreDAO;
 import com.ensta.myfilmlist.model.Film;
+import com.ensta.myfilmlist.model.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -98,6 +99,26 @@ public class JdbcFilmDAO implements com.ensta.myfilmlist.dao.FilmDAO {
         } catch (EmptyResultDataAccessException e){
             return Optional.empty();
         }
+    }
+
+    @Override
+    public Page<Film> findAll(int page, int size) {
+        String query = "SELECT id, titre, duree, realisateur_id FROM film LIMIT ? OFFSET ?";
+
+        List<Film> films = jdbcTemplate.query(query, (ResultSet rs, int rowNum) -> {
+            Film film = new Film();
+            film.setId(rs.getInt("id"));
+            film.setTitre(rs.getString("titre"));
+            film.setDuree(rs.getInt("duree"));
+            film.setRealisateur(RealisateurDAO.findById(rs.getInt("realisateur_id")).orElse(null));
+            film.setGenre(GenreDAO.getGenreById(rs.getInt("genre_id")).orElse(null));
+            return film;
+        }, size, (page - 1) * size);
+
+        String countQuery = "SELECT COUNT(id) FROM film";
+        long count = jdbcTemplate.queryForObject(countQuery, Long.class);
+
+        return new Page<>(page, size, count, films);
     }
 
     @Override

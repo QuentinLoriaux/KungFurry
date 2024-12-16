@@ -4,10 +4,15 @@ const FILM_URI = 'http://localhost:8080/film';
 
 /**
  * Fetch all films from the API.
+ *
+ * @param {number} page - The page number.
+ * @param {number} size - The page size.
  * @returns {Promise} Axios response promise.
  */
-export function getAllFilms() {
-    return axios.get(FILM_URI);
+export function getAllFilms( page, size) {
+    return axios.get(FILM_URI, {
+        params: { page: page, size: size },
+    });
 }
 
 /**

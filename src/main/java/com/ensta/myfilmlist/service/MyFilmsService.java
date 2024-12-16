@@ -3,6 +3,7 @@ package com.ensta.myfilmlist.service;
 import java.util.List;
 
 import com.ensta.myfilmlist.dto.GenreDTO;
+import com.ensta.myfilmlist.model.Page;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.ensta.myfilmlist.dto.FilmDTO;
@@ -60,6 +61,15 @@ public interface MyFilmsService {
     List<FilmDTO> findAllFilms() throws ServiceException;
 
     /**
+     * Récupère la liste des films.
+     * @param page
+     * @param size
+     * @return Page<FilmDTO>
+     * @throws ServiceException
+     */
+    Page<FilmDTO> findAllFilms(int page, int size) throws ServiceException;
+
+    /**
      * Crée un film.
      * @param form le formulaire de création du film
      *
@@ -74,6 +84,15 @@ public interface MyFilmsService {
      * @return la liste des réalisateurs.
      */
     List<RealisateurDTO> findAllRealisateurs() throws ServiceException;
+
+    /**
+     * Récupère la liste des realisateurs.
+     * @param page
+     * @param size
+     * @return Page<RealisateurDTO>
+     * @throws ServiceException
+     */
+    Page<RealisateurDTO> findAllRealisateurs(int page, int size) throws ServiceException;
 
     /**
      * Récupère un réalisateurs par son nom et prénom.

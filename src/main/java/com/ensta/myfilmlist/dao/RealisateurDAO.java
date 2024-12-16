@@ -1,5 +1,6 @@
 package com.ensta.myfilmlist.dao;
 
+import com.ensta.myfilmlist.model.Page;
 import com.ensta.myfilmlist.model.Realisateur;
 
 import java.util.List;
@@ -11,6 +12,14 @@ public interface RealisateurDAO {
      * @return la liste des réalisateurs
      */
     List<Realisateur> findAll();
+
+    /**
+     * Récupère la liste des réalisateurs
+     * @param page le numéro de la page
+     * @param size la taille de la page
+     * @return la liste des réalisateurs
+     */
+    Page<Realisateur> findAll(int page, int size);
 
     /**
      * Récupère un réalisateur par son nom et prénom

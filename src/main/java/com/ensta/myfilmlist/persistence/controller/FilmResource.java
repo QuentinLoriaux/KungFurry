@@ -1,7 +1,7 @@
 package com.ensta.myfilmlist.persistence.controller;
 
 import com.ensta.myfilmlist.dto.FilmDTO;
-import com.ensta.myfilmlist.dto.RealisateurDTO;
+import com.ensta.myfilmlist.model.Page;
 import com.ensta.myfilmlist.exception.ControllerException;
 import com.ensta.myfilmlist.form.FilmForm;
 import org.springframework.http.ResponseEntity;
@@ -22,15 +22,36 @@ import java.util.List;
 @Tag(name = "Film", description = "Opérations sur les films")
 public interface FilmResource {
 
+//    /**
+//     * Renvoie la liste non nulle de tous les films disponibles, ainsi que leur réalisateur associé.
+//     *
+//     * @return List of FilmDTO
+//     * @throws ControllerException en cas d'erreur de traitement
+//     */
+//    @ApiOperation(
+//            value = "Lister les films",
+//            notes = "Permet de renvoyer la liste de tous les films.",
+//            produces = MediaType.APPLICATION_JSON_VALUE
+//    )
+//    @ApiResponses(value = {
+//            @ApiResponse(code = 200, message = "Liste des films trouvée avec succès"),
+//            @ApiResponse(code = 404, message = "Liste des films vide"),
+//    })
+//    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+//
+//    ResponseEntity<List<FilmDTO>> getAllFilms() throws ControllerException;
+
     /**
-     * Renvoie la liste non nulle de tous les films disponibles, ainsi que leur réalisateur associé.
+     * Renvoie la liste de films de la page donnée.
      *
-     * @return List of FilmDTO
+     * @param page le numéro de la page
+     * @param size la taille de la page
+     * @return âge of FilmDTO
      * @throws ControllerException en cas d'erreur de traitement
      */
     @ApiOperation(
             value = "Lister les films",
-            notes = "Permet de renvoyer la liste de tous les films.",
+            notes = "Permet de renvoyer la liste de films de la page donnée.",
             produces = MediaType.APPLICATION_JSON_VALUE
     )
     @ApiResponses(value = {
@@ -38,8 +59,7 @@ public interface FilmResource {
             @ApiResponse(code = 404, message = "Liste des films vide"),
     })
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-
-    ResponseEntity<List<FilmDTO>> getAllFilms() throws ControllerException;
+    ResponseEntity<Page<FilmDTO>> getAllFilms(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size) throws ControllerException;
 
     /**
      * Renvoie le film ayant l'id donné.

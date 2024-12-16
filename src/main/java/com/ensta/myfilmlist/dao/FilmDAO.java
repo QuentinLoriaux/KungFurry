@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import com.ensta.myfilmlist.model.Film;
+import com.ensta.myfilmlist.model.Page;
 
 public interface FilmDAO {
 
@@ -14,6 +15,15 @@ public interface FilmDAO {
      * @return la liste de tous les films
      */
     public List<Film> findAll();
+
+    /**
+     * Renvoie la liste de tous les films avec pagination.
+     *
+     * @param page le numéro de la page
+     * @param size la taille de la page
+     * @return la liste de tous les films de la page
+     */
+    public Page<Film> findAll(int page, int size);
 
     /**
      * Ajoute un film.

@@ -1,5 +1,5 @@
-import React, {useEffect, useState} from "react";
-import {deleteRealisateur, getAllRealisateurs, updateRealisateur} from "../../api/RealisateurApi";
+import React, {useState} from "react";
+import {deleteRealisateur, updateRealisateur} from "../../api/RealisateurApi";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import IconButton from "@mui/material/IconButton";
@@ -13,17 +13,8 @@ import CreateRealisateurForm from "./CreateRealisateurForm";
 
 export default function RealisateurCard(props) {
     const [open, setOpen] = useState(false);
-    const [realisateurs, setRealisateurs] = useState([]);
 
-    useEffect(() => {
-        getAllRealisateurs().then(reponse => {
-            setRealisateurs(reponse.data);
-        }).catch(err => {
-            console.log(err);
-        })
-    }, []);
-
-    const handleClickOnEditButton = (realisateur) => {
+    const handleClickOnEditButton = () => {
         setOpen(true);
     };
 

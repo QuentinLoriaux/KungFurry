@@ -1,5 +1,6 @@
 package com.ensta.myfilmlist.dao.impl;
 
+import com.ensta.myfilmlist.model.Page;
 import com.ensta.myfilmlist.model.Realisateur;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Repository;
@@ -17,6 +18,15 @@ public class JpaRealisateurDAO implements com.ensta.myfilmlist.dao.RealisateurDA
 
     public List<Realisateur> findAll() {
         return entityManager.createQuery("SELECT r FROM Realisateur r", Realisateur.class).getResultList();
+    }
+
+    public Page<Realisateur> findAll(int page, int size) {
+        List<Realisateur> data = entityManager.createQuery("SELECT r FROM Realisateur r", Realisateur.class)
+                .setFirstResult((page-1) * size)
+                .setMaxResults(size)
+                .getResultList();
+        long total = entityManager.createQuery("SELECT COUNT(r) FROM Realisateur r", Long.class).getSingleResult();
+        return new Page<>(page, size, total, data);
     }
 
     public Optional<Realisateur> findById(long id) {

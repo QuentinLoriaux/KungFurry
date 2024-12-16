@@ -4,12 +4,19 @@ import React, { useState, useEffect } from "react";
 import { getAllFilms, postFilm } from "../../api/FilmApi";
 import IconButton from '@mui/material/IconButton';
 import {Button, FormControl, InputLabel, MenuItem, Select, TextField} from "@mui/material";
-import {SwapVert} from "@mui/icons-material";
+import {
+    SwapVert
+} from "@mui/icons-material";
 import Dialog from "@mui/material/Dialog";
 import DialogContent from "@mui/material/DialogContent";
+import PageSelector from "../PageSelector";
 
 const FilmContainer = () => {
     const [films, setFilms] = useState([]);
+    const [currentPage, setCurrentPage] = useState(1);
+    const [totalPages, setTotalPages] = useState(1);
+    const pageSize = 10;
+
     const [open, setOpen] = useState(false);
     const [filteredFilms, setFilteredFilms] = useState([]);
     const [searchQuery, setSearchQuery] = useState("");
@@ -20,13 +27,24 @@ const FilmContainer = () => {
     const handleClose = () => setOpen(false);
 
     useEffect(() => {
-        getAllFilms().then(reponse => {
-            setFilms(reponse.data);
-            setFilteredFilms(reponse.data);
-        }).catch(err => {
-            console.log(err);
-        })
-    }, []);
+        const fetchFilms = () => {
+            getAllFilms(currentPage, pageSize)
+                .then((response) => {
+                    setFilms(response.data.data);
+                    setFilteredFilms(response.data.data);
+                    setTotalPages(Math.ceil(response.data.total / pageSize));
+                })
+                .catch((err) => {
+                    console.error("Erreur lors de la récupération des films :", err);
+                });
+        };
+
+        fetchFilms();
+    }, [currentPage, pageSize]);
+
+    const handlePageChange = (page) => {
+        setCurrentPage(page);
+    };
 
     const handleCreateFilm = (newFilm) => {
          postFilm(newFilm)
@@ -34,6 +52,7 @@ const FilmContainer = () => {
                 const updatedFilms = [...films, response.data];
                 setFilms(updatedFilms);
                 applyFilters(updatedFilms, searchQuery, sortOption);
+                setTotalPages(Math.ceil(updatedFilms.length / pageSize));
             })
             .catch((error) => {
                 console.error('Erreur lors de la création du film:', error);
@@ -140,6 +159,11 @@ const FilmContainer = () => {
             <div style={{flex: 1, marginLeft: "20px", display: "flex", justifyContent: "center"}}>
                 <FilmList films={filteredFilms} setFilms={setFilms} applyFilters={(newFilms) => applyFilters(newFilms, searchQuery, sortOption)}/>
             </div>
+            <PageSelector
+                totalPages={totalPages}
+                currentPage={currentPage}
+                onPageChange={handlePageChange}
+            />
         </div>
     );
 }

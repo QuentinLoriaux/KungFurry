@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
@@ -8,7 +8,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import Dialog from '@mui/material/Dialog';
 import DialogTitle from '@mui/material/DialogTitle';
 import DialogContent from '@mui/material/DialogContent';
-import { deleteFilm, putFilm, getAllFilms } from '../../api/FilmApi';
+import { deleteFilm, putFilm} from '../../api/FilmApi';
 import CreateFilmForm from './CreateFilmForm';
 import {useNavigate} from "react-router-dom";
 
@@ -16,16 +16,7 @@ import {useNavigate} from "react-router-dom";
 
 
 export default function FilmCard(props) {
-    const [open, setOpen] = React.useState(false);
-    const [films, setFilms] = useState([]);
-
-    useEffect(() => {
-        getAllFilms().then(reponse => {
-            setFilms(reponse.data);
-        }).catch(err => {
-            console.log(err);
-        })
-    }, []);
+    const [open, setOpen] = useState(false);
 
     const handleClickOnEditButton = (film) => {
         setOpen(true); // Open the dialog

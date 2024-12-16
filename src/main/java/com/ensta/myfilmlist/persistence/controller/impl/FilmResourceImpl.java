@@ -5,6 +5,7 @@ import com.ensta.myfilmlist.dto.FilmDTO;
 import com.ensta.myfilmlist.model.Film;
 import com.ensta.myfilmlist.exception.ServiceException;
 import com.ensta.myfilmlist.form.FilmForm;
+import com.ensta.myfilmlist.model.Page;
 import com.ensta.myfilmlist.service.MyFilmsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -29,12 +30,26 @@ public class FilmResourceImpl implements com.ensta.myfilmlist.persistence.contro
         this.myFilmsService = myFilmsService;
     }
 
+//    @Override
+//    @GetMapping
+//    public ResponseEntity<List<FilmDTO>> getAllFilms() throws ControllerException {
+//        try {
+//            List<FilmDTO> films = myFilmsService.findAllFilms();
+//            if (films.isEmpty()) {
+//                return ResponseEntity.noContent().build();
+//            }
+//            return ResponseEntity.ok(films);
+//        } catch (Exception e) {
+//            throw new ControllerException("Erreur lors de la récupération des films", e);
+//        }
+//    }
+
     @Override
     @GetMapping
-    public ResponseEntity<List<FilmDTO>> getAllFilms() throws ControllerException {
+    public ResponseEntity<Page<FilmDTO>> getAllFilms(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size) throws ControllerException {
         try {
-            List<FilmDTO> films = myFilmsService.findAllFilms();
-            if (films.isEmpty()) {
+            Page<FilmDTO> films = myFilmsService.findAllFilms(page, size);
+            if (films.getData().isEmpty()) {
                 return ResponseEntity.noContent().build();
             }
             return ResponseEntity.ok(films);

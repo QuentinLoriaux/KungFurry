@@ -3,6 +3,7 @@ package com.ensta.myfilmlist.persistence.controller;
 import com.ensta.myfilmlist.dto.RealisateurDTO;
 import com.ensta.myfilmlist.exception.ControllerException;
 import com.ensta.myfilmlist.form.RealisateurForm;
+import com.ensta.myfilmlist.model.Page;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -21,10 +22,30 @@ import java.util.List;
 @Tag(name = "Réalisateur", description = "Opérations sur les réalisateurs")
 public interface RealisateurResource {
 
+//    /**
+//     * Renvoie la liste non nulle de tous les réalisateurs disponibles.
+//     *
+//     * @return List of RealisateurDTO
+//     * @throws ControllerException en cas d'erreur de traitement
+//     */
+//    @ApiOperation(
+//            value = "Lister les réalisateurs",
+//            notes = "Permet de renvoyer la liste de tous les réalisateurs.",
+//            produces = MediaType.APPLICATION_JSON_VALUE
+//    )
+//    @ApiResponses(value = {
+//            @ApiResponse(code = 200, message = "Liste des réalisateurs trouvée avec succès"),
+//            @ApiResponse(code = 404, message = "Liste des réalisateurs vide"),
+//    })
+//    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+//    ResponseEntity<List<RealisateurDTO>> getAllRealisateurs() throws ControllerException;
+
     /**
-     * Renvoie la liste non nulle de tous les réalisateurs disponibles.
+     * Renvoie la page de réalisateurs.
      *
-     * @return List of RealisateurDTO
+     * @param page le numéro de la page
+     * @param size la taille de la page
+     * @return la page de RealisateurDTO
      * @throws ControllerException en cas d'erreur de traitement
      */
     @ApiOperation(
@@ -37,7 +58,7 @@ public interface RealisateurResource {
             @ApiResponse(code = 404, message = "Liste des réalisateurs vide"),
     })
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    ResponseEntity<List<RealisateurDTO>> getAllRealisateurs() throws ControllerException;
+    ResponseEntity<Page<RealisateurDTO>> getAllRealisateurs(@RequestParam int page, @RequestParam int size) throws ControllerException;
 
     /**
      * Renvoie le réalisateur ayant l'id donné.

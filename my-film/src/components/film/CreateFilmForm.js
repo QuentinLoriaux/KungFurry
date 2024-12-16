@@ -14,8 +14,8 @@ function CreateFilmForm({ film , onSubmit }) {
     const [genres, setGenres] = useState([]);
 
     useEffect(() => {
-        getAllRealisateurs().then(reponse => {
-        setRealisateurs(reponse.data);
+        getAllRealisateurs(0,20).then(reponse => {
+        setRealisateurs(reponse.data.data);
         }).catch(err => {
         console.log(err);
     })

@@ -1,5 +1,6 @@
 package com.ensta.myfilmlist.dao.impl;
 
+import com.ensta.myfilmlist.model.Page;
 import com.ensta.myfilmlist.model.Realisateur;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -37,6 +38,11 @@ public class JdbcRealisateurDAO implements com.ensta.myfilmlist.dao.RealisateurD
             realisateur.setCelebre(rs.getBoolean("celebre"));
             return realisateur;
         });
+    }
+
+    @Override
+    public Page<Realisateur> findAll(int page, int size){
+        return null;
     }
 
     @Override

@@ -10,7 +10,7 @@ import java.util.stream.Stream;
 
 import com.ensta.myfilmlist.dao.GenreDAO;
 import com.ensta.myfilmlist.dto.GenreDTO;
-import com.ensta.myfilmlist.model.Genre;
+import com.ensta.myfilmlist.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,9 +28,6 @@ import com.ensta.myfilmlist.mapper.FilmMapper;
 import com.ensta.myfilmlist.mapper.RealisateurMapper;
 import com.ensta.myfilmlist.mapper.UtilisateurMapper;
 import com.ensta.myfilmlist.mapper.GenreMapper;
-import com.ensta.myfilmlist.model.Film;
-import com.ensta.myfilmlist.model.Realisateur;
-import com.ensta.myfilmlist.model.Utilisateur;
 
 @Service
 public class MyFilmsServiceImpl implements com.ensta.myfilmlist.service.MyFilmsService {
@@ -107,6 +104,16 @@ public class MyFilmsServiceImpl implements com.ensta.myfilmlist.service.MyFilmsS
     }
 
     @Override
+    public Page<FilmDTO> findAllFilms(int page, int size) throws ServiceException {
+        try {
+            Page<Film> films = this.filmDAO.findAll(page, size);
+            return new Page<>(films.getNumber(), films.getSize(), films.getTotal(), FilmMapper.convertFilmToFilmDTOs(films.getData()));
+        } catch (RuntimeException e) {
+            throw new ServiceException("Erreur lors de la récupération des films", e);
+        }
+    }
+
+    @Override
     public FilmDTO createFilm(FilmForm form) throws ServiceException {
         try {
             Optional<Realisateur> realisateur = this.realisateurDAO.findById(form.getRealisateurId());
@@ -135,6 +142,20 @@ public class MyFilmsServiceImpl implements com.ensta.myfilmlist.service.MyFilmsS
                 realisateurDTO.setFilmRealises(FilmMapper.convertFilmToFilmDTOs(this.filmDAO.findByRealisateurId(realisateurDTO.getId())));
             }
             return realisateurDTOS;
+        } catch (RuntimeException e) {
+            throw new ServiceException("Erreur lors de la récupération des réalisateurs", e);
+        }
+    }
+
+    @Override
+    public Page<RealisateurDTO> findAllRealisateurs(int page, int size) throws ServiceException {
+        try {
+            Page<Realisateur> realisateurs = this.realisateurDAO.findAll(page, size);
+            List<RealisateurDTO> realisateurDTOS = RealisateurMapper.convertRealisateurToRealisateurDTOs(realisateurs.getData());
+            for (RealisateurDTO realisateurDTO : realisateurDTOS) {
+                realisateurDTO.setFilmRealises(FilmMapper.convertFilmToFilmDTOs(this.filmDAO.findByRealisateurId(realisateurDTO.getId())));
+            }
+            return new Page<>(realisateurs.getNumber(), realisateurs.getSize(), realisateurs.getTotal(), realisateurDTOS);
         } catch (RuntimeException e) {
             throw new ServiceException("Erreur lors de la récupération des réalisateurs", e);
         }

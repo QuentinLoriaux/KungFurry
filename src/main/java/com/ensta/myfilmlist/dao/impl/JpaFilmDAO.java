@@ -1,6 +1,7 @@
 package com.ensta.myfilmlist.dao.impl;
 
 import com.ensta.myfilmlist.model.Film;
+import com.ensta.myfilmlist.model.Page;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Repository;
 import javax.persistence.EntityManager;
@@ -16,6 +17,15 @@ public class JpaFilmDAO implements com.ensta.myfilmlist.dao.FilmDAO {
 
     public List<Film> findAll() {
         return entityManager.createQuery("SELECT f FROM Film f", Film.class).getResultList();
+    }
+
+    public Page<Film> findAll(int page, int size) {
+        List<Film> films = entityManager.createQuery("SELECT f FROM Film f", Film.class)
+                .setFirstResult((page - 1) * size)
+                .setMaxResults(size)
+                .getResultList();
+        long count = entityManager.createQuery("SELECT COUNT(f) FROM Film f", Long.class).getSingleResult();
+        return new Page<>(page, size, count, films);
     }
 
     public Film save(Film film) {

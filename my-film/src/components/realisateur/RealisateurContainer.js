@@ -7,8 +7,8 @@ const RealisateurContainer = () => {
     const [realisateurs, setRealisateurs] = useState([])
 
     useEffect(() => {
-        getAllRealisateurs().then(response => {
-            setRealisateurs(response.data)
+        getAllRealisateurs(0,25).then(response => {
+            setRealisateurs(response.data.data)
         }).catch(err => {
             console.log(err);
         })
