@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Repository;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 import java.util.List;
 import java.util.Optional;
 
@@ -19,12 +20,37 @@ public class JpaFilmDAO implements com.ensta.myfilmlist.dao.FilmDAO {
         return entityManager.createQuery("SELECT f FROM Film f", Film.class).getResultList();
     }
 
-    public Page<Film> findAll(int page, int size) {
-        List<Film> films = entityManager.createQuery("SELECT f FROM Film f", Film.class)
-                .setFirstResult((page - 1) * size)
-                .setMaxResults(size)
-                .getResultList();
-        long count = entityManager.createQuery("SELECT COUNT(f) FROM Film f", Long.class).getSingleResult();
+    public Page<Film> findAll(int page, int size, String query, String sort, String order) {
+        StringBuilder jpql = new StringBuilder("SELECT f FROM Film f");
+        StringBuilder countJpql = new StringBuilder("SELECT COUNT(f) FROM Film f");
+
+        if (query != null && !query.isEmpty()) {
+            String whereClause = " WHERE LOWER(f.titre) LIKE :query";
+            jpql.append(whereClause);
+            countJpql.append(whereClause);
+        }
+
+        if (sort != null && !sort.isEmpty()) {
+            jpql.append(" ORDER BY f.").append(sort);
+            if (order != null && order.equalsIgnoreCase("desc")) {
+                jpql.append(" DESC");
+            } else {
+                jpql.append(" ASC");
+            }
+        }
+
+        TypedQuery<Film> queryObj = entityManager.createQuery(jpql.toString(), Film.class)
+                .setFirstResult((page -1) * size)
+                .setMaxResults(size);
+        TypedQuery<Long> countQuery = entityManager.createQuery(countJpql.toString(), Long.class);
+
+        if (query != null && !query.isEmpty()) {
+            queryObj.setParameter("query", "%" + query.toLowerCase() + "%");
+            countQuery.setParameter("query", "%" + query.toLowerCase() + "%");
+        }
+
+        List<Film> films = queryObj.getResultList();
+        long count = countQuery.getSingleResult();
         return new Page<>(page, size, count, films);
     }
 

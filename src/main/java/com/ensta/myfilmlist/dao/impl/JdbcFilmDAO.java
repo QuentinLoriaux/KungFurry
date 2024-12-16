@@ -102,7 +102,7 @@ public class JdbcFilmDAO implements com.ensta.myfilmlist.dao.FilmDAO {
     }
 
     @Override
-    public Page<Film> findAll(int page, int size) {
+    public Page<Film> findAll(int page, int size, String query2, String sort, String order){
         String query = "SELECT id, titre, duree, realisateur_id FROM film LIMIT ? OFFSET ?";
 
         List<Film> films = jdbcTemplate.query(query, (ResultSet rs, int rowNum) -> {

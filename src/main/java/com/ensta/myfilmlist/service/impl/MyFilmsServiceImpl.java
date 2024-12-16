@@ -104,9 +104,9 @@ public class MyFilmsServiceImpl implements com.ensta.myfilmlist.service.MyFilmsS
     }
 
     @Override
-    public Page<FilmDTO> findAllFilms(int page, int size) throws ServiceException {
+    public Page<FilmDTO> findAllFilms(int page, int size, String query, String sort, String order) throws ServiceException {
         try {
-            Page<Film> films = this.filmDAO.findAll(page, size);
+            Page<Film> films = this.filmDAO.findAll(page, size, query, sort, order);
             return new Page<>(films.getNumber(), films.getSize(), films.getTotal(), FilmMapper.convertFilmToFilmDTOs(films.getData()));
         } catch (RuntimeException e) {
             throw new ServiceException("Erreur lors de la récupération des films", e);

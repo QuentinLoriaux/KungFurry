@@ -23,7 +23,7 @@ public interface FilmDAO {
      * @param size la taille de la page
      * @return la liste de tous les films de la page
      */
-    public Page<Film> findAll(int page, int size);
+    public Page<Film> findAll(int page, int size, String query, String sort, String order);
 
     /**
      * Ajoute un film.

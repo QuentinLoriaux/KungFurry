@@ -46,6 +46,9 @@ public interface FilmResource {
      *
      * @param page le numéro de la page
      * @param size la taille de la page
+     * @param query la recherche
+     * @param sort le tri
+     * @param order l'ordre
      * @return âge of FilmDTO
      * @throws ControllerException en cas d'erreur de traitement
      */
@@ -59,7 +62,13 @@ public interface FilmResource {
             @ApiResponse(code = 404, message = "Liste des films vide"),
     })
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    ResponseEntity<Page<FilmDTO>> getAllFilms(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size) throws ControllerException;
+    ResponseEntity<Page<FilmDTO>> getAllFilms(
+            @RequestParam(defaultValue = "1") int page,
+            @RequestParam(defaultValue = "10") int size,
+            @RequestParam(required = false) String query,
+            @RequestParam(required = false) String sort,
+            @RequestParam(required = false) String order)
+            throws ControllerException;
 
     /**
      * Renvoie le film ayant l'id donné.

@@ -8,6 +8,7 @@ import com.ensta.myfilmlist.form.FilmForm;
 import com.ensta.myfilmlist.model.Page;
 import com.ensta.myfilmlist.service.MyFilmsService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Required;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -46,9 +47,15 @@ public class FilmResourceImpl implements com.ensta.myfilmlist.persistence.contro
 
     @Override
     @GetMapping
-    public ResponseEntity<Page<FilmDTO>> getAllFilms(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size) throws ControllerException {
+    public ResponseEntity<Page<FilmDTO>> getAllFilms(
+            @RequestParam(defaultValue = "1") int page,
+            @RequestParam(defaultValue = "10") int size,
+            @RequestParam(required = false) String query,
+            @RequestParam(required = false) String sort,
+            @RequestParam(required = false) String order)
+            throws ControllerException {
         try {
-            Page<FilmDTO> films = myFilmsService.findAllFilms(page, size);
+            Page<FilmDTO> films = myFilmsService.findAllFilms(page, size, query, sort, order);
             if (films.getData().isEmpty()) {
                 return ResponseEntity.noContent().build();
             }

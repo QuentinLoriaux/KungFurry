@@ -64,10 +64,13 @@ public interface MyFilmsService {
      * Récupère la liste des films.
      * @param page
      * @param size
+     * @param query
+     * @param sort
+     * @param order
      * @return Page<FilmDTO>
      * @throws ServiceException
      */
-    Page<FilmDTO> findAllFilms(int page, int size) throws ServiceException;
+    Page<FilmDTO> findAllFilms(int page, int size, String query, String sort, String order) throws ServiceException;
 
     /**
      * Crée un film.
