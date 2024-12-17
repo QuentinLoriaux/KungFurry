@@ -18,7 +18,7 @@ export function getAllUsers() {
 export function createUser(user) {
   const payload = {
     username: user.username,
-    password: user.password,
+    password: user.md5Hex,
     roleId : 0,
   };
   return axios.post(USER_URI, payload);
@@ -42,8 +42,8 @@ export function getUserById(id) {
 export function updateUser(userId, user) {
   const payload = {
     username: user.username,
-    password: user.password,
-    roleId : 0,
+    password: user.md5Hex,
+    roleId : user.roleId,
   };
   return axios.put(`${USER_URI}/${userId}`, payload);
 }

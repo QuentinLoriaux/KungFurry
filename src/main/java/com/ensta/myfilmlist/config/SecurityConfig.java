@@ -24,8 +24,8 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .antMatchers(HttpMethod.GET, "/film/**", "/realisateur/**", "/film", "/realisateur", "/user", "/genres").permitAll()
                         .antMatchers(HttpMethod.POST, "/film", "/realisateur", "/user").permitAll()
-                        .antMatchers(HttpMethod.PUT, "/film/**", "/realisateur/**", "/user").permitAll()
-                        .antMatchers(HttpMethod.DELETE, "/film/**", "/realisateur/**", "/user").permitAll()
+                        .antMatchers(HttpMethod.PUT, "/film/**", "/realisateur/**", "/user/**").permitAll()
+                        .antMatchers(HttpMethod.DELETE, "/film/**", "/realisateur/**", "/user/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .formLogin(Customizer.withDefaults())

@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import RealisateurContainer from './components/realisateur/RealisateurContainer';
 import FilmContainer from './components/film/FilmContainer';
 import FilmPage from './components/film/FilmPage';
+import UserContainer from "./components/user/UserContainer";
 
 function App() {
     return (
@@ -32,7 +33,7 @@ function App() {
                         path="/users"
                         element={
                             <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center' }}>
-                                <h1>Users</h1>
+                                <UserContainer />
                             </div>
                         }
                     />
