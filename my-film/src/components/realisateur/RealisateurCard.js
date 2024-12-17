@@ -61,6 +61,9 @@ export default function RealisateurCard(props) {
                 <Typography variant="body1">
                     Né(e) le {props.realisateur.dateNaissance}
                 </Typography>
+                <Typography variant="body1">
+                    {props.realisateur.celebre ? "Célèbre" : "Non célèbre"}
+                </Typography>
             </CardContent>
 
             <IconButton onClick={handleClickOnDeleteButton}>

@@ -21,7 +21,7 @@ function FilmPage() {
         <div>
             <h1>{film.titre}</h1>
             <p>Durée : {film.duree} minutes</p>
-            <p>Réalisateur : {film.realisateur.prenom} {film.realisateur.nom}</p>
+            <p>Réalisateur : {film.realisateur.prenom} {film.realisateur.nom} {film.realisateur.celebre ? "(Célèbre)" : ""}</p>
             <p>Genre : {film.genre.name}</p>
         </div>
     );
