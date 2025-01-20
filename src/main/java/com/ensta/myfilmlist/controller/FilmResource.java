@@ -1,20 +1,19 @@
 package com.ensta.myfilmlist.controller;
 
 import com.ensta.myfilmlist.dto.FilmDTO;
-import com.ensta.myfilmlist.model.Page;
 import com.ensta.myfilmlist.exception.ControllerException;
 import com.ensta.myfilmlist.form.FilmForm;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import com.ensta.myfilmlist.model.Page;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import org.springframework.http.MediaType;
-
 import javax.validation.Valid;
-import java.util.List;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
 
 // L’API s’appelle « Film » et utilise le Tag « Film »
 // Le tag « Film » contient la description de l’API
