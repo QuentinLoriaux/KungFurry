@@ -1,9 +1,10 @@
-package com.ensta.myfilmlist.persistence.controller.impl;
+package com.ensta.myfilmlist.controller.impl;
 
 import java.util.List;
 
 import javax.validation.Valid;
 
+import com.ensta.myfilmlist.controller.UtilisateurResource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -27,7 +28,7 @@ import com.ensta.myfilmlist.service.MyFilmsService;
 @RestController
 @RequestMapping("/user")
 @Validated
-public class UtilisateurResourceImpl implements com.ensta.myfilmlist.persistence.controller.UtilisateurResource {
+public class UtilisateurResourceImpl implements UtilisateurResource {
     private final MyFilmsService myFilmsService;
 
     @Autowired

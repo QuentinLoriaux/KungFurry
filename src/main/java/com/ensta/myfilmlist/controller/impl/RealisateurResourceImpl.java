@@ -1,5 +1,6 @@
-package com.ensta.myfilmlist.persistence.controller.impl;
+package com.ensta.myfilmlist.controller.impl;
 
+import com.ensta.myfilmlist.controller.RealisateurResource;
 import com.ensta.myfilmlist.exception.ServiceException;
 import com.ensta.myfilmlist.form.RealisateurForm;
 import com.ensta.myfilmlist.model.Page;
@@ -10,8 +11,6 @@ import com.ensta.myfilmlist.dto.RealisateurDTO;
 import com.ensta.myfilmlist.exception.ControllerException;
 import org.springframework.http.ResponseEntity;
 
-import java.security.Provider;
-import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -21,7 +20,7 @@ import javax.validation.Valid;
 @RestController
 @RequestMapping("/realisateur")
 @Validated
-public class RealisateurResourceImpl implements com.ensta.myfilmlist.persistence.controller.RealisateurResource {
+public class RealisateurResourceImpl implements RealisateurResource {
     private final MyFilmsService myFilmsService;
 
     @Autowired

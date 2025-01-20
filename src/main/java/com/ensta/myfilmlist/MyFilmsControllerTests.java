@@ -4,7 +4,7 @@ import com.ensta.myfilmlist.dto.FilmDTO;
 import com.ensta.myfilmlist.exception.ControllerException;
 import com.ensta.myfilmlist.exception.ServiceException;
 import com.ensta.myfilmlist.model.Page;
-import com.ensta.myfilmlist.persistence.controller.impl.FilmResourceImpl;
+import com.ensta.myfilmlist.controller.impl.FilmResourceImpl;
 import com.ensta.myfilmlist.service.MyFilmsService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

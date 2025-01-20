@@ -1,4 +1,4 @@
-package com.ensta.myfilmlist.persistence.controller;
+package com.ensta.myfilmlist.controller;
 
 import com.ensta.myfilmlist.dto.GenreDTO;
 import com.ensta.myfilmlist.exception.ControllerException;

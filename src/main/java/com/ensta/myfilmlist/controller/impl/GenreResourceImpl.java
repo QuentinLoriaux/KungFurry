@@ -1,5 +1,6 @@
-package com.ensta.myfilmlist.persistence.controller.impl;
+package com.ensta.myfilmlist.controller.impl;
 
+import com.ensta.myfilmlist.controller.GenreResource;
 import com.ensta.myfilmlist.dto.GenreDTO;
 import com.ensta.myfilmlist.exception.ControllerException;
 import com.ensta.myfilmlist.service.MyFilmsService;
@@ -14,7 +15,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("genres")
-public class GenreResourceImpl implements com.ensta.myfilmlist.persistence.controller.GenreResource {
+public class GenreResourceImpl implements GenreResource {
 
     private final MyFilmsService myFilmsService;
 

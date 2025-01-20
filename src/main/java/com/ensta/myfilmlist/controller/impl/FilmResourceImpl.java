@@ -1,5 +1,6 @@
-package com.ensta.myfilmlist.persistence.controller.impl;
+package com.ensta.myfilmlist.controller.impl;
 
+import com.ensta.myfilmlist.controller.FilmResource;
 import com.ensta.myfilmlist.exception.ControllerException;
 import com.ensta.myfilmlist.dto.FilmDTO;
 import com.ensta.myfilmlist.model.Film;
@@ -8,13 +9,11 @@ import com.ensta.myfilmlist.form.FilmForm;
 import com.ensta.myfilmlist.model.Page;
 import com.ensta.myfilmlist.service.MyFilmsService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Required;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.List;
 
 import static com.ensta.myfilmlist.mapper.FilmMapper.convertFilmFormToFilm;
 import static com.ensta.myfilmlist.mapper.RealisateurMapper.convertRealisateurDTOToRealisateur;
@@ -23,7 +22,7 @@ import static com.ensta.myfilmlist.mapper.GenreMapper.convertGenreDTOToGenre;
 @RestController
 @RequestMapping("/film")
 @Validated
-public class FilmResourceImpl implements com.ensta.myfilmlist.persistence.controller.FilmResource {
+public class FilmResourceImpl implements FilmResource {
     private final MyFilmsService myFilmsService;
 
     @Autowired
