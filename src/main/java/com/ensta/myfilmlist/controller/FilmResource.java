@@ -2,12 +2,14 @@ package com.ensta.myfilmlist.controller;
 
 import com.ensta.myfilmlist.dto.FilmDTO;
 import com.ensta.myfilmlist.exception.ControllerException;
+import com.ensta.myfilmlist.form.FilmForm;
 import com.ensta.myfilmlist.model.Page;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import javax.validation.Valid;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -55,8 +57,8 @@ public interface FilmResource {
             produces = MediaType.APPLICATION_JSON_VALUE
     )
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Liste des hentai trouvés avec succès"),
-            @ApiResponse(code = 404, message = "Liste des shojo vide"),
+            @ApiResponse(code = 200, message = "Liste des films trouvée avec succès"),
+            @ApiResponse(code = 404, message = "Liste des films vide"),
     })
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     ResponseEntity<Page<FilmDTO>> getAllFilms(
@@ -75,12 +77,12 @@ public interface FilmResource {
      * @throws ControllerException en cas d'erreur de traitement
      */
     @ApiOperation(
-            value = "Récupérer un porno",
+            value = "Récupérer un film",
             notes = "Permet de renvoyer un film en fonction de son identifiant.",
             produces = MediaType.APPLICATION_JSON_VALUE
     )
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "50 nuances de grey <3),
+            @ApiResponse(code = 200, message = "Film trouvé avec succès"),
             @ApiResponse(code = 404, message = "Film non trouvé"),
     })
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -100,7 +102,7 @@ public interface FilmResource {
     )
     @ApiResponses(value = {
             @ApiResponse(code = 201, message = "Film créé avec succès"),
-            @ApiResponse(code = 400, message = "Requête nulle"),
+            @ApiResponse(code = 400, message = "Requête incorrecte"),
     })
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     ResponseEntity<FilmDTO> createFilm(@RequestBody @Valid FilmForm filmForm) throws ControllerException;
@@ -117,7 +119,7 @@ public interface FilmResource {
             notes = "Permet de supprimer un film à partir de son identifiant."
     )
     @ApiResponses(value = {
-            @ApiResponse(code = 204, message = "va te faire foutre"),
+            @ApiResponse(code = 204, message = "Film supprimé avec succès"),
             @ApiResponse(code = 404, message = "Film non trouvé"),
     })
     @DeleteMapping(value = "/{id}")
