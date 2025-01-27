@@ -8,7 +8,7 @@ import Dialog from "@mui/material/Dialog";
 import DialogContent from "@mui/material/DialogContent";
 import Login from "./components/user/Login";
 
-export default function Header() {
+export default function Header({ setIsLoggedIn, isLoggedIn, handleLogout }) {
     const [open, setOpen] = useState(false);
 
     const handleOpen = () => setOpen(true);
@@ -46,7 +46,7 @@ export default function Header() {
 
                 <Typography
                     variant="h6"
-                    onClick={handleOpen}
+                    onClick={isLoggedIn ? handleLogout : handleOpen}
                     sx={{
                         textDecoration: "none",
                         color: "inherit",
@@ -54,12 +54,17 @@ export default function Header() {
                         cursor: "pointer",
                     }}
                 >
-                    Connexion
+                    {isLoggedIn ? "Déconnexion" : "Connexion"}
                 </Typography>
 
                 <Dialog open={open} onClose={handleClose}>
                     <DialogContent>
-                        <Login />
+                        <Login
+                            setAuth={(data) => {
+                                setIsLoggedIn(true);
+                                handleClose();
+                            }}
+                        />
                     </DialogContent>
                 </Dialog>
             </Toolbar>
