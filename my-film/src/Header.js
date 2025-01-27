@@ -34,14 +34,14 @@ export default function Header({ setIsLoggedIn, isLoggedIn, handleLogout }) {
                     >
                         Réalisateurs
                     </Typography>
-                    <Typography
+                    {isLoggedIn ? <Typography
                         variant="h6"
                         component={Link}
                         to="/users"
                         sx={{ textDecoration: 'none', color: 'inherit' }}
                     >
                         Utilisateurs
-                    </Typography>
+                    </Typography> : null}
                 </Box>
 
                 <Typography
