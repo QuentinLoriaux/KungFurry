@@ -9,7 +9,7 @@ const Login = ({ setAuth }) => {
     const handleLogin = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post('http://localhost:8080/login', {
+            const response = await axios.post('http://localhost:8080/user/login', {
                 username,
                 password,
             }, { withCredentials: true });
