@@ -9,10 +9,13 @@ const Login = ({ setAuth }) => {
     const handleLogin = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post('http://localhost:8080/user/login', {
-                username,
-                password,
-            }, { withCredentials: true });
+            const payload = {
+                username: username,
+                password: password,
+                roleId: 0,
+            }
+
+            const response = await axios.post('http://localhost:8080/user/login', payload, { withCredentials: true });
             setAuth(response.data);
             alert('Connexion réussie!');
         } catch (error) {
