@@ -4,7 +4,6 @@ import java.util.List;
 
 import javax.validation.Valid;
 
-import com.ensta.myfilmlist.controller.UtilisateurResource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -17,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ensta.myfilmlist.controller.UtilisateurResource;
 import com.ensta.myfilmlist.dto.UtilisateurDTO;
 import com.ensta.myfilmlist.exception.ControllerException;
 import com.ensta.myfilmlist.exception.ServiceException;
@@ -98,6 +98,20 @@ public class UtilisateurResourceImpl implements UtilisateurResource {
             return ResponseEntity.ok(userDTO);
         } catch (ServiceException e) {
             throw new ControllerException("Erreur lors de la mise à jour du user : " + e.getMessage(), e);
+        }
+    }
+
+    @Override
+    @PostMapping("/login")
+    public ResponseEntity<String> login(@RequestBody @Valid UtilisateurForm userForm) throws ControllerException {
+        try {
+            UtilisateurDTO userDTO = myFilmsService.findUtilisateurByUsernamePassword(userForm.getUsername(), userForm.getPassword());
+            if (userDTO != null) {
+                return ResponseEntity.ok(myFilmsService.createToken(userDTO));
+            }
+            throw new ServiceException("User not found");
+        } catch (ServiceException e) {
+            throw new ControllerException("Erreur lors de la connexion : " + e.getMessage(), e);
         }
     }
 }

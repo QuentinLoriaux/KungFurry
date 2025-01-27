@@ -13,8 +13,8 @@ INSERT INTO Role(nom) VALUES('USER');
 INSERT INTO Role(nom) VALUES('ADMIN');
 
 CREATE TABLE IF NOT EXISTS Utilisateur(id INT primary key auto_increment, role_id INT, username VARCHAR(100), md5hex VARCHAR(100));
-INSERT INTO Utilisateur(username, md5hex, role_id) VALUES('user', 'user', 1);
-INSERT INTO Utilisateur(username, md5hex, role_id) VALUES('admin', 'admin', 2);
+INSERT INTO Utilisateur(username, md5hex, role_id) VALUES('user', 'ee11cbb19052e40b07aac0ca060c23ee', 1);
+INSERT INTO Utilisateur(username, md5hex, role_id) VALUES('admin', '21232f297a57a5a743894a0e4a801fc3', 2);
 
 CREATE TABLE IF NOT EXISTS Genre(id INT primary key auto_increment, nom VARCHAR(100));
 INSERT INTO Genre(nom) VALUES('Science-fiction');

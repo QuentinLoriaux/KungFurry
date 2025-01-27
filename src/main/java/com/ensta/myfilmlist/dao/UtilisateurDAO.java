@@ -9,37 +9,44 @@ public interface UtilisateurDAO {
 
 
     /**
-     * Renvoie la liste de tous les films.
+     * Renvoie la liste de tous les utilisateurs.
      *
-     * @return la liste de tous les films
+     * @return la liste de tous les utilisateurs
      */
     public List<Utilisateur> findAll();
 
     /**
-     * Ajoute un film.
+     * Ajoute un utilisateur.
      *
-     * @param film le film à ajouter
-     * @return le film ajouté avec son id
+     * @param utilisateur le utilisateur à ajouter
+     * @return le utilisateur ajouté avec son id
      */
-    public Utilisateur save(Utilisateur film);
+    public Utilisateur save(Utilisateur utilisateur);
 
     /**
-     * Récupère un film par son id.
-     * @param id l'id du film à récupérer
-     * @return le film récupéré
+     * Récupère un utilisateur par son id.
+     * @param id l'id du utilisateur à récupérer
+     * @return le utilisateur récupéré
      */
     public Optional<Utilisateur> findById(long id);
 
     /**
-     * Supprime un film.
-     * @param film le film à supprimer
+     * Récupère un utilisateur par son username.
+     * @param id l'id du utilisateur à récupérer
+     * @return le utilisateur récupéré
      */
-    public void delete(Utilisateur film);
+    public Optional<Utilisateur> findByUsernamePassword(String username, String password);
 
     /**
-     * Met à jour un film.
-     * @param film le film à mettre à jour
-     * @return le film mis à jour
+     * Supprime un utilisateur.
+     * @param utilisateur le utilisateur à supprimer
      */
-    public Utilisateur update(Utilisateur film);
+    public void delete(Utilisateur utilisateur);
+
+    /**
+     * Met à jour un utilisateur.
+     * @param utilisateur le utilisateur à mettre à jour
+     * @return le utilisateur mis à jour
+     */
+    public Utilisateur update(Utilisateur utilisateur);
 }

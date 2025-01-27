@@ -2,22 +2,25 @@ package com.ensta.myfilmlist.service.impl;
 
 import static java.lang.Math.pow;
 import static java.lang.Math.round;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import com.ensta.myfilmlist.dao.GenreDAO;
-import com.ensta.myfilmlist.dto.GenreDTO;
-import com.ensta.myfilmlist.model.*;
+import javax.xml.bind.DatatypeConverter;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ensta.myfilmlist.dao.FilmDAO;
+import com.ensta.myfilmlist.dao.GenreDAO;
 import com.ensta.myfilmlist.dao.RealisateurDAO;
 import com.ensta.myfilmlist.dao.UtilisateurDAO;
 import com.ensta.myfilmlist.dto.FilmDTO;
+import com.ensta.myfilmlist.dto.GenreDTO;
 import com.ensta.myfilmlist.dto.RealisateurDTO;
 import com.ensta.myfilmlist.dto.UtilisateurDTO;
 import com.ensta.myfilmlist.exception.ServiceException;
@@ -25,9 +28,14 @@ import com.ensta.myfilmlist.form.FilmForm;
 import com.ensta.myfilmlist.form.RealisateurForm;
 import com.ensta.myfilmlist.form.UtilisateurForm;
 import com.ensta.myfilmlist.mapper.FilmMapper;
+import com.ensta.myfilmlist.mapper.GenreMapper;
 import com.ensta.myfilmlist.mapper.RealisateurMapper;
 import com.ensta.myfilmlist.mapper.UtilisateurMapper;
-import com.ensta.myfilmlist.mapper.GenreMapper;
+import com.ensta.myfilmlist.model.Film;
+import com.ensta.myfilmlist.model.Genre;
+import com.ensta.myfilmlist.model.Page;
+import com.ensta.myfilmlist.model.Realisateur;
+import com.ensta.myfilmlist.model.Utilisateur;
 
 @Service
 public class MyFilmsServiceImpl implements com.ensta.myfilmlist.service.MyFilmsService {
@@ -42,6 +50,8 @@ public class MyFilmsServiceImpl implements com.ensta.myfilmlist.service.MyFilmsS
     private UtilisateurDAO utilisateurDAO;
     @Autowired
     private GenreDAO genreDAO;
+
+    private String tokenSecret = "FLAG{Th1s_1s_Th5_35cr5t_K5Y}";
 
     public MyFilmsServiceImpl() {
     }
@@ -250,6 +260,16 @@ public class MyFilmsServiceImpl implements com.ensta.myfilmlist.service.MyFilmsS
     }
 
     @Override
+    public UtilisateurDTO findUtilisateurByUsernamePassword(String username, String password) throws ServiceException {
+        try {
+            Optional<Utilisateur> utilisateur = this.utilisateurDAO.findByUsernamePassword(username, md5(password));
+            return utilisateur.map(UtilisateurMapper::convertUtilisateurToUtilisateurDTO).orElse(null);
+        } catch (RuntimeException e) {
+            throw new ServiceException("Erreur lors de la récupération de l'utilisateur", e);
+        }
+    }
+
+    @Override
     public UtilisateurDTO createUtilisateur(UtilisateurForm utilisateurForm) throws ServiceException {
         try {
             Utilisateur utilisateur = UtilisateurMapper.convertUtilisateurFormToUtilisateur(utilisateurForm);
@@ -323,7 +343,32 @@ public class MyFilmsServiceImpl implements com.ensta.myfilmlist.service.MyFilmsS
         }
     }
 
+    @Override
+    public boolean checkToken(String token) throws ServiceException {
+        String[] splited = token.split("\\.");
+        return splited[1].equals(md5(this.tokenSecret + splited[0]));
+    }
 
+    @Override
+    public String createToken(UtilisateurDTO userDTO) throws ServiceException {
+        String to_sign = userDTO.getUsername() + ";" + String.valueOf(userDTO.getId());
+        return to_sign + "." + md5(this.tokenSecret + to_sign); 
+    }
+
+
+    @Override
+    public String md5(String tohash) throws ServiceException {
+        MessageDigest md;
+        try {
+            md = MessageDigest.getInstance("MD5");
+            md.update(tohash.getBytes());
+            byte[] digest = md.digest();
+            String hash = DatatypeConverter.printHexBinary(digest).toLowerCase();
+            return hash;
+        } catch (NoSuchAlgorithmException e) {
+            throw new ServiceException("Erreur lors du hash", e);
+        }
+    }
 
 
 }

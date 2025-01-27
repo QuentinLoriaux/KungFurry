@@ -122,4 +122,23 @@ public interface UtilisateurResource {
     })
     @PutMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     ResponseEntity<UtilisateurDTO> updateUtilisateur(@PathVariable long id, @RequestBody @Valid UtilisateurForm utilisateurForm) throws ControllerException;
+
+    /**
+     * Connexion à partir de son identifiant et des informations fournies.
+     *
+     * @param utilisateurForm les informations du utilisateur à mettre à jour
+     * @return le UtilisateurDTO mis à jour
+     * @throws ControllerException en cas d'erreur de traitement
+     */
+    @ApiOperation(
+            value = "Mettre à jour un utilisateur",
+            notes = "Permet de mettre à jour un utilisateur à partir de son identifiant et des informations fournies.",
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Utilisateur mis à jour avec succès"),
+            @ApiResponse(code = 404, message = "Utilisateur non trouvé"),
+    })
+    @PutMapping(value = "/login", produces = MediaType.APPLICATION_JSON_VALUE)
+    ResponseEntity<String> login(@RequestBody @Valid UtilisateurForm utilisateurForm) throws ControllerException;
 }

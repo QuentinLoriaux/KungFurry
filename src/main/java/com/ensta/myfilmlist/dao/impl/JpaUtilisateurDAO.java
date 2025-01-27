@@ -4,7 +4,9 @@ import java.util.List;
 import java.util.Optional;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Repository;
@@ -17,21 +19,39 @@ public class JpaUtilisateurDAO implements com.ensta.myfilmlist.dao.UtilisateurDA
     @PersistenceContext
     private EntityManager entityManager;
 
+    @Override    
     public List<Utilisateur> findAll() {
         return entityManager.createQuery("SELECT f FROM Utilisateur f", Utilisateur.class).getResultList();
     }
 
+    
+
+    @Override    
+    public Optional<Utilisateur> findByUsernamePassword(String username, String passwordhash) {
+        TypedQuery<Utilisateur> queryObj = entityManager.createQuery("SELECT f FROM Utilisateur f WHERE username = :username AND md5hex = :password", Utilisateur.class);
+        queryObj.setParameter("username", username.toLowerCase());
+        queryObj.setParameter("password", passwordhash);
+        System.out.println();
+        try {
+            return Optional.ofNullable(queryObj.getSingleResult());
+        } catch (NoResultException e) {
+            return Optional.ofNullable(null);
+        }
+        
+    }
+
+    @Override
     public Utilisateur save(Utilisateur user) {
-        System.out.println(user.getUsername());
         entityManager.persist(user);
-        System.out.println("Here");
         return user;
     }
 
+    @Override
     public Optional<Utilisateur> findById(long id) {
         return Optional.ofNullable(entityManager.find(Utilisateur.class, id));
     }
 
+    @Override
     public void delete(Utilisateur user) {
         if (entityManager.find(Utilisateur.class, user.getId()) != null) {
             if (!entityManager.contains(user)) {
@@ -41,6 +61,7 @@ public class JpaUtilisateurDAO implements com.ensta.myfilmlist.dao.UtilisateurDA
         }
     }
 
+    @Override
     public Utilisateur update(Utilisateur user) {
         System.out.println(user.getId());
         return entityManager.merge(user);

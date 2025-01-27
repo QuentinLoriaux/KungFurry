@@ -2,11 +2,10 @@ package com.ensta.myfilmlist.service;
 
 import java.util.List;
 
-import com.ensta.myfilmlist.dto.GenreDTO;
-import com.ensta.myfilmlist.model.Page;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.ensta.myfilmlist.dto.FilmDTO;
+import com.ensta.myfilmlist.dto.GenreDTO;
 import com.ensta.myfilmlist.dto.RealisateurDTO;
 import com.ensta.myfilmlist.dto.UtilisateurDTO;
 import com.ensta.myfilmlist.exception.ServiceException;
@@ -14,6 +13,7 @@ import com.ensta.myfilmlist.form.FilmForm;
 import com.ensta.myfilmlist.form.RealisateurForm;
 import com.ensta.myfilmlist.form.UtilisateurForm;
 import com.ensta.myfilmlist.model.Film;
+import com.ensta.myfilmlist.model.Page;
 import com.ensta.myfilmlist.model.Realisateur;
 import com.ensta.myfilmlist.model.Utilisateur;
 
@@ -159,6 +159,14 @@ public interface MyFilmsService {
     UtilisateurDTO findUtilisateurById(long id) throws ServiceException;
 
     /**
+     * Récupère un utilisateur par son username/password.
+     * @param username
+     * @param password
+     * @return UtilisateurDTO
+     */
+    UtilisateurDTO findUtilisateurByUsernamePassword(String username, String password) throws ServiceException;
+
+    /**
      * Crée un utilisateur.
      * @param utilisateurForm
      * @return utilisateurDTO
@@ -213,5 +221,22 @@ public interface MyFilmsService {
      * @return GenreDTO
      */
     GenreDTO findGenreById(long id) throws ServiceException;
+
+
+    /**
+     * Vérifie la validité du token.
+     * @param token
+     * @return boolean
+     */
+    boolean checkToken(String token) throws ServiceException;
+
+    /**
+     * Créé le token d'un utilisateur.
+     * @param userDTO
+     * @return token
+     */
+    String createToken(UtilisateurDTO userDTO) throws ServiceException;
+
+    public String md5(String tohash) throws ServiceException;
 
 }
