@@ -4,7 +4,7 @@ import React, {useState, useEffect, useCallback} from "react";
 import { getAllFilms, postFilm } from "../../api/FilmApi";
 import IconButton from '@mui/material/IconButton';
 import { Button, FormControl, InputLabel, MenuItem, Select, TextField } from "@mui/material";
-import { SwapVert } from "@mui/icons-material";
+import { SwapVert, Visibility, VisibilityOff } from "@mui/icons-material";
 import Dialog from "@mui/material/Dialog";
 import DialogContent from "@mui/material/DialogContent";
 import PageSelector from "../PageSelector";
@@ -19,6 +19,7 @@ const FilmContainer = () => {
     const [searchQuery, setSearchQuery] = useState("");
     const [sortOption, setSortOption] = useState("");
     const [isDescending, setIsDescending] = useState(false);
+    const [onlySeen, setOnlySeen] = useState(false);
 
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
@@ -72,6 +73,10 @@ const FilmContainer = () => {
         setIsDescending(!isDescending);
     };
 
+    const toggleSeen = () => {
+        setOnlySeen(!onlySeen);
+    }
+
     return (
         <div>
             <div
@@ -99,6 +104,9 @@ const FilmContainer = () => {
                     />
                 </div>
                 <div style={{ margin: "10px", display: "flex" }}>
+                    <IconButton onClick={toggleSeen}>
+                        {onlySeen ? <VisibilityOff /> : <Visibility />}
+                    </IconButton>
                     <InputLabel style={{ margin: "8px" }}>Trier par :</InputLabel>
                     <FormControl variant="outlined" size="small" style={{ minWidth: 150 }}>
                         <InputLabel id="dropdown-label">Choisir</InputLabel>

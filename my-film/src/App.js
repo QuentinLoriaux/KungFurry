@@ -1,17 +1,26 @@
-import React from 'react';
+import React, {useState} from 'react';
 import './App.css';
 import Header from './Header';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import {BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 import RealisateurContainer from './components/realisateur/RealisateurContainer';
 import FilmContainer from './components/film/FilmContainer';
 import FilmPage from './components/film/FilmPage';
 import UserContainer from "./components/user/UserContainer";
 
 function App() {
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [authData, setAuthData] = useState(null);
+
+    const handleLogout = () => {
+        setIsLoggedIn(false);
+        setAuthData(null);
+        alert('Déconnexion réussie!');
+    };
+
     return (
         <Router>
             <div>
-                <Header />
+                <Header setIsLoggedIn={setIsLoggedIn} isLoggedIn={isLoggedIn} handleLogout={handleLogout}/>
                 <Routes>
                     <Route
                         path="/"
