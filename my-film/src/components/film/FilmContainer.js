@@ -9,7 +9,7 @@ import Dialog from "@mui/material/Dialog";
 import DialogContent from "@mui/material/DialogContent";
 import PageSelector from "../PageSelector";
 
-const FilmContainer = () => {
+const FilmContainer = (token) => {
     const [currentPage, setCurrentPage] = useState(1);
     const [totalPages, setTotalPages] = useState(1);
     const pageSize = 2;
@@ -50,7 +50,7 @@ const FilmContainer = () => {
     };
 
     const handleCreateFilm = (newFilm) => {
-        postFilm(newFilm)
+        postFilm(newFilm, token)
             .then(() => {
                 fetchFilms();
             })
@@ -150,6 +150,7 @@ const FilmContainer = () => {
                     applyFilters={(newFilms) =>
                         fetchFilms()
                     }
+                    token={token}
                 />
             </div>
 

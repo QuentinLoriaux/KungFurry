@@ -8,7 +8,7 @@ export default function UserList(props) {
     return (
         <div style={{display: "flex", flexWrap: "wrap", gap: "20px"}}>
             {props.users.map(user => (
-                <UserCard key={user.id} user={user} setUsers={props.setUsers}/>
+                <UserCard key={user.id} user={user} setUsers={props.setUsers} token={props.token}/>
             ))}
         </div>
     )

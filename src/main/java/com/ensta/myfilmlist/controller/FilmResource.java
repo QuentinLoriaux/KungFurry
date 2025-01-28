@@ -105,7 +105,7 @@ public interface FilmResource {
             @ApiResponse(code = 400, message = "Requête incorrecte"),
     })
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    ResponseEntity<FilmDTO> createFilm(@RequestBody @Valid FilmForm filmForm) throws ControllerException;
+    ResponseEntity<FilmDTO> createFilm(@RequestBody @Valid FilmForm filmForm, @RequestParam String token) throws ControllerException;
 
     /**
      * Supprime un film à partir de son identifiant.
@@ -123,7 +123,7 @@ public interface FilmResource {
             @ApiResponse(code = 404, message = "Film non trouvé"),
     })
     @DeleteMapping(value = "/{id}")
-    ResponseEntity<?> deleteFilm(@PathVariable long id) throws ControllerException;
+    ResponseEntity<?> deleteFilm(@PathVariable long id, @RequestParam String token) throws ControllerException;
 
     /**
      * Met à jour un film à partir de son identifiant et des informations fournies.
@@ -143,5 +143,5 @@ public interface FilmResource {
             @ApiResponse(code = 404, message = "Film non trouvé"),
     })
     @PutMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    ResponseEntity<FilmDTO> updateFilm(@PathVariable long id, @RequestBody @Valid FilmForm filmForm) throws ControllerException;
+    ResponseEntity<FilmDTO> updateFilm(@PathVariable long id, @RequestBody @Valid FilmForm filmForm, @RequestParam String token) throws ControllerException;
 }

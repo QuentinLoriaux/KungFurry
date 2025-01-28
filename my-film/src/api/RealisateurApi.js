@@ -15,15 +15,22 @@ export const getAllRealisateurs = (page, size) => {
 /**
  * Create a new realisateur.
  * @param {Object} realisateur - The realisateur object to be created.
+ * @param {string} token - The JWT token.
  * @returns {Promise} Axios response promise.
  */
-export function postRealisateur(realisateur) {
+export function postRealisateur(realisateur, token) {
     const payload = {
         dateNaissance: realisateur.dateNaissance,
         nom: realisateur.nom,
         prenom: realisateur.prenom,
     };
-    return axios.post(REALISATEUR_URI, payload);
+    return axios.post(REALISATEUR_URI, payload, { params: {
+            token: token === undefined ? '' : token.token,
+        }, })
+        .catch(error => {
+            console.error('Erreur lors de la création du realisateur', error);
+            throw error;
+        });
 }
 
 /**
@@ -39,23 +46,37 @@ export function getRealisateurById(id) {
  * Update an existing realisateur.
  * @param {number} realisateurId - The ID of the realisateur to be updated.
  * @param {Object} realisateur - The updated realisateur object.
+ * @param {string} token - The JWT token.
  * @returns {Promise} Axios response promise.
  */
-export function updateRealisateur(realisateurId, realisateur) {
+export function updateRealisateur(realisateurId, realisateur, token) {
     const payload = {
         dateNaissance: realisateur.dateNaissance,
         nom: realisateur.nom,
         prenom: realisateur.prenom,
     };
-    return axios.put(`${REALISATEUR_URI}/${realisateurId}`, payload);
+    return axios.put(`${REALISATEUR_URI}/${realisateurId}`, payload, { params: {
+            token: token === undefined ? '' : token.token,
+        }, })
+        .catch(error => {
+            console.error('Erreur lors de la mise à jour du realisateur', error);
+            throw error;
+        });
 }
 
 /**
  * Delete a realisateur by ID.
  * @param {number} id - The ID of the realisateur to be deleted.
+ * @param {string} token - The JWT token.
  * @returns {Promise} Axios response promise.
  */
-export function deleteRealisateur(id) {
-    return axios.delete(`${REALISATEUR_URI}/${id}`);
+export function deleteRealisateur(id, token) {
+    return axios.delete(`${REALISATEUR_URI}/${id}`, { params: {
+            token: token === undefined ? '' : token.token,
+        }, })
+            .catch(error => {
+            console.error('Erreur lors de la suppression du realisateur', error);
+            throw error;
+        });
 }
 

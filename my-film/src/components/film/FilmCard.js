@@ -26,7 +26,7 @@ export default function FilmCard(props) {
     };
 
     const handleEditSubmit = (updatedFilm) => {
-        putFilm(props.film.id ,updatedFilm).then(response => {
+        putFilm(props.film.id ,updatedFilm, props.token).then(response => {
             props.setFilms((prevFilms) => {
                 const updatedFilms = prevFilms.map((film) =>
                     film.id === response.data.id ? response.data : film
@@ -44,7 +44,7 @@ export default function FilmCard(props) {
 
     const handleClickOnDeleteButton = () => {
         const id = props.film.id;
-        deleteFilm(id)
+        deleteFilm(id, props.token)
             .then(() => {
                 props.setFilms((prevFilms) => {
                     const updatedFilms = prevFilms.filter((film) => film.id !== id);

@@ -20,13 +20,13 @@ function App() {
     return (
         <Router>
             <div>
-                <Header setIsLoggedIn={setIsLoggedIn} isLoggedIn={isLoggedIn} handleLogout={handleLogout}/>
+                <Header setIsLoggedIn={setIsLoggedIn} isLoggedIn={isLoggedIn} handleLogout={handleLogout} setAuthData={setAuthData}/>
                 <Routes>
                     <Route
                         path="/"
                         element={
                             <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'left' }}>
-                                <FilmContainer />
+                                <FilmContainer token={authData} />
                             </div>
                         }
                     />
@@ -34,7 +34,7 @@ function App() {
                         path="/realisateurs"
                         element={
                             <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'left' }}>
-                                <RealisateurContainer />
+                                <RealisateurContainer token={authData}/>
                             </div>
                         }
                     />
@@ -42,7 +42,7 @@ function App() {
                         path="/users"
                         element={
                             <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center' }}>
-                                <UserContainer />
+                                <UserContainer token={authData}/>
                             </div>
                         }
                     />
