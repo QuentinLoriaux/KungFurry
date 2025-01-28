@@ -3,6 +3,7 @@ package com.ensta.myfilmlist.dao;
 import java.util.List;
 import java.util.Optional;
 
+import com.ensta.myfilmlist.model.Commentaire;
 import com.ensta.myfilmlist.model.Film;
 import com.ensta.myfilmlist.model.Page;
 
@@ -59,4 +60,11 @@ public interface FilmDAO {
      * @return le film mis à jour
      */
     public Film update(Film film);
+
+    /**
+     * Renvoie la liste de tous les commentaires pour un film.
+     * @param filmId l'id du film
+     * @return la liste de tous les commentaires pour un film
+     */
+    public List<Commentaire> findCommentairesByFilmId(long filmId);
 }

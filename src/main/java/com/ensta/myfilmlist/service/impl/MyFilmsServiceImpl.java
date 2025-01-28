@@ -186,7 +186,10 @@ public class MyFilmsServiceImpl implements com.ensta.myfilmlist.service.MyFilmsS
     public FilmDTO findFilmById(long id) throws ServiceException {
         try {
             Optional<Film> film = this.filmDAO.findById(id);
-
+            FilmDTO filmDTO = film.map(FilmMapper::convertFilmToFilmDTO).orElse(null);
+            if (filmDTO != null) {
+                filmDTO.setNoteMoyenne(calculerNoteMoyenne(film.get().getNotes().stream().mapToDouble(value -> value.getValue()).toArray()));
+            }
             return film.map(FilmMapper::convertFilmToFilmDTO).orElse(null);
         } catch (RuntimeException e) {
             throw new ServiceException("Erreur lors de la récupération du film", e);
@@ -369,6 +372,8 @@ public class MyFilmsServiceImpl implements com.ensta.myfilmlist.service.MyFilmsS
             throw new ServiceException("Erreur lors du hash", e);
         }
     }
+
+
 
 
 }

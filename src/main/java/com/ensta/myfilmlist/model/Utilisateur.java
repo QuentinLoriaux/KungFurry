@@ -1,11 +1,14 @@
 package com.ensta.myfilmlist.model;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.xml.bind.DatatypeConverter;
 
@@ -18,6 +21,13 @@ public class Utilisateur {
     private long role_id;
     private String username;
     private String md5hex;
+
+
+    @OneToMany(mappedBy = "utilisateur", cascade = CascadeType.ALL)
+    private List<Commentaire> commentaire;
+
+    @OneToMany(mappedBy = "utilisateur", cascade = CascadeType.ALL)
+    private List<Note> note;
 
     public void setId(long id) {
         this.id = id;
@@ -62,4 +72,21 @@ public class Utilisateur {
     public String getMd5Hex(){
         return md5hex;
     }
+
+    public List<Commentaire> getCommentaire(){
+        return commentaire;
+    }
+
+    public void setCommentaire(List<Commentaire> commentaire){
+        this.commentaire = commentaire;
+    }
+
+    public List<Note> getNote(){
+        return note;
+    }
+
+    public void setNote(List<Note> note){
+        this.note = note;
+    }
+
 }

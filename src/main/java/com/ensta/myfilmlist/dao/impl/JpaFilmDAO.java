@@ -1,14 +1,18 @@
 package com.ensta.myfilmlist.dao.impl;
 
-import com.ensta.myfilmlist.model.Film;
-import com.ensta.myfilmlist.model.Page;
-import org.springframework.context.annotation.Primary;
-import org.springframework.stereotype.Repository;
+import java.util.List;
+import java.util.Optional;
+
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
-import java.util.List;
-import java.util.Optional;
+
+import org.springframework.context.annotation.Primary;
+import org.springframework.stereotype.Repository;
+
+import com.ensta.myfilmlist.model.Commentaire;
+import com.ensta.myfilmlist.model.Film;
+import com.ensta.myfilmlist.model.Page;
 
 @Repository
 @Primary
@@ -80,5 +84,11 @@ public class JpaFilmDAO implements com.ensta.myfilmlist.dao.FilmDAO {
 
     public Film update(Film film) {
         return entityManager.merge(film);
+    }
+
+    public List<Commentaire> findCommentairesByFilmId(long filmId) {
+        return entityManager.createQuery("SELECT c FROM Commentaire c WHERE c.film.id = :filmId", Commentaire.class)
+                .setParameter("filmId", filmId)
+                .getResultList();
     }
 }

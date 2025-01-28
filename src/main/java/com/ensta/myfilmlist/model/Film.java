@@ -1,6 +1,18 @@
 package com.ensta.myfilmlist.model;
 
-import javax.persistence.*;
+import java.util.List;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
 /**
  * Represente un Film.
  */
@@ -24,6 +36,13 @@ public class Film {
 	@ManyToOne
 	@JoinColumn(name = "genre_id", nullable = false)
 	private Genre genre;
+
+	@OneToMany(mappedBy = "film", cascade = CascadeType.ALL)
+	private List<Note> notes;
+
+	@OneToMany(mappedBy = "film", cascade = CascadeType.ALL)
+	private List<Commentaire> commentaires;
+
 
 	public long getId() {
 		return id;
@@ -63,5 +82,21 @@ public class Film {
 
 	public void setGenre(Genre genre){
 		this.genre = genre;
+	}
+
+	public List<Note> getNotes() {
+		return notes;
+	}
+
+	public void setNotes(List<Note> notes) {
+		this.notes = notes;
+	}
+
+	public List<Commentaire> getCommentaires() {
+		return commentaires;
+	}
+
+	public void setCommentaires(List<Commentaire> commentaires) {
+		this.commentaires = commentaires;
 	}
 }

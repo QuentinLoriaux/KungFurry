@@ -1,16 +1,17 @@
 package com.ensta.myfilmlist.mapper;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 import com.ensta.myfilmlist.dto.FilmDTO;
 import com.ensta.myfilmlist.dto.GenreDTO;
 import com.ensta.myfilmlist.dto.RealisateurDTO;
 import com.ensta.myfilmlist.form.FilmForm;
+import com.ensta.myfilmlist.model.Commentaire;
 import com.ensta.myfilmlist.model.Film;
 import com.ensta.myfilmlist.model.Genre;
 import com.ensta.myfilmlist.model.Realisateur;
+
 
 /**
  * Effectue les conversions des Films entre les couches de l'application.
@@ -47,6 +48,10 @@ public class FilmMapper {
 		Genre genre = film.getGenre();
 		if (genre != null) {
 			filmDTO.setGenre(GenreMapper.convertGenreToGenreDTO(genre));
+		}
+		List<Commentaire> commentaires = film.getCommentaires();
+		if (commentaires != null) {
+			filmDTO.setCommentaires(CommentaireMapper.convertCommentaireToCommentaireDTOs(commentaires));
 		}
 		return filmDTO;
 	}

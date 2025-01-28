@@ -29,3 +29,7 @@ INSERT INTO Genre(nom) VALUES('Aventure');
 INSERT INTO Genre(nom) VALUES('Biopic');
 INSERT INTO Genre(nom) VALUES('Animation');
 INSERT INTO Genre(nom) VALUES('Documentaire');
+
+CREATE TABLE IF NOT EXISTS Commentaire(id INT primary key auto_increment, film_id INT, utilisateur_id INT, texte TEXT);
+INSERT INTO Commentaire(film_id, utilisateur_id, texte) VALUES(1, 1, 'Helloworld');
+INSERT INTO Commentaire(film_id, utilisateur_id, texte) VALUES(1, 2, 'Jerome il pue');
