@@ -89,6 +89,7 @@ public class FilmMapper {
 		if (genreDTO != null){
 			film.setGenre(GenreMapper.convertGenreDTOToGenre(genreDTO));
 		}
+		film.setNoteMoyenne(filmDTO.getNoteMoyenne());
 		return film;
 	}
 

@@ -12,14 +12,11 @@ import java.util.stream.Stream;
 
 import javax.xml.bind.DatatypeConverter;
 
+import com.ensta.myfilmlist.dao.*;
 import com.ensta.myfilmlist.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.ensta.myfilmlist.dao.FilmDAO;
-import com.ensta.myfilmlist.dao.GenreDAO;
-import com.ensta.myfilmlist.dao.RealisateurDAO;
-import com.ensta.myfilmlist.dao.UtilisateurDAO;
 import com.ensta.myfilmlist.dto.FilmDTO;
 import com.ensta.myfilmlist.dto.GenreDTO;
 import com.ensta.myfilmlist.dto.RealisateurDTO;
@@ -46,6 +43,8 @@ public class MyFilmsServiceImpl implements com.ensta.myfilmlist.service.MyFilmsS
     private UtilisateurDAO utilisateurDAO;
     @Autowired
     private GenreDAO genreDAO;
+    @Autowired
+    private NoteDAO noteDAO;
 
     private String tokenSecret = "FLAG{Th1s_1s_Th5_35cr5t_K5Y}";
 
@@ -80,6 +79,17 @@ public class MyFilmsServiceImpl implements com.ensta.myfilmlist.service.MyFilmsS
         }
         double moyenne = notes.stream().mapToInt(Note::getNote).average().orElse(0);
         return round(moyenne * pow(10,2)) / pow(10,2);
+    }
+
+    @Override
+    public Film updateNoteMoyenne(Film film) throws ServiceException {
+        try {
+            List<Note> notes = this.noteDAO.findByFilmId(film.getId());
+            film.setNoteMoyenne(calculerNoteMoyenne(notes));
+            return film;
+        } catch (Exception e) {
+            throw new ServiceException("Erreur lors de la mise à jour du film", e);
+        }
     }
 
     @Override
@@ -132,6 +142,7 @@ public class MyFilmsServiceImpl implements com.ensta.myfilmlist.service.MyFilmsS
                 throw new ServiceException("Le genre n'existe pas");
             }
             film.setRealisateur(realisateur.get());
+            film.setNoteMoyenne(0);
             film = this.filmDAO.save(film);
             this.updateRealisateurCelebre(realisateur.get());
             return FilmMapper.convertFilmToFilmDTO(film);
@@ -227,6 +238,7 @@ public class MyFilmsServiceImpl implements com.ensta.myfilmlist.service.MyFilmsS
     @Override
     public FilmDTO updateFilm(Film film) throws ServiceException {
         try {
+            film = this.updateNoteMoyenne(film);
             film = this.filmDAO.update(film);
             this.updateRealisateurCelebre(film.getRealisateur());
             return FilmMapper.convertFilmToFilmDTO(film);

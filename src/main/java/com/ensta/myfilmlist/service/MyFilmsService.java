@@ -41,6 +41,15 @@ public interface MyFilmsService {
     double calculerNoteMoyenne(List<Note> notes);
 
     /**
+     * Met à jour la note moyenne d'un film.
+     *
+     * @param film le film à mettre à jour, contenant la liste non nulle des notes.
+     * @return le film mis à jour avec sa note moyenne.
+     * @throws ServiceException si une erreur survient pendant la mise à jour ou si le film est invalide.
+     */
+    Film updateNoteMoyenne(Film film) throws ServiceException;
+
+    /**
      * Met à jour le statut "celebre" des réalisateurs en fonction du nombre de films réalisés.
      *
      * @param realisateurs la liste des réalisateurs à mettre à jour.
