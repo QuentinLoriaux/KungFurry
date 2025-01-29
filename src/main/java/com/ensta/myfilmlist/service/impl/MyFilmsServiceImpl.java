@@ -103,12 +103,7 @@ public class MyFilmsServiceImpl implements com.ensta.myfilmlist.service.MyFilmsS
     @Override
     public List<FilmDTO> findAllFilms() throws ServiceException {
         try {
-            List<Film> films = this.filmDAO.findAll();
-            List<FilmDTO> filmsDTOs = FilmMapper.convertFilmToFilmDTOs(films);
-            for (int i = 0; i < filmsDTOs.size(); i++) {
-                filmsDTOs.get(i).setNoteMoyenne(calculerNoteMoyenne(films.get(i).getNotes()));
-            }
-            return filmsDTOs;
+            return FilmMapper.convertFilmToFilmDTOs(this.filmDAO.findAll());
         } catch (RuntimeException e) {
             throw new ServiceException("Erreur lors de la récupération des films", e);
         }
@@ -118,11 +113,7 @@ public class MyFilmsServiceImpl implements com.ensta.myfilmlist.service.MyFilmsS
     public Page<FilmDTO> findAllFilms(int page, int size, String query, String sort, String order) throws ServiceException {
         try {
             Page<Film> films = this.filmDAO.findAll(page, size, query, sort, order);
-            List<FilmDTO> filmsDTOs = FilmMapper.convertFilmToFilmDTOs(films.getData());
-            for (int i = 0; i < filmsDTOs.size(); i++) {
-                filmsDTOs.get(i).setNoteMoyenne(calculerNoteMoyenne(films.getData().get(i).getNotes()));
-            }
-            return new Page<>(films.getNumber(), films.getSize(), films.getTotal(), filmsDTOs);
+            return new Page<>(films.getNumber(), films.getSize(), films.getTotal(), FilmMapper.convertFilmToFilmDTOs(films.getData()));
         } catch (RuntimeException e) {
             throw new ServiceException("Erreur lors de la récupération des films"+ e.getMessage(), e);
         }
@@ -191,10 +182,6 @@ public class MyFilmsServiceImpl implements com.ensta.myfilmlist.service.MyFilmsS
     public FilmDTO findFilmById(long id) throws ServiceException {
         try {
             Optional<Film> film = this.filmDAO.findById(id);
-            FilmDTO filmDTO = film.map(FilmMapper::convertFilmToFilmDTO).orElse(null);
-            if (filmDTO != null) {
-                filmDTO.setNoteMoyenne(calculerNoteMoyenne(film.get().getNotes()));
-            }
             return film.map(FilmMapper::convertFilmToFilmDTO).orElse(null);
         } catch (RuntimeException e) {
             throw new ServiceException("Erreur lors de la récupération du film", e);

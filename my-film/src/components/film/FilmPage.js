@@ -23,6 +23,7 @@ function FilmPage() {
             <p>Durée : {film.duree} minutes</p>
             <p>Réalisateur : {film.realisateur.prenom} {film.realisateur.nom} {film.realisateur.celebre ? "(Célèbre)" : ""}</p>
             <p>Genre : {film.genre.name}</p>
+            <p>Note moyenne : {film.noteMoyenne}</p>
         </div>
     );
 }

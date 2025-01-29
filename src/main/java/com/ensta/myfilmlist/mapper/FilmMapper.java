@@ -1,13 +1,11 @@
 package com.ensta.myfilmlist.mapper;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import com.ensta.myfilmlist.dto.FilmDTO;
-import com.ensta.myfilmlist.dto.GenreDTO;
-import com.ensta.myfilmlist.dto.RealisateurDTO;
+import com.ensta.myfilmlist.dto.*;
 import com.ensta.myfilmlist.form.FilmForm;
-import com.ensta.myfilmlist.model.Commentaire;
 import com.ensta.myfilmlist.model.Film;
 import com.ensta.myfilmlist.model.Genre;
 import com.ensta.myfilmlist.model.Realisateur;
@@ -49,11 +47,27 @@ public class FilmMapper {
 		if (genre != null) {
 			filmDTO.setGenre(GenreMapper.convertGenreToGenreDTO(genre));
 		}
-//		List<Commentaire> commentaires = film.getCommentaires();
-//		if (commentaires != null) {
-//			filmDTO.setCommentaires(CommentaireMapper.convertCommentaireToCommentaireDTOs(commentaires));
-//		}
+		filmDTO.setNoteMoyenne(film.getNoteMoyenne());
 		return filmDTO;
+	}
+
+	public static FilmDetailsDTO convertFilmToFilmDetailsDTO(Film film){
+		FilmDetailsDTO filmDetailsDTO = new FilmDetailsDTO();
+		filmDetailsDTO.setId(film.getId());
+		filmDetailsDTO.setTitre(film.getTitre());
+		filmDetailsDTO.setDuree(film.getDuree());
+		Realisateur realisateur = film.getRealisateur();
+		if (realisateur != null) {
+			filmDetailsDTO.setRealisateur(RealisateurMapper.convertRealisateurToRealisateurDTO(realisateur));
+		}
+		Genre genre = film.getGenre();
+		if (genre != null) {
+			filmDetailsDTO.setGenre(GenreMapper.convertGenreToGenreDTO(genre));
+		}
+		List<CommentaireDTO> commentaires = new ArrayList<>();
+		filmDetailsDTO.setDescription("");
+		filmDetailsDTO.setNoteMoyenne(film.getNoteMoyenne());
+		return filmDetailsDTO;
 	}
 
 	/**

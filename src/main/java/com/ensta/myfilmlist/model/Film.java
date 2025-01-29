@@ -37,8 +37,8 @@ public class Film {
 	@JoinColumn(name = "genre_id", nullable = false)
 	private Genre genre;
 
-	@OneToMany(mappedBy = "film", cascade = CascadeType.ALL)
-	private List<Note> notes;
+	@Column(name = "note_moyenne")
+	private double noteMoyenne;
 
 	public long getId() {
 		return id;
@@ -80,12 +80,11 @@ public class Film {
 		this.genre = genre;
 	}
 
-	public List<Note> getNotes() {
-		return notes;
+    public double getNoteMoyenne() {
+		return noteMoyenne;
 	}
-
-	public void setNotes(List<Note> notes) {
-		this.notes = notes;
+	public void setNoteMoyenne(double noteMoyenne) {
+		this.noteMoyenne = noteMoyenne;
 	}
 
 }
