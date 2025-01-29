@@ -78,7 +78,7 @@ export default function FilmCard(props) {
         </Typography>
           <Box sx={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginTop: 1 }}>
               <Box sx={{ display: "flex", alignItems: "center", gap: 0.5 }}>
-                  <Grade />
+                  <Grade color={"warning"} />
                   <Typography variant="body2">{props.film.noteMoyenne}</Typography>
               </Box>
               <Box sx={{ display: "flex", alignItems: "center", gap: 0.5 }}>
