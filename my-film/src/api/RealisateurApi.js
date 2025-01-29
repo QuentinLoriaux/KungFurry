@@ -24,9 +24,7 @@ export function postRealisateur(realisateur, token) {
         nom: realisateur.nom,
         prenom: realisateur.prenom,
     };
-    return axios.post(REALISATEUR_URI, payload, { params: {
-            token: token === undefined ? '' : token.token,
-        }, })
+    return axios.post(REALISATEUR_URI, payload, { headers: { Authorization: `Bearer ${token.token}` } })
         .catch(error => {
             console.error('Erreur lors de la création du realisateur', error);
             throw error;
@@ -55,9 +53,7 @@ export function updateRealisateur(realisateurId, realisateur, token) {
         nom: realisateur.nom,
         prenom: realisateur.prenom,
     };
-    return axios.put(`${REALISATEUR_URI}/${realisateurId}`, payload, { params: {
-            token: token === undefined ? '' : token.token,
-        }, })
+    return axios.put(`${REALISATEUR_URI}/${realisateurId}`, payload, { headers: { Authorization: `Bearer ${token.token}` } })
         .catch(error => {
             console.error('Erreur lors de la mise à jour du realisateur', error);
             throw error;
@@ -71,9 +67,7 @@ export function updateRealisateur(realisateurId, realisateur, token) {
  * @returns {Promise} Axios response promise.
  */
 export function deleteRealisateur(id, token) {
-    return axios.delete(`${REALISATEUR_URI}/${id}`, { params: {
-            token: token === undefined ? '' : token.token,
-        }, })
+    return axios.delete(`${REALISATEUR_URI}/${id}`, { headers: { Authorization: `Bearer ${token.token}` }})
             .catch(error => {
             console.error('Erreur lors de la suppression du realisateur', error);
             throw error;

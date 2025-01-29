@@ -33,7 +33,7 @@ public class NoteMapper {
     public static NoteDTO convertNoteToNoteDTO(Note note) {
         NoteDTO noteDTO = new NoteDTO();
         noteDTO.setId(note.getId());
-        noteDTO.setValue(note.getValue());
+        noteDTO.setValue(note.getNote());
         noteDTO.setFilm(note.getFilm());
         noteDTO.setUtilisateur(note.getUtilisateur());
         return noteDTO;
@@ -48,7 +48,7 @@ public class NoteMapper {
     public static Note convertNoteDTOToNote(NoteDTO noteDTO) {
         Note note = new Note();
         note.setId(noteDTO.getId());
-        note.setValue(noteDTO.getValue());
+        note.setNote(noteDTO.getValue());
         note.setFilm(noteDTO.getFilm());
         note.setUtilisateur(noteDTO.getUtilisateur());
         return note;

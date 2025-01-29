@@ -92,6 +92,7 @@ public interface FilmResource {
      * Crée un film à partir des informations fournies.
      *
      * @param filmForm les informations du film à créer
+     * @param Authorization le token d'authentification
      * @return le FilmDTO créé
      * @throws ControllerException en cas d'erreur de traitement
      */
@@ -105,12 +106,13 @@ public interface FilmResource {
             @ApiResponse(code = 400, message = "Requête incorrecte"),
     })
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    ResponseEntity<FilmDTO> createFilm(@RequestBody @Valid FilmForm filmForm, @RequestParam String token) throws ControllerException;
+    ResponseEntity<FilmDTO> createFilm(@RequestBody @Valid FilmForm filmForm, @RequestHeader String Authorization) throws ControllerException;
 
     /**
      * Supprime un film à partir de son identifiant.
      *
      * @param id l'identifiant du film à supprimer
+     * @param Authorization le token d'authentification
      * @return ResponseEntity
      * @throws ControllerException en cas d'erreur de traitement
      */
@@ -123,13 +125,14 @@ public interface FilmResource {
             @ApiResponse(code = 404, message = "Film non trouvé"),
     })
     @DeleteMapping(value = "/{id}")
-    ResponseEntity<?> deleteFilm(@PathVariable long id, @RequestParam String token) throws ControllerException;
+    ResponseEntity<?> deleteFilm(@PathVariable long id, @RequestHeader String Authorization) throws ControllerException;
 
     /**
      * Met à jour un film à partir de son identifiant et des informations fournies.
      *
      * @param id l'identifiant du film à mettre à jour
      * @param filmForm les informations du film à mettre à jour
+     * @param Authorization le token d'authentification
      * @return le FilmDTO mis à jour
      * @throws ControllerException en cas d'erreur de traitement
      */
@@ -143,5 +146,5 @@ public interface FilmResource {
             @ApiResponse(code = 404, message = "Film non trouvé"),
     })
     @PutMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    ResponseEntity<FilmDTO> updateFilm(@PathVariable long id, @RequestBody @Valid FilmForm filmForm, @RequestParam String token) throws ControllerException;
+    ResponseEntity<FilmDTO> updateFilm(@PathVariable long id, @RequestBody @Valid FilmForm filmForm, @RequestHeader String Authorization) throws ControllerException;
 }

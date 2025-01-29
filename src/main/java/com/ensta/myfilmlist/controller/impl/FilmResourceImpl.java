@@ -60,7 +60,7 @@ public class FilmResourceImpl implements FilmResource {
             }
             return ResponseEntity.ok(films);
         } catch (Exception e) {
-            throw new ControllerException("Erreur lors de la récupération des films", e);
+            throw new ControllerException("Erreur lors de la récupération des films"+ e.getMessage(), e);
         }
     }
 
@@ -80,7 +80,7 @@ public class FilmResourceImpl implements FilmResource {
 
     @Override
     @PostMapping
-    public ResponseEntity<FilmDTO> createFilm(@RequestBody @Valid FilmForm filmForm, @RequestParam String token) throws ControllerException {
+    public ResponseEntity<FilmDTO> createFilm(@RequestBody @Valid FilmForm filmForm, @RequestHeader String Authorization) throws ControllerException {
         try {
             FilmDTO film = myFilmsService.createFilm(filmForm);
             return ResponseEntity.ok(film);
@@ -91,7 +91,7 @@ public class FilmResourceImpl implements FilmResource {
 
     @Override
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteFilm(@PathVariable long id, @RequestParam String token) throws ControllerException {
+    public ResponseEntity<?> deleteFilm(@PathVariable long id, @RequestHeader String Authorization) throws ControllerException {
         try {
             myFilmsService.deleteFilm(id);
             return ResponseEntity.ok().build();
@@ -104,7 +104,7 @@ public class FilmResourceImpl implements FilmResource {
 
     @Override
     @PutMapping("/{id}")
-    public ResponseEntity<FilmDTO> updateFilm(@PathVariable long id, @RequestBody @Valid FilmForm filmForm, @RequestParam String token) throws ControllerException {
+    public ResponseEntity<FilmDTO> updateFilm(@PathVariable long id, @RequestBody @Valid FilmForm filmForm, @RequestHeader String Authorization) throws ControllerException {
         try {
             Film film = convertFilmFormToFilm(filmForm);
             film.setId(id);

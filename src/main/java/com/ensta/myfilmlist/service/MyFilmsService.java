@@ -2,6 +2,7 @@ package com.ensta.myfilmlist.service;
 
 import java.util.List;
 
+import com.ensta.myfilmlist.model.*;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.ensta.myfilmlist.dto.FilmDTO;
@@ -12,10 +13,6 @@ import com.ensta.myfilmlist.exception.ServiceException;
 import com.ensta.myfilmlist.form.FilmForm;
 import com.ensta.myfilmlist.form.RealisateurForm;
 import com.ensta.myfilmlist.form.UtilisateurForm;
-import com.ensta.myfilmlist.model.Film;
-import com.ensta.myfilmlist.model.Page;
-import com.ensta.myfilmlist.model.Realisateur;
-import com.ensta.myfilmlist.model.Utilisateur;
 
 public interface MyFilmsService {
     /**
@@ -41,7 +38,7 @@ public interface MyFilmsService {
      * @param notes la liste des notes à additionner.
      * @return la note moyenne des notes.
      */
-    double calculerNoteMoyenne(double[] notes);
+    double calculerNoteMoyenne(List<Note> notes);
 
     /**
      * Met à jour le statut "celebre" des réalisateurs en fonction du nombre de films réalisés.
@@ -58,6 +55,7 @@ public interface MyFilmsService {
      * @return la liste des films.
      * @throws ServiceException si une erreur survient pendant la récupération.
      */
+    @Transactional
     List<FilmDTO> findAllFilms() throws ServiceException;
 
     /**
@@ -70,6 +68,7 @@ public interface MyFilmsService {
      * @return Page<FilmDTO>
      * @throws ServiceException
      */
+    @Transactional
     Page<FilmDTO> findAllFilms(int page, int size, String query, String sort, String order) throws ServiceException;
 
     /**
@@ -112,6 +111,7 @@ public interface MyFilmsService {
      * @return FilmDTO
      * @throws ServiceException
      */
+    @Transactional
     FilmDTO findFilmById(long id) throws ServiceException;
 
     /**

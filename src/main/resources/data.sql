@@ -33,3 +33,7 @@ INSERT INTO Genre(nom) VALUES('Documentaire');
 CREATE TABLE IF NOT EXISTS Commentaire(id INT primary key auto_increment, film_id INT, utilisateur_id INT, texte TEXT);
 INSERT INTO Commentaire(film_id, utilisateur_id, texte) VALUES(1, 1, 'Helloworld');
 INSERT INTO Commentaire(film_id, utilisateur_id, texte) VALUES(1, 2, 'Jerome il pue');
+
+CREATE TABLE IF NOT EXISTS Note(id INT primary key auto_increment, film_id INT, utilisateur_id INT, note INT);
+INSERT INTO Note(film_id, utilisateur_id, note) VALUES(1, 1, 5);
+INSERT INTO Note(film_id, utilisateur_id, note) VALUES(1, 2, 3);

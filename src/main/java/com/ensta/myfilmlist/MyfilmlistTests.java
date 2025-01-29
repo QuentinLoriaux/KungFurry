@@ -131,10 +131,10 @@ public class MyfilmlistTests {
 
 		// Calcul de la note moyenne
 
-		double noteMoyenne = myFilmsService.calculerNoteMoyenne(notes);
+		//double noteMoyenne = myFilmsService.calculerNoteMoyenne(notes);
 
 		// Attendue : 15,17
-		System.out.println("La note moyenne est : " + noteMoyenne);
+		//System.out.println("La note moyenne est : " + noteMoyenne);
 	}
 
 	/**

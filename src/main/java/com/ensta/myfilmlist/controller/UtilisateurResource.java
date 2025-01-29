@@ -27,7 +27,7 @@ public interface UtilisateurResource {
     /**
      * Renvoie la liste non nulle de tous les utilisateurs disponibles, ainsi que leur réalisateur associé.
      *
-     * @param token le token de l'utilisateur
+     * @param Authorization le token de l'utilisateur
      * @return List of UtilisateurDTO
      * @throws ControllerException en cas d'erreur de traitement
      */
@@ -41,13 +41,13 @@ public interface UtilisateurResource {
             @ApiResponse(code = 404, message = "Liste des utilisateurs vide"),
     })
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    ResponseEntity<List<UtilisateurDTO>> getAllUtilisateurs(@RequestParam String token) throws ControllerException;
+    ResponseEntity<List<UtilisateurDTO>> getAllUtilisateurs(@RequestHeader String Authorization) throws ControllerException;
 
     /**
      * Renvoie le utilisateur ayant l'id donné.
      *
      * @param id l'identifiant du utilisateur
-     * @param token le token de l'utilisateur
+     * @param Authorization le token de l'utilisateur
      * @return le UtilisateurDTO associé ou une erreur 404 si non trouvé
      * @throws ControllerException en cas d'erreur de traitement
      */
@@ -61,13 +61,13 @@ public interface UtilisateurResource {
             @ApiResponse(code = 404, message = "Utilisateur non trouvé"),
     })
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    ResponseEntity<UtilisateurDTO> getUtilisateurById(@PathVariable long id, @RequestParam String token) throws ControllerException;
+    ResponseEntity<UtilisateurDTO> getUtilisateurById(@PathVariable long id, @RequestHeader String Authorization) throws ControllerException;
 
     /**
      * Crée un utilisateur à partir des informations fournies.
      *
      * @param utilisateurForm les informations du utilisateur à créer
-     * @param token le token de l'utilisateur
+     * @param Authorization le token de l'utilisateur
      * @return le UtilisateurDTO créé
      * @throws ControllerException en cas d'erreur de traitement
      */
@@ -81,13 +81,13 @@ public interface UtilisateurResource {
             @ApiResponse(code = 400, message = "Requête incorrecte"),
     })
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    ResponseEntity<UtilisateurDTO> createUtilisateur(@RequestBody @Valid UtilisateurForm utilisateurForm, @RequestParam String token) throws ControllerException;
+    ResponseEntity<UtilisateurDTO> createUtilisateur(@RequestBody @Valid UtilisateurForm utilisateurForm, @RequestHeader String Authorization) throws ControllerException;
 
     /**
      * Supprime un utilisateur à partir de son identifiant.
      *
      * @param id l'identifiant du utilisateur à supprimer
-     * @param token le token de l'utilisateur
+     * @param Authorization le token de l'utilisateur
      * @return ResponseEntity
      * @throws ControllerException en cas d'erreur de traitement
      */
@@ -100,13 +100,14 @@ public interface UtilisateurResource {
             @ApiResponse(code = 404, message = "Utilisateur non trouvé"),
     })
     @DeleteMapping(value = "/{id}")
-    ResponseEntity<?> deleteUtilisateur(@PathVariable long id, @RequestParam String token) throws ControllerException;
+    ResponseEntity<?> deleteUtilisateur(@PathVariable long id, @RequestHeader String Authorization) throws ControllerException;
 
     /**
      * Met à jour un utilisateur à partir de son identifiant et des informations fournies.
      *
      * @param id l'identifiant du utilisateur à mettre à jour
      * @param utilisateurForm les informations du utilisateur à mettre à jour
+     * @param Authorization le token de l'utilisateur
      * @return le UtilisateurDTO mis à jour
      * @throws ControllerException en cas d'erreur de traitement
      */
@@ -120,7 +121,7 @@ public interface UtilisateurResource {
             @ApiResponse(code = 404, message = "Utilisateur non trouvé"),
     })
     @PutMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    ResponseEntity<UtilisateurDTO> updateUtilisateur(@PathVariable long id, @RequestBody @Valid UtilisateurForm utilisateurForm, @RequestParam String token) throws ControllerException;
+    ResponseEntity<UtilisateurDTO> updateUtilisateur(@PathVariable long id, @RequestBody @Valid UtilisateurForm utilisateurForm, @RequestHeader String Authorization) throws ControllerException;
 
     /**
      * Connexion à partir de son identifiant et des informations fournies.

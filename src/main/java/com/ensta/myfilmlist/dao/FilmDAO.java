@@ -61,10 +61,10 @@ public interface FilmDAO {
      */
     public Film update(Film film);
 
-    /**
-     * Renvoie la liste de tous les commentaires pour un film.
-     * @param filmId l'id du film
-     * @return la liste de tous les commentaires pour un film
-     */
-    public List<Commentaire> findCommentairesByFilmId(long filmId);
+//    /**
+//     * Renvoie la liste de tous les commentaires pour un film.
+//     * @param filmId l'id du film
+//     * @return la liste de tous les commentaires pour un film
+//     */
+//    public List<Commentaire> findCommentairesByFilmId(long filmId);
 }

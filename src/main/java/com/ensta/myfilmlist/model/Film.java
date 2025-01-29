@@ -40,10 +40,6 @@ public class Film {
 	@OneToMany(mappedBy = "film", cascade = CascadeType.ALL)
 	private List<Note> notes;
 
-	@OneToMany(mappedBy = "film", cascade = CascadeType.ALL)
-	private List<Commentaire> commentaires;
-
-
 	public long getId() {
 		return id;
 	}
@@ -92,11 +88,4 @@ public class Film {
 		this.notes = notes;
 	}
 
-	public List<Commentaire> getCommentaires() {
-		return commentaires;
-	}
-
-	public void setCommentaires(List<Commentaire> commentaires) {
-		this.commentaires = commentaires;
-	}
 }

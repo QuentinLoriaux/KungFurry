@@ -49,10 +49,10 @@ public class FilmMapper {
 		if (genre != null) {
 			filmDTO.setGenre(GenreMapper.convertGenreToGenreDTO(genre));
 		}
-		List<Commentaire> commentaires = film.getCommentaires();
-		if (commentaires != null) {
-			filmDTO.setCommentaires(CommentaireMapper.convertCommentaireToCommentaireDTOs(commentaires));
-		}
+//		List<Commentaire> commentaires = film.getCommentaires();
+//		if (commentaires != null) {
+//			filmDTO.setCommentaires(CommentaireMapper.convertCommentaireToCommentaireDTOs(commentaires));
+//		}
 		return filmDTO;
 	}
 

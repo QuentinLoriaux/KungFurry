@@ -12,6 +12,7 @@ import java.util.stream.Stream;
 
 import javax.xml.bind.DatatypeConverter;
 
+import com.ensta.myfilmlist.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -31,11 +32,6 @@ import com.ensta.myfilmlist.mapper.FilmMapper;
 import com.ensta.myfilmlist.mapper.GenreMapper;
 import com.ensta.myfilmlist.mapper.RealisateurMapper;
 import com.ensta.myfilmlist.mapper.UtilisateurMapper;
-import com.ensta.myfilmlist.model.Film;
-import com.ensta.myfilmlist.model.Genre;
-import com.ensta.myfilmlist.model.Page;
-import com.ensta.myfilmlist.model.Realisateur;
-import com.ensta.myfilmlist.model.Utilisateur;
 
 @Service
 public class MyFilmsServiceImpl implements com.ensta.myfilmlist.service.MyFilmsService {
@@ -78,11 +74,11 @@ public class MyFilmsServiceImpl implements com.ensta.myfilmlist.service.MyFilmsS
     }
 
     @Override
-    public double calculerNoteMoyenne(double[] notes){
-        if (notes == null) {
+    public double calculerNoteMoyenne(List<Note> notes){
+        if (notes == null || notes.isEmpty()) {
             return 0;
         }
-        double moyenne = Arrays.stream(notes).average().orElse(0.0);
+        double moyenne = notes.stream().mapToInt(Note::getNote).average().orElse(0);
         return round(moyenne * pow(10,2)) / pow(10,2);
     }
 
@@ -103,11 +99,16 @@ public class MyFilmsServiceImpl implements com.ensta.myfilmlist.service.MyFilmsS
         }
     }
 
+
     @Override
     public List<FilmDTO> findAllFilms() throws ServiceException {
         try {
             List<Film> films = this.filmDAO.findAll();
-            return FilmMapper.convertFilmToFilmDTOs(films);
+            List<FilmDTO> filmsDTOs = FilmMapper.convertFilmToFilmDTOs(films);
+            for (int i = 0; i < filmsDTOs.size(); i++) {
+                filmsDTOs.get(i).setNoteMoyenne(calculerNoteMoyenne(films.get(i).getNotes()));
+            }
+            return filmsDTOs;
         } catch (RuntimeException e) {
             throw new ServiceException("Erreur lors de la récupération des films", e);
         }
@@ -117,9 +118,13 @@ public class MyFilmsServiceImpl implements com.ensta.myfilmlist.service.MyFilmsS
     public Page<FilmDTO> findAllFilms(int page, int size, String query, String sort, String order) throws ServiceException {
         try {
             Page<Film> films = this.filmDAO.findAll(page, size, query, sort, order);
-            return new Page<>(films.getNumber(), films.getSize(), films.getTotal(), FilmMapper.convertFilmToFilmDTOs(films.getData()));
+            List<FilmDTO> filmsDTOs = FilmMapper.convertFilmToFilmDTOs(films.getData());
+            for (int i = 0; i < filmsDTOs.size(); i++) {
+                filmsDTOs.get(i).setNoteMoyenne(calculerNoteMoyenne(films.getData().get(i).getNotes()));
+            }
+            return new Page<>(films.getNumber(), films.getSize(), films.getTotal(), filmsDTOs);
         } catch (RuntimeException e) {
-            throw new ServiceException("Erreur lors de la récupération des films", e);
+            throw new ServiceException("Erreur lors de la récupération des films"+ e.getMessage(), e);
         }
     }
 
@@ -188,7 +193,7 @@ public class MyFilmsServiceImpl implements com.ensta.myfilmlist.service.MyFilmsS
             Optional<Film> film = this.filmDAO.findById(id);
             FilmDTO filmDTO = film.map(FilmMapper::convertFilmToFilmDTO).orElse(null);
             if (filmDTO != null) {
-                filmDTO.setNoteMoyenne(calculerNoteMoyenne(film.get().getNotes().stream().mapToDouble(value -> value.getValue()).toArray()));
+                filmDTO.setNoteMoyenne(calculerNoteMoyenne(film.get().getNotes()));
             }
             return film.map(FilmMapper::convertFilmToFilmDTO).orElse(null);
         } catch (RuntimeException e) {

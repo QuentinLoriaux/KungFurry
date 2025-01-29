@@ -29,9 +29,7 @@ export function postFilm(film, token) {
         realisateurId: film.realisateurId,
         genreId: film.genreId
     };
-    return axios.post(FILM_URI, payload, { params: {
-            token: token === undefined ? '' : token.token,
-        }, })
+    return axios.post(FILM_URI, payload, { headers: { Authorization: `Bearer ${token.token}` } })
         .catch(error => {
             console.error('Erreur lors de la création du film', error);
             throw error;
@@ -53,9 +51,7 @@ export function putFilm(filmId, film, token) {
         realisateurId: film.realisateurId,
         genreId: film.genreId
     }
-    return axios.put(`${FILM_URI}/${filmId}`, payload, { params: {
-            token: token === undefined ? '' : token.token,
-        }, })
+    return axios.put(`${FILM_URI}/${filmId}`, payload, { headers: { Authorization: `Bearer ${token.token}` } })
         .catch(error => {
             console.error('Erreur lors de la mise à jour du film', error);
             throw error;
@@ -69,9 +65,7 @@ export function putFilm(filmId, film, token) {
  * @returns {Promise} Axios response promise.
  */
 export function deleteFilm(id, token) {
-    return axios.delete(`${FILM_URI}/${id}`, { params: {
-            token: token === undefined ? '' : token.token,
-        }, })
+    return axios.delete(`${FILM_URI}/${id}`, { headers: { Authorization: `Bearer ${token.token}` } })
         .catch(error => {
             console.error('Erreur lors de la suppression du film', error);
             throw error;

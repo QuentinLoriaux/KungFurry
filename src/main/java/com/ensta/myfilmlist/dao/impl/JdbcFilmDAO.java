@@ -172,15 +172,15 @@ public class JdbcFilmDAO implements com.ensta.myfilmlist.dao.FilmDAO {
         }
     }
 
-    @Override
-    public List<Commentaire> findCommentairesByFilmId(long filmId){ {
-        String query = "SELECT id, text, film FROM commentaire WHERE film_id = ?";
-        return jdbcTemplate.query(query, (ResultSet rs, int rowNum) -> {
-            Commentaire commentaire = new Commentaire();
-            commentaire.setId(rs.getInt("id"));
-            commentaire.setText(rs.getString("text"));
-            return commentaire;
-        }, filmId);
-    }
-    }
+//    @Override
+//    public List<Commentaire> findCommentairesByFilmId(long filmId){
+//        String query = "SELECT id, text, film FROM commentaire WHERE film_id = ?";
+//        return jdbcTemplate.query(query, (ResultSet rs, int rowNum) -> {
+//            Commentaire commentaire = new Commentaire();
+//            commentaire.setId(rs.getInt("id"));
+//            commentaire.setText(rs.getString("text"));
+//            return commentaire;
+//        }, filmId);
+//    }
+
 }

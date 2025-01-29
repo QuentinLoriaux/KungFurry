@@ -86,9 +86,9 @@ public class JpaFilmDAO implements com.ensta.myfilmlist.dao.FilmDAO {
         return entityManager.merge(film);
     }
 
-    public List<Commentaire> findCommentairesByFilmId(long filmId) {
-        return entityManager.createQuery("SELECT c FROM Commentaire c WHERE c.film.id = :filmId", Commentaire.class)
-                .setParameter("filmId", filmId)
-                .getResultList();
-    }
+//    public List<Commentaire> findCommentairesByFilmId(long filmId) {
+//        return entityManager.createQuery("SELECT c FROM Commentaire c WHERE c.film.id = :filmId", Commentaire.class)
+//                .setParameter("filmId", filmId)
+//                .getResultList();
+//    }
 }

@@ -82,6 +82,7 @@ public interface RealisateurResource {
      * Crée un réalisateur.
      *
      * @param realisateurForm le formulaire de création du réalisateur
+     * @param Authorization le token d'authentification
      * @return le RealisateurDTO créé
      * @throws ControllerException en cas d'erreur de traitement
      */
@@ -95,12 +96,13 @@ public interface RealisateurResource {
             @ApiResponse(code = 404, message = "Erreur lors de la création du réalisateur"),
     })
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    ResponseEntity<?> createRealisateur(@RequestBody @Valid RealisateurForm realisateurForm, @RequestParam String token) throws ControllerException;
+    ResponseEntity<?> createRealisateur(@RequestBody @Valid RealisateurForm realisateurForm, @RequestHeader String Authorization) throws ControllerException;
 
     /**
      * Met à jour un réalisateur.
      *
      * @param realisateurForm le formulaire de mise à jour du réalisateur
+     * @param Authorization le token d'authentification
      * @return le RealisateurDTO mis à jour
      * @throws ControllerException en cas d'erreur de traitement
      */
@@ -114,12 +116,13 @@ public interface RealisateurResource {
             @ApiResponse(code = 404, message = "Erreur lors de la mise à jour du réalisateur"),
     })
     @PutMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    ResponseEntity<?> updateRealisateur(@PathVariable long id, @RequestBody @Valid RealisateurForm realisateurForm, @RequestParam String token) throws ControllerException;
+    ResponseEntity<?> updateRealisateur(@PathVariable long id, @RequestBody @Valid RealisateurForm realisateurForm, @RequestHeader String Authorization) throws ControllerException;
 
     /**
      * Supprime un réalisateur.
      *
      * @param id l'id du réalisateur à supprimer
+     * @param Authorization le token d'authentification
      * @throws ControllerException en cas d'erreur de traitement
      */
     @ApiOperation(
@@ -132,5 +135,5 @@ public interface RealisateurResource {
             @ApiResponse(code = 404, message = "Erreur lors de la suppression du réalisateur"),
     })
     @DeleteMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    ResponseEntity<?> deleteRealisateur(@PathVariable long id, @RequestParam String token) throws ControllerException;
+    ResponseEntity<?> deleteRealisateur(@PathVariable long id, @RequestHeader String Authorization) throws ControllerException;
 }

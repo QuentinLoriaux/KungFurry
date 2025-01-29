@@ -21,7 +21,7 @@ import javax.persistence.Table;
         private long id;
     
         @Column
-        private int value;
+        private int note;
     
         @ManyToOne
         @JoinColumn(name = "film_id", nullable = false)
@@ -39,12 +39,12 @@ import javax.persistence.Table;
             this.id = id;
         }
     
-        public int getValue() {
-            return value;
+        public int getNote() {
+            return note;
         }
-    
-        public void setValue(int value) {
-            this.value = value;
+
+        public void setNote(int note) {
+            this.note = note;
         }
     
         public Film getFilm(){

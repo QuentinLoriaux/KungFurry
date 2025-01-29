@@ -9,9 +9,7 @@ const USER_URI = "http://localhost:8080/user";
  */
 export function getAllUsers(token) {
   return axios.get(USER_URI, {
-    params: {
-      token: token === undefined ? '' : token.token,
-    },
+      headers: { Authorization: `Bearer ${token.token}` }
   }).catch(error => {
     console.error('Erreur lors de la récupération des utilisateurs', error);
     throw error;
@@ -30,7 +28,7 @@ export function createUser(user, token) {
     password: user.md5Hex,
     roleId : 0,
   };
-  return axios.post(USER_URI, payload, { headers: { Authorization: `Bearer ${token}` } })
+  return axios.post(USER_URI, payload, { headers: { Authorization: `Bearer ${token.token}` } })
       .catch(error => {
       console.error('Erreur lors de la création de l\'utilisateur', error);
       throw error;
@@ -45,9 +43,7 @@ export function createUser(user, token) {
  */
 export function getUserById(id, token) {
   return axios.get(`${USER_URI}/${id}`, {
-    params: {
-      token: token === undefined ? '' : token.token,
-    },
+    headers: { Authorization: `Bearer ${token.token}` }
   }).catch(error => {
     console.error('Erreur lors de la récupération de l\'utilisateur', error);
     throw error;
@@ -67,9 +63,7 @@ export function updateUser(userId, user, token) {
     password: user.md5Hex,
     roleId : user.roleId,
   };
-  return axios.put(`${USER_URI}/${userId}`, payload, { params: {
-      token: token === undefined ? '' : token.token,
-    }, })
+  return axios.put(`${USER_URI}/${userId}`, payload, { headers: { Authorization: `Bearer ${token.token}` }})
       .catch(error => {
       console.error('Erreur lors de la mise à jour de l\'utilisateur', error);
       throw error;
@@ -83,9 +77,8 @@ export function updateUser(userId, user, token) {
  * @returns {Promise} Axios response promise.
  */
 export function deleteUser(id, token) {
-    return axios.delete(`${USER_URI}/${id}`, { params: {
-        token: token === undefined ? '' : token.token,
-      }, }).catch(error => {
+    return axios.delete(`${USER_URI}/${id}`, { headers: { Authorization: `Bearer ${token.token}` }
+       }).catch(error => {
     console.error('Erreur lors de la suppression de l\'utilisateur', error);
     });
 }

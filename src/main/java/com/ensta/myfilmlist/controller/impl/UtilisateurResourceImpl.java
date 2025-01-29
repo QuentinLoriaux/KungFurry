@@ -31,7 +31,7 @@ public class UtilisateurResourceImpl implements UtilisateurResource {
 
     @Override
     @GetMapping
-    public ResponseEntity<List<UtilisateurDTO>> getAllUtilisateurs(@RequestParam String token) throws ControllerException {
+    public ResponseEntity<List<UtilisateurDTO>> getAllUtilisateurs(@RequestHeader String Authorization) throws ControllerException {
         try {
             List<UtilisateurDTO> users = myFilmsService.findAllUtilisateurs();
             if (users.isEmpty()) {
@@ -45,7 +45,7 @@ public class UtilisateurResourceImpl implements UtilisateurResource {
 
     @Override
     @GetMapping("/{id}")
-    public ResponseEntity<UtilisateurDTO> getUtilisateurById(@PathVariable long id, @RequestParam String token) throws ControllerException {
+    public ResponseEntity<UtilisateurDTO> getUtilisateurById(@PathVariable long id, @RequestHeader String Authorization) throws ControllerException {
         try {
             UtilisateurDTO user = myFilmsService.findUtilisateurById(id);
             if (user == null) {
@@ -59,7 +59,7 @@ public class UtilisateurResourceImpl implements UtilisateurResource {
 
     @Override
     @PostMapping
-    public ResponseEntity<UtilisateurDTO> createUtilisateur(@RequestBody @Valid UtilisateurForm userForm, @RequestParam String token) throws ControllerException {
+    public ResponseEntity<UtilisateurDTO> createUtilisateur(@RequestBody @Valid UtilisateurForm userForm, @RequestHeader String Authorization) throws ControllerException {
         try {
             UtilisateurDTO user = myFilmsService.createUtilisateur(userForm);
             return ResponseEntity.ok(user);
@@ -70,7 +70,7 @@ public class UtilisateurResourceImpl implements UtilisateurResource {
 
     @Override
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteUtilisateur(@PathVariable long id, @RequestParam String token) throws ControllerException {
+    public ResponseEntity<?> deleteUtilisateur(@PathVariable long id, @RequestHeader String Authorization) throws ControllerException {
         try {
             myFilmsService.deleteUtilisateur(id);
             return ResponseEntity.ok().build();
@@ -83,7 +83,7 @@ public class UtilisateurResourceImpl implements UtilisateurResource {
 
     @Override
     @PutMapping("/{id}")
-    public ResponseEntity<UtilisateurDTO> updateUtilisateur(@PathVariable long id, @RequestBody @Valid UtilisateurForm userForm, @RequestParam String token) throws ControllerException {
+    public ResponseEntity<UtilisateurDTO> updateUtilisateur(@PathVariable long id, @RequestBody @Valid UtilisateurForm userForm, @RequestHeader String Authorization) throws ControllerException {
         try {
             Utilisateur user = convertUtilisateurFormToUtilisateur(userForm);
             user.setId(id);
