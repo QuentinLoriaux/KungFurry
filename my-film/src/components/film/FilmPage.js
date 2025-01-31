@@ -87,7 +87,6 @@ function FilmPage() {
                         <Typography>📖 Genre : {film.genre.name}</Typography>
                         <Typography>🗓️ Date de sortie : {film.dateSortie}</Typography>
                         <Typography onClick={handleRealisateurRedirect}>🎬 Réalisateur : {film.realisateur.prenom} {film.realisateur.nom}</Typography>
-                        <Typography>📜 Synopsis : {film.synopsis}</Typography>
 
                         <Box display="flex" alignItems="center">
                             <Typography>📝 Votre note :</Typography>

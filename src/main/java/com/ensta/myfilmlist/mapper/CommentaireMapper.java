@@ -11,18 +11,6 @@ import com.ensta.myfilmlist.model.Commentaire;
  */
 
 public class CommentaireMapper {
-    
-    /**
-     * Convertit une liste de commentaires en liste de DTO.
-     * 
-     * @param commentaires la liste des commentaires
-     * @return Une liste non nulle de dtos construite a partir de la liste des commentaires.
-     */
-    public static List<CommentaireDTO> convertCommentaireToCommentaireDTOs(List<Commentaire> commentaires) {
-        return commentaires.stream()
-                .map(CommentaireMapper::convertCommentaireToCommentaireDTO)
-                .collect(Collectors.toList());
-    }
 
     /**
      * Convertit un commentaire en DTO.
@@ -34,8 +22,8 @@ public class CommentaireMapper {
         CommentaireDTO commentaireDTO = new CommentaireDTO();
         commentaireDTO.setId(commentaire.getId());
         commentaireDTO.setText(commentaire.getText());
-        commentaireDTO.setFilm(commentaire.getFilm());
-        commentaireDTO.setUtilisateur(commentaire.getUtilisateur());
+        commentaireDTO.setDate(commentaire.getDate());
+        commentaireDTO.setUsername(commentaire.getUtilisateur().getUsername());
         return commentaireDTO;
     }
 
@@ -49,8 +37,7 @@ public class CommentaireMapper {
         Commentaire commentaire = new Commentaire();
         commentaire.setId(commentaireDTO.getId());
         commentaire.setText(commentaireDTO.getText());
-        commentaire.setFilm(commentaireDTO.getFilm());
-        commentaire.setUtilisateur(commentaireDTO.getUtilisateur());
+        commentaire.setDate(commentaireDTO.getDate());
         return commentaire;
     }
 

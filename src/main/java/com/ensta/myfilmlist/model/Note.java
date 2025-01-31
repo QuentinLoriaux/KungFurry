@@ -1,13 +1,7 @@
 package com.ensta.myfilmlist.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
+
 /**
  * Represente une note d'un film donnée par un utilisateur.
  */
@@ -23,12 +17,12 @@ import javax.persistence.Table;
         @Column
         private int note;
     
-        @ManyToOne
+        @ManyToOne(fetch = FetchType.LAZY)
         @JoinColumn(name = "film_id", nullable = false)
         private Film film;
    
-        @ManyToOne
-        @JoinColumn(name = "utilisateur_id", nullable = false)
+        @ManyToOne(fetch = FetchType.LAZY)
+        @JoinColumn(name = "username", nullable = false)
         private Utilisateur utilisateur;
     
         public long getId() {

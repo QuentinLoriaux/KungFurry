@@ -1,5 +1,6 @@
 package com.ensta.myfilmlist.dto;
 
+import java.time.LocalDate;
 import java.util.List;
 
 /**
@@ -15,6 +16,10 @@ public class FilmDetailsDTO {
 	private GenreDTO genre;
 	private double noteMoyenne;
 	private List<CommentaireDTO> commentaires;
+	private int nbVues;
+	private LocalDate dateSortie;
+	private String affiche;
+	private String synopsis;
 
 	public long getId() {
 		return id;
@@ -71,6 +76,34 @@ public class FilmDetailsDTO {
 	}
 	public void setCommentaires(List<CommentaireDTO> commentaires) {
 		this.commentaires = commentaires;
+	}
+
+	public int getNbVues() {
+		return nbVues;
+	}
+	public void setNbVues(int nbVues) {
+		this.nbVues = nbVues;
+	}
+
+	public LocalDate getDateSortie() {
+		return dateSortie;
+	}
+	public void setDateSortie(LocalDate dateSortie) {
+		this.dateSortie = dateSortie;
+	}
+
+	public String getAffiche() {
+		return affiche;
+	}
+	public void setAffiche(String affiche) {
+		this.affiche = affiche;
+	}
+
+	public String getSynopsis() {
+		return synopsis;
+	}
+	public void setSynopsis(String synopsis) {
+		this.synopsis = synopsis;
 	}
 
 

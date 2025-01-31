@@ -1,65 +1,76 @@
-import React, { useState, useEffect } from 'react';
-import { TextField, Select, MenuItem, InputLabel, FormControl, Button, Box } from '@mui/material';
-import { getAllRealisateurs } from '../../api/RealisateurApi';
-import { getAllGenres } from '../../api/GenreApi';
+import { useState, useEffect } from "react";
+import { Box, TextField, Button, FormControl, InputLabel, Select, MenuItem } from "@mui/material";
+import {getAllRealisateurs} from "../../api/RealisateurApi";
+import {getAllGenres} from "../../api/GenreApi";
 
-function CreateFilmForm({ film , onSubmit }) {
-    const [title, setTitle] = useState(film?.titre ||'');
+function CreateFilmForm({ film, onSubmit }) {
+    const [title, setTitle] = useState(film?.titre || '');
     const [duration, setDuration] = useState(film?.duree || '');
+    const [releaseDate, setReleaseDate] = useState(film?.dateSortie || '');
+    const [synopsis, setSynopsis] = useState(film?.synopsis || '');
     const [realisateur, setRealisateur] = useState(film?.realisateur || '');
     const [realisateurId, setRealisateurId] = useState(realisateur?.id || '');
     const [genreId, setGenreId] = useState(film?.genre?.id || '');
+    const [coverImage, setCoverImage] = useState(null);
+    const [preview, setPreview] = useState(film?.couverture || null); // Prévisualisation de l'image
 
     const [realisateurs, setRealisateurs] = useState([]);
     const [genres, setGenres] = useState([]);
 
     useEffect(() => {
-        getAllRealisateurs(0,20).then(reponse => {
-        setRealisateurs(reponse.data.data);
-        }).catch(err => {
-        console.log(err);
-    })
-    }, [])
+        getAllRealisateurs(0, 20).then(response => {
+            setRealisateurs(response.data.data);
+        }).catch(err => console.log(err));
+    }, []);
 
     useEffect(() => {
         getAllGenres().then(response => {
             setGenres(response.data);
-        }).catch(err => {
-        console.log(err);
-        })
-    }, [])
+        }).catch(err => console.log(err));
+    }, []);
 
-     // Handle form submission
-     const handleCreateFilm = (e) => {
+    const handleImageChange = (e) => {
+        const file = e.target.files[0];
+        if (file) {
+            setCoverImage(file);
+            setPreview(URL.createObjectURL(file));
+        }
+    };
+
+    const handleCreateFilm = (e) => {
         e.preventDefault();
-
-        // Construct the new film object
         const newFilm = {
             title,
             duration,
-            realisateurId: realisateurId,
-            genreId: genreId
+            releaseDate,
+            synopsis,
+            realisateurId,
+            genreId,
+            coverImage
         };
-        // Appel de la fonction onSubmit passée en props
+
         onSubmit(newFilm);
 
-        // Réinitialisation des champs après soumission
         setTitle('');
         setDuration('');
-        setRealisateur('')
+        setReleaseDate('');
+        setSynopsis('');
+        setRealisateur('');
         setRealisateurId('');
         setGenreId('');
+        setCoverImage(null);
+        setPreview(null);
     };
 
     return (
-        <Box 
+        <Box
             component="form"
             onSubmit={handleCreateFilm}
             sx={{
                 display: 'flex',
                 flexDirection: 'column',
                 gap: 2,
-                maxWidth: 400,
+                maxWidth: 500,
                 margin: 'auto',
                 padding: 2,
                 border: '1px solid #ccc',
@@ -80,6 +91,24 @@ function CreateFilmForm({ film , onSubmit }) {
                 type="number"
                 value={duration}
                 onChange={(e) => setDuration(e.target.value)}
+                required
+            />
+            <TextField
+                label="Date de sortie"
+                variant="outlined"
+                type="date"
+                InputLabelProps={{ shrink: true }}
+                value={releaseDate}
+                onChange={(e) => setReleaseDate(e.target.value)}
+                required
+            />
+            <TextField
+                label="Synopsis"
+                variant="outlined"
+                multiline
+                rows={4}
+                value={synopsis}
+                onChange={(e) => setSynopsis(e.target.value)}
                 required
             />
             <FormControl required>
@@ -128,6 +157,20 @@ function CreateFilmForm({ film , onSubmit }) {
                     )}
                 </Select>
             </FormControl>
+
+            <input
+                type="file"
+                accept="image/*"
+                onChange={handleImageChange}
+            />
+            {preview && (
+                <img
+                    src={preview}
+                    alt="Prévisualisation"
+                    style={{ width: '100%', maxHeight: 300, objectFit: 'cover', borderRadius: 8 }}
+                />
+            )}
+
             <Button type="submit" variant="contained" color="primary">
                 Ajouter un film
             </Button>

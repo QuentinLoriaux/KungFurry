@@ -14,10 +14,8 @@ public class UtilisateurMapper {
      */
     public static UtilisateurDTO convertUtilisateurToUtilisateurDTO(Utilisateur utilisateur){
         UtilisateurDTO utilisateurDTO = new UtilisateurDTO();
-        utilisateurDTO.setId(utilisateur.getId());
         utilisateurDTO.setUsername(utilisateur.getUsername());
         utilisateurDTO.setMd5Hex(utilisateur.getMd5Hex());
-        utilisateurDTO.setId(utilisateur.getId());
         utilisateurDTO.setRoleId(utilisateur.getRoleId());
         return utilisateurDTO;
     }
@@ -29,7 +27,6 @@ public class UtilisateurMapper {
      */
     public static Utilisateur convertUtilisateurDTOToUtilisateur(UtilisateurDTO utilisateurDTO) {
         Utilisateur utilisateur = new Utilisateur();
-        utilisateur.setId(utilisateurDTO.getId());
         utilisateur.setUsername(utilisateurDTO.getUsername());
         utilisateur.setMd5Hex(utilisateurDTO.getMd5Hex());
         utilisateur.setRoleId(utilisateurDTO.getRoleId());

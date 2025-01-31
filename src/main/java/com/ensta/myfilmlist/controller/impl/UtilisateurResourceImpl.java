@@ -86,7 +86,6 @@ public class UtilisateurResourceImpl implements UtilisateurResource {
     public ResponseEntity<UtilisateurDTO> updateUtilisateur(@PathVariable long id, @RequestBody @Valid UtilisateurForm userForm, @RequestHeader String Authorization) throws ControllerException {
         try {
             Utilisateur user = convertUtilisateurFormToUtilisateur(userForm);
-            user.setId(id);
             UtilisateurDTO userDTO = myFilmsService.updateUtilisateur(user);
             return ResponseEntity.ok(userDTO);
         } catch (ServiceException e) {

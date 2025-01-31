@@ -1,6 +1,7 @@
 package com.ensta.myfilmlist.controller;
 
 import com.ensta.myfilmlist.dto.FilmDTO;
+import com.ensta.myfilmlist.dto.FilmDetailsDTO;
 import com.ensta.myfilmlist.exception.ControllerException;
 import com.ensta.myfilmlist.form.FilmForm;
 import com.ensta.myfilmlist.model.Page;
@@ -86,7 +87,7 @@ public interface FilmResource {
             @ApiResponse(code = 404, message = "Film non trouvé"),
     })
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    ResponseEntity<FilmDTO> getFilmById(@PathVariable long id) throws ControllerException;
+    ResponseEntity<FilmDetailsDTO> getFilmById(@PathVariable long id) throws ControllerException;
 
     /**
      * Crée un film à partir des informations fournies.

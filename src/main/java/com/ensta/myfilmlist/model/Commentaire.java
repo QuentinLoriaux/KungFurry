@@ -1,13 +1,7 @@
 package com.ensta.myfilmlist.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.time.LocalDate;
 
 /**
  * Represente un commentaire fait par un utilisateur sur un film.
@@ -23,12 +17,15 @@ public class Commentaire {
 	@Column
 	private String texte;
 
-	@ManyToOne
+	@Column
+	private LocalDate date;
+
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "film_id", nullable = false)
     private Film film;
 
-	@ManyToOne
-	@JoinColumn(name = "utilisateur_id", nullable = false)
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "username", nullable = false)
     private Utilisateur utilisateur;
 
 
@@ -46,6 +43,14 @@ public class Commentaire {
 
 	public void setText(String texte) {
 		this.texte = texte;
+	}
+
+	public LocalDate getDate() {
+		return date;
+	}
+
+	public void setDate(LocalDate date) {
+		this.date = date;
 	}
 
     public Film getFilm(){

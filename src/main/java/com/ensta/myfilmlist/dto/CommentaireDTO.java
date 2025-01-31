@@ -3,15 +3,16 @@ package com.ensta.myfilmlist.dto;
 import com.ensta.myfilmlist.model.Film;
 import com.ensta.myfilmlist.model.Utilisateur;
 
+import java.time.LocalDate;
+
 /**
  * Contient les donnees d'un Commentaire.
  */
-
 public class CommentaireDTO {
     private long id;
     private String text;
-    private Film film;
-    private Utilisateur utilisateur;
+    private LocalDate date;
+    private String username;
 
     public long getId() {
         return id;
@@ -27,20 +28,18 @@ public class CommentaireDTO {
         this.text = text;
     }
 
-    public Film getFilm() {
-        return film;
+    public LocalDate getDate() {
+        return date;
+    }
+    public void setDate(LocalDate date) {
+        this.date = date;
     }
 
-    public void setFilm(Film film) {
-        this.film = film;
+    public String getUsername() {
+        return username;
     }
-
-    public Utilisateur getUtilisateur() {
-        return utilisateur;
-    }
-
-    public void setUtilisateur(Utilisateur utilisateur) {
-        this.utilisateur = utilisateur;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     @Override

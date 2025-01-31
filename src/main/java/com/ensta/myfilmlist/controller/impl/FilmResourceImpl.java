@@ -1,6 +1,7 @@
 package com.ensta.myfilmlist.controller.impl;
 
 import com.ensta.myfilmlist.controller.FilmResource;
+import com.ensta.myfilmlist.dto.FilmDetailsDTO;
 import com.ensta.myfilmlist.exception.ControllerException;
 import com.ensta.myfilmlist.dto.FilmDTO;
 import com.ensta.myfilmlist.model.Film;
@@ -66,9 +67,9 @@ public class FilmResourceImpl implements FilmResource {
 
     @Override
     @GetMapping("/{id}")
-    public ResponseEntity<FilmDTO> getFilmById(@PathVariable long id) throws ControllerException {
+    public ResponseEntity<FilmDetailsDTO> getFilmById(@PathVariable long id) throws ControllerException {
         try {
-            FilmDTO film = myFilmsService.findFilmById(id);
+            FilmDetailsDTO film = myFilmsService.findFilmById(id);
             if (film == null) {
                 return ResponseEntity.notFound().build();
             }

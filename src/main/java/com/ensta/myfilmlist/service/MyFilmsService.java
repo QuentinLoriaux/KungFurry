@@ -2,13 +2,10 @@ package com.ensta.myfilmlist.service;
 
 import java.util.List;
 
+import com.ensta.myfilmlist.dto.*;
 import com.ensta.myfilmlist.model.*;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.ensta.myfilmlist.dto.FilmDTO;
-import com.ensta.myfilmlist.dto.GenreDTO;
-import com.ensta.myfilmlist.dto.RealisateurDTO;
-import com.ensta.myfilmlist.dto.UtilisateurDTO;
 import com.ensta.myfilmlist.exception.ServiceException;
 import com.ensta.myfilmlist.form.FilmForm;
 import com.ensta.myfilmlist.form.RealisateurForm;
@@ -48,6 +45,15 @@ public interface MyFilmsService {
      * @throws ServiceException si une erreur survient pendant la mise à jour ou si le film est invalide.
      */
     Film updateNoteMoyenne(Film film) throws ServiceException;
+
+    /**
+     * Met à jour le nombre de vues d'un film.
+     *
+     * @param film le film à mettre à jour.
+     * @return le film mis à jour avec son nombre de vues.
+     * @throws ServiceException si une erreur survient pendant la mise à jour ou si le film est invalide.
+     */
+    Film updateNbVues(Film film) throws ServiceException;
 
     /**
      * Met à jour le statut "celebre" des réalisateurs en fonction du nombre de films réalisés.
@@ -117,11 +123,11 @@ public interface MyFilmsService {
     /**
      * Récupère un film par son id.
      * @param id
-     * @return FilmDTO
+     * @return FilmDetailsDTO
      * @throws ServiceException
      */
     @Transactional
-    FilmDTO findFilmById(long id) throws ServiceException;
+    FilmDetailsDTO findFilmById(long id) throws ServiceException;
 
     /**
      * Supprime un film par son id.

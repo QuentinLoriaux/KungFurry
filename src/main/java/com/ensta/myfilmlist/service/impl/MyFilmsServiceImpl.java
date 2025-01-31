@@ -13,14 +13,11 @@ import java.util.stream.Stream;
 import javax.xml.bind.DatatypeConverter;
 
 import com.ensta.myfilmlist.dao.*;
+import com.ensta.myfilmlist.dto.*;
 import com.ensta.myfilmlist.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.ensta.myfilmlist.dto.FilmDTO;
-import com.ensta.myfilmlist.dto.GenreDTO;
-import com.ensta.myfilmlist.dto.RealisateurDTO;
-import com.ensta.myfilmlist.dto.UtilisateurDTO;
 import com.ensta.myfilmlist.exception.ServiceException;
 import com.ensta.myfilmlist.form.FilmForm;
 import com.ensta.myfilmlist.form.RealisateurForm;
@@ -45,6 +42,8 @@ public class MyFilmsServiceImpl implements com.ensta.myfilmlist.service.MyFilmsS
     private GenreDAO genreDAO;
     @Autowired
     private NoteDAO noteDAO;
+    @Autowired
+    private VueDAO vueDAO;
 
     private String tokenSecret = "FLAG{Th1s_1s_Th5_35cr5t_K5Y}";
 
@@ -86,6 +85,16 @@ public class MyFilmsServiceImpl implements com.ensta.myfilmlist.service.MyFilmsS
         try {
             List<Note> notes = this.noteDAO.findByFilmId(film.getId());
             film.setNoteMoyenne(calculerNoteMoyenne(notes));
+            return film;
+        } catch (Exception e) {
+            throw new ServiceException("Erreur lors de la mise à jour du film", e);
+        }
+    }
+
+    @Override
+    public Film updateNbVues(Film film) throws ServiceException {
+        try {
+            film.setNbVues(this.vueDAO.findVuesByFilmId(film.getId()));
             return film;
         } catch (Exception e) {
             throw new ServiceException("Erreur lors de la mise à jour du film", e);
@@ -143,6 +152,7 @@ public class MyFilmsServiceImpl implements com.ensta.myfilmlist.service.MyFilmsS
             }
             film.setRealisateur(realisateur.get());
             film.setNoteMoyenne(0);
+            film.setNbVues(0);
             film = this.filmDAO.save(film);
             this.updateRealisateurCelebre(realisateur.get());
             return FilmMapper.convertFilmToFilmDTO(film);
@@ -190,10 +200,10 @@ public class MyFilmsServiceImpl implements com.ensta.myfilmlist.service.MyFilmsS
     }
 
     @Override
-    public FilmDTO findFilmById(long id) throws ServiceException {
+    public FilmDetailsDTO findFilmById(long id) throws ServiceException {
         try {
             Optional<Film> film = this.filmDAO.findById(id);
-            return film.map(FilmMapper::convertFilmToFilmDTO).orElse(null);
+            return film.map(FilmMapper::convertFilmToFilmDetailsDTO).orElse(null);
         } catch (RuntimeException e) {
             throw new ServiceException("Erreur lors de la récupération du film", e);
         }
@@ -202,11 +212,11 @@ public class MyFilmsServiceImpl implements com.ensta.myfilmlist.service.MyFilmsS
     @Override
     public void deleteFilm(long id) throws ServiceException {
         try {
-            FilmDTO filmDTO = findFilmById(id);
+            FilmDetailsDTO filmDTO = findFilmById(id);
             if (filmDTO == null) {
                 throw new ServiceException("Le film n'existe pas");
             }
-            this.filmDAO.delete(FilmMapper.convertFilmDTOToFilm(filmDTO));
+            this.filmDAO.delete(FilmMapper.convertFilmDetailsDTOToFilm(filmDTO));
             this.updateRealisateurCelebre(RealisateurMapper.convertRealisateurDTOToRealisateur(filmDTO.getRealisateur()));
         } catch (RuntimeException e) {
             throw new ServiceException("Erreur lors de la suppression du film", e);
@@ -239,6 +249,7 @@ public class MyFilmsServiceImpl implements com.ensta.myfilmlist.service.MyFilmsS
     public FilmDTO updateFilm(Film film) throws ServiceException {
         try {
             film = this.updateNoteMoyenne(film);
+            film = this.updateNbVues(film);
             film = this.filmDAO.update(film);
             this.updateRealisateurCelebre(film.getRealisateur());
             return FilmMapper.convertFilmToFilmDTO(film);
@@ -280,7 +291,6 @@ public class MyFilmsServiceImpl implements com.ensta.myfilmlist.service.MyFilmsS
     public UtilisateurDTO createUtilisateur(UtilisateurForm utilisateurForm) throws ServiceException {
         try {
             Utilisateur utilisateur = UtilisateurMapper.convertUtilisateurFormToUtilisateur(utilisateurForm);
-            System.out.println(utilisateur.getId());
             utilisateur = this.utilisateurDAO.save(utilisateur);
 
             return UtilisateurMapper.convertUtilisateurToUtilisateurDTO(utilisateur);
@@ -376,8 +386,4 @@ public class MyFilmsServiceImpl implements com.ensta.myfilmlist.service.MyFilmsS
             throw new ServiceException("Erreur lors du hash", e);
         }
     }
-
-
-
-
 }

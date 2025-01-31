@@ -36,14 +36,14 @@ public class MyfilmlistMain {
 		System.out.println("--------------------");
 		myFilmListTests.findAllFilmsTest();
 
-		System.out.println("--------------------");
-		myFilmListTests.createFilmTest();
-
-		System.out.println("--------------------");
-		myFilmListTests.findFilmByIdTest();
-
-		System.out.println("--------------------");
-		myFilmListTests.deleteFilmByIdTest();
+//		System.out.println("--------------------");
+//		myFilmListTests.createFilmTest();
+//
+//		System.out.println("--------------------");
+//		myFilmListTests.findFilmByIdTest();
+//
+//		System.out.println("--------------------");
+//		myFilmListTests.deleteFilmByIdTest();
 
 		System.out.println("--------------------");
 		myFilmListTests.updateRealisateurCelebre();

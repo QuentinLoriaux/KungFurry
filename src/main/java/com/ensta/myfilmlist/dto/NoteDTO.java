@@ -10,8 +10,6 @@ import com.ensta.myfilmlist.model.Utilisateur;
 public class NoteDTO {
     private long id;
     private int value;
-    private Film film;
-    private Utilisateur utilisateur;
 
     public long getId() {
         return id;
@@ -25,22 +23,6 @@ public class NoteDTO {
     }
     public void setValue(int note) {
         this.value = note;
-    }
-
-    public Film getFilm() {
-        return film;
-    }
-
-    public void setFilm(Film film) {
-        this.film = film;
-    }
-
-    public Utilisateur getUtilisateur() {
-        return utilisateur;
-    }
-
-    public void setUtilisateur(Utilisateur utilisateur) {
-        this.utilisateur = utilisateur;
     }
 
     @Override

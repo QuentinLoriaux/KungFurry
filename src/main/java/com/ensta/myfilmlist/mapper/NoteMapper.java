@@ -34,8 +34,6 @@ public class NoteMapper {
         NoteDTO noteDTO = new NoteDTO();
         noteDTO.setId(note.getId());
         noteDTO.setValue(note.getNote());
-        noteDTO.setFilm(note.getFilm());
-        noteDTO.setUtilisateur(note.getUtilisateur());
         return noteDTO;
     }
 
@@ -49,8 +47,6 @@ public class NoteMapper {
         Note note = new Note();
         note.setId(noteDTO.getId());
         note.setNote(noteDTO.getValue());
-        note.setFilm(noteDTO.getFilm());
-        note.setUtilisateur(noteDTO.getUtilisateur());
         return note;
     }
 } 
