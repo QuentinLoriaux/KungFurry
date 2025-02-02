@@ -268,9 +268,9 @@ public class MyFilmsServiceImpl implements com.ensta.myfilmlist.service.MyFilmsS
     }
 
     @Override
-    public UtilisateurDTO findUtilisateurById(long id) throws ServiceException {
+    public UtilisateurDTO findUtilisateurByUsername(String username) throws ServiceException {
         try {
-            Optional<Utilisateur> utilisateur = this.utilisateurDAO.findById(id);
+            Optional<Utilisateur> utilisateur = this.utilisateurDAO.findByUsername(username);
             return utilisateur.map(UtilisateurMapper::convertUtilisateurToUtilisateurDTO).orElse(null);
         } catch (RuntimeException e) {
             throw new ServiceException("Erreur lors de la récupération de l'utilisateur", e);
@@ -300,9 +300,9 @@ public class MyFilmsServiceImpl implements com.ensta.myfilmlist.service.MyFilmsS
     }
 
     @Override
-    public void deleteUtilisateur(long id) throws ServiceException {
+    public void deleteUtilisateur(String username) throws ServiceException {
         try {
-            UtilisateurDTO utilisateurDTO = findUtilisateurById(id);
+            UtilisateurDTO utilisateurDTO = findUtilisateurByUsername(username);
             if (utilisateurDTO == null) {
                 throw new ServiceException("Le utilisateur n'existe pas");
             }
@@ -368,7 +368,7 @@ public class MyFilmsServiceImpl implements com.ensta.myfilmlist.service.MyFilmsS
 
     @Override
     public String createToken(UtilisateurDTO userDTO) throws ServiceException {
-        String to_sign = userDTO.getUsername() + ";" + String.valueOf(userDTO.getId());
+        String to_sign = userDTO.getUsername() + ";" + String.valueOf(userDTO.getRoleId());
         return to_sign + "." + md5(this.tokenSecret + to_sign); 
     }
 

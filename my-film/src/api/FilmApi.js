@@ -27,7 +27,10 @@ export function postFilm(film, token) {
         titre: film.title,
         duree: parseInt(film.duration),
         realisateurId: film.realisateurId,
-        genreId: film.genreId
+        genreId: film.genreId,
+        dateSortie: film.releaseDate,
+        synopsis: film.synopsis,
+        affiche: film.coverImage
     };
     return axios.post(FILM_URI, payload, { headers: { Authorization: `Bearer ${token.token}` } })
         .catch(error => {
@@ -49,7 +52,10 @@ export function putFilm(filmId, film, token) {
         titre: film.title,
         duree: parseInt(film.duration),
         realisateurId: film.realisateurId,
-        genreId: film.genreId
+        genreId: film.genreId,
+        dateSortie: film.releaseDate,
+        synopsis: film.synopsis,
+        affiche: film.coverImage
     }
     return axios.put(`${FILM_URI}/${filmId}`, payload, { headers: { Authorization: `Bearer ${token.token}` } })
         .catch(error => {

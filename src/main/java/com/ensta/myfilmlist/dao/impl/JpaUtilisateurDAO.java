@@ -47,8 +47,8 @@ public class JpaUtilisateurDAO implements com.ensta.myfilmlist.dao.UtilisateurDA
     }
 
     @Override
-    public Optional<Utilisateur> findById(long id) {
-        return Optional.ofNullable(entityManager.find(Utilisateur.class, id));
+    public Optional<Utilisateur> findByUsername(String username) {
+        return Optional.ofNullable(entityManager.find(Utilisateur.class, username));
     }
 
     @Override

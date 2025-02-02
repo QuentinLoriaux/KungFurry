@@ -24,18 +24,20 @@ public interface UtilisateurDAO {
     public Utilisateur save(Utilisateur utilisateur);
 
     /**
-     * Récupère un utilisateur par son id.
-     * @param id l'id du utilisateur à récupérer
+     * Récupère un utilisateur par son username.
+     * @param username le username du utilisateur à récupérer
      * @return le utilisateur récupéré
      */
-    public Optional<Utilisateur> findById(long id);
+    Optional<Utilisateur> findByUsername(String username);
 
     /**
      * Récupère un utilisateur par son username.
-     * @param id l'id du utilisateur à récupérer
+     * @param username le username du utilisateur à récupérer
+     * @param password le password du utilisateur à récupérer
+     *
      * @return le utilisateur récupéré
      */
-    public Optional<Utilisateur> findByUsernamePassword(String username, String password);
+    Optional<Utilisateur> findByUsernamePassword(String username, String password);
 
     /**
      * Supprime un utilisateur.

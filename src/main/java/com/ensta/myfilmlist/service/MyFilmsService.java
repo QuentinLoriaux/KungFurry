@@ -168,10 +168,10 @@ public interface MyFilmsService {
 
     /**
      * Récupère un utilisateur par son id.
-     * @param id
+     * @param username l'identifiant du utilisateur à récupérer
      * @return UtilisateurDTO
      */
-    UtilisateurDTO findUtilisateurById(long id) throws ServiceException;
+    UtilisateurDTO findUtilisateurByUsername(String username) throws ServiceException;
 
     /**
      * Récupère un utilisateur par son username/password.
@@ -192,12 +192,12 @@ public interface MyFilmsService {
 
     /**
      * Supprime un utilisateur par son id.
-     * @param id
+     * @param username
      * @throws ServiceException
      */
 
     @Transactional
-    void deleteUtilisateur(long id) throws ServiceException;
+    void deleteUtilisateur(String username) throws ServiceException;
 
     /**
      * Met à jour un utilisateur.

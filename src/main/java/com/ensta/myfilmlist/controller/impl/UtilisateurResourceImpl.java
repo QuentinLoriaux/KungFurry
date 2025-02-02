@@ -45,9 +45,9 @@ public class UtilisateurResourceImpl implements UtilisateurResource {
 
     @Override
     @GetMapping("/{id}")
-    public ResponseEntity<UtilisateurDTO> getUtilisateurById(@PathVariable long id, @RequestHeader String Authorization) throws ControllerException {
+    public ResponseEntity<UtilisateurDTO> getUtilisateurByUsername(@PathVariable String username, @RequestHeader String Authorization) throws ControllerException {
         try {
-            UtilisateurDTO user = myFilmsService.findUtilisateurById(id);
+            UtilisateurDTO user = myFilmsService.findUtilisateurByUsername(username);
             if (user == null) {
                 return ResponseEntity.notFound().build();
             }
@@ -70,9 +70,9 @@ public class UtilisateurResourceImpl implements UtilisateurResource {
 
     @Override
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteUtilisateur(@PathVariable long id, @RequestHeader String Authorization) throws ControllerException {
+    public ResponseEntity<?> deleteUtilisateur(@PathVariable String username, @RequestHeader String Authorization) throws ControllerException {
         try {
-            myFilmsService.deleteUtilisateur(id);
+            myFilmsService.deleteUtilisateur(username);
             return ResponseEntity.ok().build();
         } catch (ServiceException e) {
             return ResponseEntity.notFound().build();
@@ -83,7 +83,7 @@ public class UtilisateurResourceImpl implements UtilisateurResource {
 
     @Override
     @PutMapping("/{id}")
-    public ResponseEntity<UtilisateurDTO> updateUtilisateur(@PathVariable long id, @RequestBody @Valid UtilisateurForm userForm, @RequestHeader String Authorization) throws ControllerException {
+    public ResponseEntity<UtilisateurDTO> updateUtilisateur(@PathVariable String username, @RequestBody @Valid UtilisateurForm userForm, @RequestHeader String Authorization) throws ControllerException {
         try {
             Utilisateur user = convertUtilisateurFormToUtilisateur(userForm);
             UtilisateurDTO userDTO = myFilmsService.updateUtilisateur(user);
