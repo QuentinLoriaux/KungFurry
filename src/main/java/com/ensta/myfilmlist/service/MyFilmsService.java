@@ -284,7 +284,7 @@ public interface MyFilmsService {
      * @return commentaireDTO
      */
     @Transactional
-    CommentaireDTO editCommentaire(CommentaireDTO commentaireDTO, long filmId) throws ServiceException;
+    CommentaireDTO editCommentaire(CommentaireDTO commentaireDTO, long filmId, String username) throws ServiceException;
 
     /**
      * ajouter une note.
@@ -301,7 +301,7 @@ public interface MyFilmsService {
      * @throws ServiceException
      */
     @Transactional
-    void deleteNote (NoteDTO note, long filmId) throws ServiceException;
+    void deleteNote (long id, long filmId, String username) throws ServiceException;
 
     /**
      * editer une note.
@@ -309,6 +309,13 @@ public interface MyFilmsService {
      * @return noteDTO
      */
     @Transactional
-    NoteDTO editNote (NoteDTO noteDTO, long filmId, String username) throws ServiceException;
+    NoteDTO editNote (Note note, long filmId, String username) throws ServiceException;
+
+    /**
+     * Récupère la liste des commentaires.
+     * @param filmId
+     * @return la liste des commentaires.
+     */
+    NoteDTO getNote(long filmId, String username) throws ServiceException;
 
 }

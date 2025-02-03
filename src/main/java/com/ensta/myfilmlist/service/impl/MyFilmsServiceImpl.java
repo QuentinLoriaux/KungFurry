@@ -427,20 +427,22 @@ public class MyFilmsServiceImpl implements com.ensta.myfilmlist.service.MyFilmsS
     @Override
     public void deleteCommentaire(long id) throws ServiceException {
         try {
-            CommentaireDTO commentaireDTO = new CommentaireDTO();
-            commentaireDTO.setId(id);
-            this.CommentaireDAO.delete(CommentaireMapper.convertCommentaireDTOToCommentaire(commentaireDTO));
+            System.out.println("id : " + id);
+            Commentaire commentaire = this.CommentaireDAO.findById(id);
+            System.out.println("Commentaire supprimé : " + commentaire.toString());
+            this.CommentaireDAO.delete(commentaire);
         } catch (RuntimeException e) {
             throw new ServiceException("Erreur lors de la suppression du commentaire", e);
         }
     }
 
     @Override
-    public CommentaireDTO editCommentaire(CommentaireDTO commentaireDTO, long filmId) throws ServiceException {
+    public CommentaireDTO editCommentaire(CommentaireDTO commentaireDTO, long filmId, String username) throws ServiceException {
         try {
             Commentaire commentaire = CommentaireMapper.convertCommentaireDTOToCommentaire(commentaireDTO);
             commentaire.setFilm(this.filmDAO.findById(filmId).orElse(null));
-            commentaire.setUtilisateur(this.utilisateurDAO.findByUsername(commentaireDTO.getUsername()).orElse(null));
+            commentaire.setUtilisateur(this.utilisateurDAO.findByUsername(username).orElse(null));
+            System.out.println("Commentaire modifié : " + commentaire.toString());
             commentaire = this.CommentaireDAO.edit(commentaire);
             return CommentaireMapper.convertCommentaireToCommentaireDTO(commentaire);
         } catch (Exception e) {
@@ -453,7 +455,10 @@ public class MyFilmsServiceImpl implements com.ensta.myfilmlist.service.MyFilmsS
         try {
             Note note = NoteMapper.convertNoteDTOToNote(noteDTO);
             note = this.noteDAO.save(note);
+            note.setFilm(filmDAO.findById(filmId).orElse(null));
+            note.setUtilisateur(utilisateurDAO.findByUsername(username).orElse(null));
             updateNoteMoyenne(this.filmDAO.findById(filmId).orElse(null));
+            System.out.println("Note ajoutée : " + note.toString());
             return NoteMapper.convertNoteToNoteDTO(note);
         } catch (Exception e) {
             throw new ServiceException("Impossible d'ajouter la note : " + e.getMessage());
@@ -461,9 +466,10 @@ public class MyFilmsServiceImpl implements com.ensta.myfilmlist.service.MyFilmsS
     }
 
     @Override
-    public void deleteNote (NoteDTO noteDTO, long filmId) throws ServiceException {
+    public void deleteNote (long id,long filmId, String username ) throws ServiceException {
         try {
-            Note note = NoteMapper.convertNoteDTOToNote(noteDTO);
+            Note note = noteDAO.getNote(id, username);
+            System.out.println("Note supprimée : " + note.toString());
             this.noteDAO.delete(note);
             updateNoteMoyenne(this.filmDAO.findById(filmId).orElse(null));
         } catch (RuntimeException e) {
@@ -472,11 +478,13 @@ public class MyFilmsServiceImpl implements com.ensta.myfilmlist.service.MyFilmsS
     }
 
     @Override
-    public NoteDTO editNote (NoteDTO noteDTO, long filmId, String username) throws ServiceException {
+    public NoteDTO editNote (Note note, long filmId, String username) throws ServiceException {
         try {
-            Note note = NoteMapper.convertNoteDTOToNote(noteDTO);
-            note.setFilm(this.filmDAO.findById(filmId).orElse(null));
+            note.setFilm(filmDAO.findById(filmId).orElse(null));
+            note.setUtilisateur(utilisateurDAO.findByUsername(username).orElse(null));
+            System.out.println("Note modifiée : " + note.toString());
             note = this.noteDAO.update(note);
+            System.out.println("Note modifiée : " + note.toString());
             updateNoteMoyenne(this.filmDAO.findById(filmId).orElse(null));
             return NoteMapper.convertNoteToNoteDTO(note);
         } catch (Exception e) {
@@ -484,4 +492,14 @@ public class MyFilmsServiceImpl implements com.ensta.myfilmlist.service.MyFilmsS
         }
     }
     
+    @Override
+    public NoteDTO getNote (long filmId, String username) throws ServiceException {
+        try {
+            Note note = this.noteDAO.getNote(filmId, username);
+            return NoteMapper.convertNoteToNoteDTO(note);
+        } catch (Exception e) {
+            throw new ServiceException("Impossible de récupérer la note : " + e.getMessage());
+        }
+    }
+
 }

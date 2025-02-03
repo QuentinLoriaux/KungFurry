@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const COMMENTAIRE_URI = 'http://localhost:8080/commentaires';
+const COMMENTAIRE_URI = 'http://localhost:8080/commentaire';
 
 /**
  * Add a new comment.

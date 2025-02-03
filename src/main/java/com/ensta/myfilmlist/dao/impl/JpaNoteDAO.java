@@ -45,4 +45,7 @@ public class JpaNoteDAO implements NoteDAO {
         return entityManager.merge(note);
     }
 
+    public Note getNote(long filmId, String username) {
+        return entityManager.createQuery("SELECT n FROM Note n WHERE n.film.id = :filmId AND n.utilisateur.username = :username", Note.class).setParameter("filmId", filmId).setParameter("username", username).getSingleResult();
+    }
 }

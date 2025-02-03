@@ -1,18 +1,25 @@
 package com.ensta.myfilmlist.controller.impl;
 
+import java.time.LocalDate;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.ensta.myfilmlist.controller.CommentaireRessource;
 import com.ensta.myfilmlist.dto.CommentaireDTO;
 import com.ensta.myfilmlist.exception.ControllerException;
 import com.ensta.myfilmlist.service.MyFilmsService;
 
-import java.time.LocalDate;
-
 @RestController
-@RequestMapping("commentaires")
+@RequestMapping("commentaire")
 public class CommentaireRessourceImpl implements CommentaireRessource {
 
     private final MyFilmsService myFilmsService;
@@ -44,7 +51,7 @@ public class CommentaireRessourceImpl implements CommentaireRessource {
             commentaire.setText(content);
             commentaire.setId(id);
             commentaire.setDate(LocalDate.now());
-            commentaire = myFilmsService.editCommentaire(commentaire, filmId);
+            commentaire = myFilmsService.editCommentaire(commentaire, filmId, "user");
             if (commentaire == null) {
                 return ResponseEntity.notFound().build();
             }

@@ -1,6 +1,14 @@
 package com.ensta.myfilmlist.model;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 /**
  * Represente une note d'un film donnée par un utilisateur.
@@ -55,5 +63,15 @@ import javax.persistence.*;
     
         public void setUtilisateur(Utilisateur utilisateur){
             this.utilisateur = utilisateur;
+        }
+
+        @Override
+        public String toString() {
+            return "Note{" +
+                    "id=" + id +
+                    ", note=" + note +
+                    ", film=" + film +
+                    ", utilisateur=" + utilisateur +
+                    '}';
         }
     }

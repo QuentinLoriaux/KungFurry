@@ -1,7 +1,16 @@
 package com.ensta.myfilmlist.model;
 
-import javax.persistence.*;
 import java.time.LocalDate;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 /**
  * Represente un commentaire fait par un utilisateur sur un film.
@@ -68,4 +77,15 @@ public class Commentaire {
     public void setUtilisateur(Utilisateur utilisateur){
         this.utilisateur = utilisateur;
     }
+
+	@Override
+	public String toString() {
+		return "Commentaire{" +
+				"id=" + id +
+				", texte='" + texte + '\'' +
+				", date=" + date +
+				", film=" + film +
+				", utilisateur=" + utilisateur +
+				'}';
+	}
 }

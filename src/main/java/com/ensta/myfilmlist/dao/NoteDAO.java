@@ -50,4 +50,11 @@ public interface NoteDAO {
      */
     public Note update(Note note);
 
+    /**
+     * Renvoie la liste de toutes les notes pour un film.
+     *
+     * @return la liste de toutes les notes pour un film
+     */
+    public Note getNote(long filmId, String username);
+
 }
