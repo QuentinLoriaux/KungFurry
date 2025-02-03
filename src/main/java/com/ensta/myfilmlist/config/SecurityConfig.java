@@ -23,9 +23,9 @@ public class SecurityConfig {
                 .csrf().disable()
                 .authorizeHttpRequests(auth -> auth
                         .antMatchers(HttpMethod.GET, "/film/**", "/realisateur/**", "/film", "/realisateur", "/user", "/genres").permitAll()
-                        .antMatchers(HttpMethod.POST, "/film", "/realisateur", "/user", "/user/login").permitAll()
-                        .antMatchers(HttpMethod.PUT, "/film/**", "/realisateur/**", "/user/**").permitAll()
-                        .antMatchers(HttpMethod.DELETE, "/film/**", "/realisateur/**", "/user/**").permitAll()
+                        .antMatchers(HttpMethod.POST, "/film", "/realisateur", "/user", "/user/login", "/commentaires", "/notes").permitAll()
+                        .antMatchers(HttpMethod.PUT, "/film/**", "/realisateur/**", "/user/**", "/notes/**", "/commentaires/**").permitAll()
+                        .antMatchers(HttpMethod.DELETE, "/film/**", "/realisateur/**", "/user/**", "/notes/**", "/commentaires/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .formLogin(Customizer.withDefaults())

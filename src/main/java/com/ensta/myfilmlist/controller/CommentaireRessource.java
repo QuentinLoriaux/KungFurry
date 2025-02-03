@@ -28,7 +28,7 @@ public interface CommentaireRessource {
      * Crée un nouveau commentaire.
      *
      * @param filmId l'identifiant du film
-     * @param commentaireForm le commentaire à créer
+     * @param content le commentaire à créer
      * @return le commentaireDTO créé
      * @throws ControllerException en cas d'erreur de traitement
      */
