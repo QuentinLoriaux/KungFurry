@@ -42,7 +42,7 @@ public interface CommentaireRessource {
             @ApiResponse(code = 400, message = "Erreur dans les données fournies"),
     })
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    ResponseEntity<CommentaireDTO> createCommentaire(@RequestParam long filmId ,@Valid @RequestBody String commentaireForm) throws ControllerException;
+    ResponseEntity<CommentaireDTO> createCommentaire(@RequestParam long filmId ,@Valid @RequestBody String content) throws ControllerException;
 
     /**
      * Modifie un commentaire existant.
@@ -63,7 +63,7 @@ public interface CommentaireRessource {
             @ApiResponse(code = 404, message = "Commentaire non trouvé"),
     })
     @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    ResponseEntity<CommentaireDTO> updateCommentaire(@PathVariable("id") long id, @Valid @RequestBody String commentaireForm) throws ControllerException;
+    ResponseEntity<CommentaireDTO> updateCommentaire(@PathVariable("id") long id, @Valid @RequestBody String content, @RequestParam long filmId) throws ControllerException;
 
     /**
      * Supprime un commentaire existant.

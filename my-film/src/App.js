@@ -49,7 +49,7 @@ function App() {
                     <Route
                         path="/film/:id"
                         element={
-                            <FilmPage/>
+                            <FilmPage token={authData}/>
                         }
                     />
                 </Routes>

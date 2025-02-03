@@ -62,8 +62,8 @@ public interface NoteRessource {
             @ApiResponse(code = 200, message = "Note modifiée avec succès"),
             @ApiResponse(code = 400, message = "Note non modifiée"),
     })
-    @PutMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    ResponseEntity<NoteDTO> updateNote(@Valid @RequestBody NoteDTO noteForm, @RequestParam long filmId) throws ControllerException;
+    @PutMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    ResponseEntity<NoteDTO> updateNote(@PathVariable long id, @Valid @RequestBody int noteForm, @RequestParam long filmId) throws ControllerException;
 
     /**
      * Supprime un note existant.

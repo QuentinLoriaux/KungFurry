@@ -19,7 +19,6 @@ public class FilmDetailsDTO {
 	private int nbVues;
 	private LocalDate dateSortie;
 	private String affiche;
-	private String synopsis;
 
 	public long getId() {
 		return id;
@@ -98,13 +97,5 @@ public class FilmDetailsDTO {
 	public void setAffiche(String affiche) {
 		this.affiche = affiche;
 	}
-
-	public String getSynopsis() {
-		return synopsis;
-	}
-	public void setSynopsis(String synopsis) {
-		this.synopsis = synopsis;
-	}
-
 
 }

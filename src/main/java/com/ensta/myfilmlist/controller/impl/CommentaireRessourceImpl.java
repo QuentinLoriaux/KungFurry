@@ -2,10 +2,7 @@ package com.ensta.myfilmlist.controller.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.ensta.myfilmlist.controller.CommentaireRessource;
 import com.ensta.myfilmlist.dto.CommentaireDTO;
@@ -24,10 +21,11 @@ public class CommentaireRessourceImpl implements CommentaireRessource {
     }
 
     @Override
-    public ResponseEntity<CommentaireDTO> createCommentaire(@RequestParam long filmId, @RequestBody String commentaireForm) throws ControllerException {
+    @PostMapping
+    public ResponseEntity<CommentaireDTO> createCommentaire(@RequestParam long filmId, @RequestBody String content) throws ControllerException {
         try {
             CommentaireDTO commentaire = new CommentaireDTO();
-            commentaire.setText(commentaireForm);
+            commentaire.setText(content);
             commentaire = myFilmsService.addCommentaire(commentaire, filmId);
             if (commentaire == null) {
                 return ResponseEntity.notFound().build();
@@ -39,10 +37,12 @@ public class CommentaireRessourceImpl implements CommentaireRessource {
     }
 
     @Override
-    public ResponseEntity<CommentaireDTO> updateCommentaire(@RequestParam long filmId, @RequestBody String commentaireForm) throws ControllerException {
+    @PutMapping("/{id}")
+    public ResponseEntity<CommentaireDTO> updateCommentaire(@PathVariable long id, @RequestBody String content, @RequestParam long filmId) throws ControllerException {
         try {
             CommentaireDTO commentaire = new CommentaireDTO();
-            commentaire.setText(commentaireForm);
+            commentaire.setText(content);
+            commentaire.setId(id);
             commentaire = myFilmsService.editCommentaire(commentaire);
             if (commentaire == null) {
                 return ResponseEntity.notFound().build();
@@ -54,7 +54,8 @@ public class CommentaireRessourceImpl implements CommentaireRessource {
     }
 
     @Override
-    public ResponseEntity<?> deleteCommentaire(@RequestParam long id) {
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteCommentaire(@PathVariable long id) {
         try {
             myFilmsService.deleteCommentaire(id);
             return ResponseEntity.ok().build();

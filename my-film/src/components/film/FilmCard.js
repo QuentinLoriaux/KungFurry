@@ -83,7 +83,7 @@ export default function FilmCard(props) {
               </Box>
               <Box sx={{ display: "flex", alignItems: "center", gap: 0.5 }}>
                   <RemoveRedEyeRounded />
-                  <Typography variant="body2">{props.film.vues === undefined ? 0 : props.film.vues}</Typography>
+                  <Typography variant="body2">{props.film.nbVues === undefined ? 0 : props.film.nbVues}</Typography>
               </Box>
           </Box>
       </CardContent>

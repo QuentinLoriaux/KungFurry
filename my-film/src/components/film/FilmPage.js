@@ -1,6 +1,8 @@
 import {useEffect, useState} from "react";
 import {useParams} from "react-router-dom";
 import {getFilmById} from "../../api/FilmApi";
+import {postNote, deleteNote, putNote} from "../../api/NoteApi";
+import {postComment, deleteComment, putComment} from "../../api/CommentaireApi";
 import "../../styles/FilmPage.css";
 import {Box, Button, CardMedia, Rating, TextField} from "@mui/material";
 import Typography from "@mui/material/Typography";
@@ -8,7 +10,7 @@ import CardContent from "@mui/material/CardContent";
 import Card from "@mui/material/Card";
 
 
-function FilmPage() {
+function FilmPage(token) {
     const { id } = useParams();
     const [film, setFilm] = useState(null);
     const [userRating, setUserRating] = useState(null); // Note donnée par l'utilisateur
@@ -16,12 +18,13 @@ function FilmPage() {
     const [newComment, setNewComment] = useState("");
     const [editingIndex, setEditingIndex] = useState(null);
     const [editText, setEditText] = useState("");
-    const currentUser = "Moi";
+    const currentUser = token && token.token ? token.token.split(';')[0] : null;
 
     useEffect(() => {
         getFilmById(id)
             .then(response => {
                 setFilm(response.data);
+                setComments(response.data.commentaires);
             })
             .catch(error => {
                 console.error('Erreur lors de la récupération du film:', error);
@@ -32,15 +35,19 @@ function FilmPage() {
 
     const handleRate = (event, newValue) => {
         setUserRating(newValue);
+        postNote(newValue, token, id).then()
     };
 
     const addComment = () => {
         if (newComment.trim()) {
             const newCommentObj = {
-                author: currentUser,
+                username: currentUser,
                 text: newComment,
                 date: new Date().toISOString(),
             };
+
+            postComment(newCommentObj.text, id, token).then()
+
             setComments([...comments, newCommentObj]);
             setNewComment("");
         }
@@ -88,18 +95,23 @@ function FilmPage() {
                         <Typography>🗓️ Date de sortie : {film.dateSortie}</Typography>
                         <Typography onClick={handleRealisateurRedirect}>🎬 Réalisateur : {film.realisateur.prenom} {film.realisateur.nom}</Typography>
 
-                        <Box display="flex" alignItems="center">
-                            <Typography>📝 Votre note :</Typography>
-                            <Rating value={userRating} onChange={handleRate} />
-                        </Box>
+                        {currentUser === null ? null :
+                            <Box display="flex" alignItems="center">
+                                <Typography>📝 Votre note :</Typography>
+                                <Rating value={userRating} onChange={handleRate} />
+                            </Box>
+                        }
 
                         <Box display="flex" alignItems="center">
                             <Button variant="contained" color="primary" className="watch-button">
                                 🎥 Regarder le film
                             </Button>
-                            <Button variant="outlined" color="secondary" className="add-to-list">
-                                📌 Ajouter à ma liste
-                            </Button>
+                            {currentUser === null ? null :
+                                <Button variant="outlined" color="secondary" className="add-to-list">
+                                    📌 Ajouter à ma liste
+                                </Button>
+                            }
+
                         </Box>
                     </CardContent>
                 </Card>
@@ -118,10 +130,10 @@ function FilmPage() {
                         <CardContent>
                             <Box display="flex" justifyContent="space-between">
                                 <Typography variant="subtitle2">
-                                    🧑 {comment.author} - {new Date(comment.date).toLocaleDateString()}
+                                    🧑 {comment.username} - {new Date(comment.date).toLocaleDateString()}
                                 </Typography>
 
-                                {comment.author === currentUser && (
+                                {comment.username === currentUser && (
                                     <Box>
                                         <Button size="small" color="primary" onClick={() => editComment(index)}>
                                             Modifier
@@ -154,16 +166,19 @@ function FilmPage() {
                     </Card>
                 ))}
 
-                <TextField
-                    label="Ajouter un commentaire"
-                    variant="outlined"
-                    fullWidth
-                    value={newComment}
-                    onChange={(e) => setNewComment(e.target.value)}
-                />
-                <Button variant="contained" color="primary" onClick={addComment}>
-                    Ajouter
-                </Button>
+                {currentUser === null ? null :
+                    <TextField
+                        label="Ajouter un commentaire"
+                        variant="outlined"
+                        fullWidth
+                        value={newComment}
+                        onChange={(e) => setNewComment(e.target.value)}
+                    />}
+                {currentUser === null ? null :
+                    <Button variant="contained" color="primary" onClick={addComment}>
+                        Ajouter
+                    </Button>
+                }
             </div>
         </div>
     );
