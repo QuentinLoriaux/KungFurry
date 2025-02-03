@@ -2,14 +2,24 @@ package com.ensta.myfilmlist.service;
 
 import java.util.List;
 
-import com.ensta.myfilmlist.dto.*;
-import com.ensta.myfilmlist.model.*;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.ensta.myfilmlist.dto.CommentaireDTO;
+import com.ensta.myfilmlist.dto.FilmDTO;
+import com.ensta.myfilmlist.dto.FilmDetailsDTO;
+import com.ensta.myfilmlist.dto.GenreDTO;
+import com.ensta.myfilmlist.dto.NoteDTO;
+import com.ensta.myfilmlist.dto.RealisateurDTO;
+import com.ensta.myfilmlist.dto.UtilisateurDTO;
 import com.ensta.myfilmlist.exception.ServiceException;
 import com.ensta.myfilmlist.form.FilmForm;
 import com.ensta.myfilmlist.form.RealisateurForm;
 import com.ensta.myfilmlist.form.UtilisateurForm;
+import com.ensta.myfilmlist.model.Film;
+import com.ensta.myfilmlist.model.Note;
+import com.ensta.myfilmlist.model.Page;
+import com.ensta.myfilmlist.model.Realisateur;
+import com.ensta.myfilmlist.model.Utilisateur;
 
 public interface MyFilmsService {
     /**
@@ -253,5 +263,47 @@ public interface MyFilmsService {
     String createToken(UtilisateurDTO userDTO) throws ServiceException;
 
     public String md5(String tohash) throws ServiceException;
+
+    /**
+     * Ajouter un commentaire.
+     * @return commentaireDTO
+     */
+     CommentaireDTO addCommentaire(CommentaireDTO commentaireDTO, long filmId) throws ServiceException;
+
+    /**
+     * Supprimer un commentaire.
+     * @param id
+     * @throws ServiceException
+     */
+    void deleteCommentaire(long id) throws ServiceException;
+
+    /**
+     * editer un commentaire.
+     * @param commentaireDTO
+     * @return commentaireDTO
+     */
+    CommentaireDTO editCommentaire(CommentaireDTO commentaireDTO) throws ServiceException;
+
+    /**
+     * ajouter une note.
+     * @param note
+     * @param filmId
+     * @return noteDTO
+     */
+    NoteDTO addNote(NoteDTO noteDTO, long filmId, String username) throws ServiceException;
+
+    /**
+     * supprimer une note.
+     * @param id
+     * @throws ServiceException
+     */
+    void deleteNote (NoteDTO note, long filmId) throws ServiceException;
+
+    /**
+     * editer une note.
+     * @param note
+     * @return noteDTO
+     */
+    NoteDTO editNote (NoteDTO noteDTO, long filmId, String username) throws ServiceException;
 
 }

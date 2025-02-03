@@ -37,4 +37,12 @@ public interface CommentaireDAO {
      */
 
     public void delete(Commentaire commentaire);
+
+    /**
+     * Met à jour un commentaire.
+     * @param commentaire le commentaire à mettre à jour
+     * @return le commentaire mis à jour
+     */
+
+    public Commentaire edit(Commentaire commentaire);
 }

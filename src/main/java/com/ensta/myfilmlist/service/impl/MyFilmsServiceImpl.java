@@ -4,7 +4,6 @@ import static java.lang.Math.pow;
 import static java.lang.Math.round;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -12,20 +11,40 @@ import java.util.stream.Stream;
 
 import javax.xml.bind.DatatypeConverter;
 
-import com.ensta.myfilmlist.dao.*;
-import com.ensta.myfilmlist.dto.*;
-import com.ensta.myfilmlist.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.ensta.myfilmlist.dao.CommentaireDAO;
+import com.ensta.myfilmlist.dao.FilmDAO;
+import com.ensta.myfilmlist.dao.GenreDAO;
+import com.ensta.myfilmlist.dao.NoteDAO;
+import com.ensta.myfilmlist.dao.RealisateurDAO;
+import com.ensta.myfilmlist.dao.UtilisateurDAO;
+import com.ensta.myfilmlist.dao.VueDAO;
+import com.ensta.myfilmlist.dto.CommentaireDTO;
+import com.ensta.myfilmlist.dto.FilmDTO;
+import com.ensta.myfilmlist.dto.FilmDetailsDTO;
+import com.ensta.myfilmlist.dto.GenreDTO;
+import com.ensta.myfilmlist.dto.NoteDTO;
+import com.ensta.myfilmlist.dto.RealisateurDTO;
+import com.ensta.myfilmlist.dto.UtilisateurDTO;
 import com.ensta.myfilmlist.exception.ServiceException;
 import com.ensta.myfilmlist.form.FilmForm;
 import com.ensta.myfilmlist.form.RealisateurForm;
 import com.ensta.myfilmlist.form.UtilisateurForm;
+import com.ensta.myfilmlist.mapper.CommentaireMapper;
 import com.ensta.myfilmlist.mapper.FilmMapper;
 import com.ensta.myfilmlist.mapper.GenreMapper;
+import com.ensta.myfilmlist.mapper.NoteMapper;
 import com.ensta.myfilmlist.mapper.RealisateurMapper;
 import com.ensta.myfilmlist.mapper.UtilisateurMapper;
+import com.ensta.myfilmlist.model.Commentaire;
+import com.ensta.myfilmlist.model.Film;
+import com.ensta.myfilmlist.model.Genre;
+import com.ensta.myfilmlist.model.Note;
+import com.ensta.myfilmlist.model.Page;
+import com.ensta.myfilmlist.model.Realisateur;
+import com.ensta.myfilmlist.model.Utilisateur;
 
 @Service
 public class MyFilmsServiceImpl implements com.ensta.myfilmlist.service.MyFilmsService {
@@ -44,6 +63,8 @@ public class MyFilmsServiceImpl implements com.ensta.myfilmlist.service.MyFilmsS
     private NoteDAO noteDAO;
     @Autowired
     private VueDAO vueDAO;
+    @Autowired
+    private CommentaireDAO CommentaireDAO;
 
     private String tokenSecret = "FLAG{Th1s_1s_Th5_35cr5t_K5Y}";
 
@@ -386,4 +407,77 @@ public class MyFilmsServiceImpl implements com.ensta.myfilmlist.service.MyFilmsS
             throw new ServiceException("Erreur lors du hash", e);
         }
     }
+
+    @Override
+    public CommentaireDTO addCommentaire(CommentaireDTO commentaireDTO, long filmId) throws ServiceException {
+        try {
+            Commentaire commentaire = new Commentaire();
+            commentaire.setText(commentaireDTO.getText());
+            commentaire.setFilm(this.filmDAO.findById(filmId).orElse(null));
+            commentaire.setUtilisateur(this.utilisateurDAO.findByUsername(commentaireDTO.getUsername()).orElse(null));
+            commentaire = this.CommentaireDAO.save(commentaire);
+            return commentaireDTO;
+        } catch (Exception e) {
+            throw new ServiceException("Impossible d'ajouter le commentaire : " + e.getMessage());
+        }
+    }
+
+    @Override
+    public void deleteCommentaire(long id) throws ServiceException {
+        try {
+            CommentaireDTO commentaireDTO = new CommentaireDTO();
+            commentaireDTO.setId(id);
+            this.CommentaireDAO.delete(CommentaireMapper.convertCommentaireDTOToCommentaire(commentaireDTO));
+        } catch (RuntimeException e) {
+            throw new ServiceException("Erreur lors de la suppression du commentaire", e);
+        }
+    }
+
+    @Override
+    public CommentaireDTO editCommentaire(CommentaireDTO commentaireDTO) throws ServiceException {
+        try {
+            Commentaire commentaire = CommentaireMapper.convertCommentaireDTOToCommentaire(commentaireDTO);
+            commentaire = this.CommentaireDAO.edit(commentaire);
+            return CommentaireMapper.convertCommentaireToCommentaireDTO(commentaire);
+        } catch (Exception e) {
+            throw new ServiceException("Impossible de mettre à jour le commentaire : " + e.getMessage());
+        }
+    }
+
+    @Override
+    public NoteDTO addNote(NoteDTO noteDTO, long filmId, String username) throws ServiceException {
+        try {
+            Note note = NoteMapper.convertNoteDTOToNote(noteDTO);
+            note = this.noteDAO.save(note);
+            updateNoteMoyenne(this.filmDAO.findById(filmId).orElse(null));
+            return NoteMapper.convertNoteToNoteDTO(note);
+        } catch (Exception e) {
+            throw new ServiceException("Impossible d'ajouter la note : " + e.getMessage());
+        }
+    }
+
+    @Override
+    public void deleteNote (NoteDTO noteDTO, long filmId) throws ServiceException {
+        try {
+            Note note = NoteMapper.convertNoteDTOToNote(noteDTO);
+            this.noteDAO.delete(note);
+            updateNoteMoyenne(this.filmDAO.findById(filmId).orElse(null));
+        } catch (RuntimeException e) {
+            throw new ServiceException("Erreur lors de la suppression de la note", e);
+        }
+    }
+
+    @Override
+    public NoteDTO editNote (NoteDTO noteDTO, long filmId, String username) throws ServiceException {
+        try {
+            Note note = NoteMapper.convertNoteDTOToNote(noteDTO);
+            note.setFilm(this.filmDAO.findById(filmId).orElse(null));
+            note = this.noteDAO.update(note);
+            updateNoteMoyenne(this.filmDAO.findById(filmId).orElse(null));
+            return NoteMapper.convertNoteToNoteDTO(note);
+        } catch (Exception e) {
+            throw new ServiceException("Impossible de mettre à jour la note : " + e.getMessage());
+        }
+    }
+    
 }
