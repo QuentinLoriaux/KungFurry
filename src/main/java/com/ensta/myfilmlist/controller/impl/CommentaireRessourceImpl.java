@@ -9,6 +9,8 @@ import com.ensta.myfilmlist.dto.CommentaireDTO;
 import com.ensta.myfilmlist.exception.ControllerException;
 import com.ensta.myfilmlist.service.MyFilmsService;
 
+import java.time.LocalDate;
+
 @RestController
 @RequestMapping("commentaires")
 public class CommentaireRessourceImpl implements CommentaireRessource {
@@ -24,9 +26,7 @@ public class CommentaireRessourceImpl implements CommentaireRessource {
     @PostMapping
     public ResponseEntity<CommentaireDTO> createCommentaire(@RequestParam long filmId, @RequestBody String content) throws ControllerException {
         try {
-            CommentaireDTO commentaire = new CommentaireDTO();
-            commentaire.setText(content);
-            commentaire = myFilmsService.addCommentaire(commentaire, filmId);
+            CommentaireDTO commentaire = myFilmsService.addCommentaire(content, filmId, "user");
             if (commentaire == null) {
                 return ResponseEntity.notFound().build();
             }
@@ -43,7 +43,8 @@ public class CommentaireRessourceImpl implements CommentaireRessource {
             CommentaireDTO commentaire = new CommentaireDTO();
             commentaire.setText(content);
             commentaire.setId(id);
-            commentaire = myFilmsService.editCommentaire(commentaire);
+            commentaire.setDate(LocalDate.now());
+            commentaire = myFilmsService.editCommentaire(commentaire, filmId);
             if (commentaire == null) {
                 return ResponseEntity.notFound().build();
             }

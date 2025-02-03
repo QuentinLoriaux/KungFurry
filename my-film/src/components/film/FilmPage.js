@@ -58,16 +58,18 @@ function FilmPage(token) {
         setEditText(comments[index].text);
     };
 
-    const saveEdit = () => {
+    const saveEdit = (commId) => {
         const updatedComments = [...comments];
         updatedComments[editingIndex].text = editText;
         setComments(updatedComments);
         setEditingIndex(null);
+        putComment(commId, editText, id, token).then()
     };
 
-    const deleteComment = (index) => {
+    const deleteComment = (index, commId) => {
         const updatedComments = comments.filter((_, i) => i !== index);
         setComments(updatedComments);
+        deleteComment(commId, token)
     };
 
     const handleRealisateurRedirect = () => {
@@ -138,7 +140,7 @@ function FilmPage(token) {
                                         <Button size="small" color="primary" onClick={() => editComment(index)}>
                                             Modifier
                                         </Button>
-                                        <Button size="small" color="secondary" onClick={() => deleteComment(index)}>
+                                        <Button size="small" color="secondary" onClick={() => deleteComment(index, comment.id)}>
                                             Supprimer
                                         </Button>
                                     </Box>
@@ -158,7 +160,7 @@ function FilmPage(token) {
 
                             {/* Bouton Enregistrer la modification */}
                             {editingIndex === index && (
-                                <Button size="small" color="success" onClick={saveEdit}>
+                                <Button size="small" color="success" onClick={saveEdit(comment.id)}>
                                     Enregistrer
                                 </Button>
                             )}

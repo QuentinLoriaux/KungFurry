@@ -4,6 +4,7 @@ import static java.lang.Math.pow;
 import static java.lang.Math.round;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -409,14 +410,15 @@ public class MyFilmsServiceImpl implements com.ensta.myfilmlist.service.MyFilmsS
     }
 
     @Override
-    public CommentaireDTO addCommentaire(CommentaireDTO commentaireDTO, long filmId) throws ServiceException {
+    public CommentaireDTO addCommentaire(String content, long filmId, String username) throws ServiceException {
         try {
             Commentaire commentaire = new Commentaire();
-            commentaire.setText(commentaireDTO.getText());
+            commentaire.setText(content);
+            commentaire.setDate(LocalDate.now());
             commentaire.setFilm(this.filmDAO.findById(filmId).orElse(null));
-            commentaire.setUtilisateur(this.utilisateurDAO.findByUsername(commentaireDTO.getUsername()).orElse(null));
+            commentaire.setUtilisateur(this.utilisateurDAO.findByUsername(username).orElse(null));
             commentaire = this.CommentaireDAO.save(commentaire);
-            return commentaireDTO;
+            return CommentaireMapper.convertCommentaireToCommentaireDTO(commentaire);
         } catch (Exception e) {
             throw new ServiceException("Impossible d'ajouter le commentaire : " + e.getMessage());
         }
@@ -434,9 +436,11 @@ public class MyFilmsServiceImpl implements com.ensta.myfilmlist.service.MyFilmsS
     }
 
     @Override
-    public CommentaireDTO editCommentaire(CommentaireDTO commentaireDTO) throws ServiceException {
+    public CommentaireDTO editCommentaire(CommentaireDTO commentaireDTO, long filmId) throws ServiceException {
         try {
             Commentaire commentaire = CommentaireMapper.convertCommentaireDTOToCommentaire(commentaireDTO);
+            commentaire.setFilm(this.filmDAO.findById(filmId).orElse(null));
+            commentaire.setUtilisateur(this.utilisateurDAO.findByUsername(commentaireDTO.getUsername()).orElse(null));
             commentaire = this.CommentaireDAO.edit(commentaire);
             return CommentaireMapper.convertCommentaireToCommentaireDTO(commentaire);
         } catch (Exception e) {
