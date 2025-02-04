@@ -11,9 +11,10 @@ const COMMENTAIRE_URI = 'http://localhost:8080/commentaire';
  */
 export function postComment(comment, token, filmId) {
     const payload = {
-        content: comment,
+        filmId: filmId,
+        content : comment
     };
-    return axios.post(COMMENTAIRE_URI, payload, { headers: { Authorization: `Bearer ${token.token}` }, params: { filmId: filmId } })
+    return axios.post(COMMENTAIRE_URI, payload, { headers: { Authorization: `Bearer ${token.token}` }})
         .catch(error => {
             console.error('Erreur lors de la création du commentaire', error);
             throw error;
@@ -26,7 +27,7 @@ export function postComment(comment, token, filmId) {
  * @param {string} token - The JWT token.
  * @returns {Promise} Axios response promise.
  */
-export function deleteComment(commentId, token) {
+export function deleteCommentAPI(commentId, token) {
     return axios.delete(`${COMMENTAIRE_URI}/${commentId}`, { headers: { Authorization: `Bearer ${token.token}` } })
         .catch(error => {
             console.error('Erreur lors de la suppression du commentaire', error);
@@ -44,7 +45,8 @@ export function deleteComment(commentId, token) {
  */
 export function putComment(commentId, comment, filmId, token){
     const payload = {
-        content: comment,
+        filmId: filmId,
+        content : comment,
     };
-    return axios.put(`${COMMENTAIRE_URI}/${commentId}`, payload, { headers: { Authorization: `Bearer ${token.token}` }, params: { filmId: filmId}})
+    return axios.put(`${COMMENTAIRE_URI}/${commentId}`, payload, { headers: { Authorization: `Bearer ${token.token}` }})
 }

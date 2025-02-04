@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import com.ensta.myfilmlist.dto.CommentaireDTO;
+import com.ensta.myfilmlist.form.CommentaireForm;
 import com.ensta.myfilmlist.model.Commentaire;
 
 /**
@@ -51,5 +52,11 @@ public class CommentaireMapper {
         return commentaires.stream()
                 .map(CommentaireMapper::convertCommentaireToCommentaireDTO)
                 .collect(Collectors.toList());
+    }
+
+    public static Commentaire convertCommentaireFormToCommentaire(CommentaireForm commentaireForm) {
+        Commentaire commentaire = new Commentaire();
+        commentaire.setText(commentaireForm.getContent());
+        return commentaire;
     }
 }

@@ -1,6 +1,7 @@
 package com.ensta.myfilmlist.dao.impl;
 
 import java.util.List;
+import java.util.Optional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -31,12 +32,13 @@ public class JpaCommentaireDAO implements CommentaireDAO {
     }
 
     @Override
-    public Commentaire findById(long id) {
-        return entityManager.find(Commentaire.class, id);
+    public Optional<Commentaire> findById(long id) {
+        return Optional.ofNullable(entityManager.find(Commentaire.class, id));
     }
 
     @Override
-    public void delete(Commentaire commentaire) {
+    public void delete(long id) {
+        Commentaire commentaire = entityManager.find(Commentaire.class, id);
         entityManager.remove(commentaire);
     }
 

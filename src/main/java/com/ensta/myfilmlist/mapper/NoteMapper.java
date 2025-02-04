@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import com.ensta.myfilmlist.dto.NoteDTO;
+import com.ensta.myfilmlist.form.NoteForm;
 import com.ensta.myfilmlist.model.Note;
 
 /**
@@ -47,6 +48,12 @@ public class NoteMapper {
         Note note = new Note();
         note.setId(noteDTO.getId());
         note.setNote(noteDTO.getValue());
+        return note;
+    }
+
+    public static Note convertNoteFormToNote(NoteForm noteForm) {
+        Note note = new Note();
+        note.setNote(noteForm.getNote());
         return note;
     }
 } 

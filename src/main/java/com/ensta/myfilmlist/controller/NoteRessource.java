@@ -2,15 +2,10 @@ package com.ensta.myfilmlist.controller;
 
 import javax.validation.Valid;
 
+import com.ensta.myfilmlist.form.NoteForm;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import com.ensta.myfilmlist.dto.NoteDTO;
 import com.ensta.myfilmlist.exception.ControllerException;
@@ -45,7 +40,7 @@ public interface NoteRessource {
             @ApiResponse(code = 400, message = "Note non ajoutée"),
     })
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    ResponseEntity<NoteDTO> addNote(@Valid @RequestBody int noteForm, @RequestParam long filmId) throws ControllerException;
+    ResponseEntity<NoteDTO> addNote(@Valid @RequestBody NoteForm noteForm, @RequestHeader String Authorization) throws ControllerException;
 
     /**
      * Modifie un note existant.
@@ -65,7 +60,7 @@ public interface NoteRessource {
             @ApiResponse(code = 400, message = "Note non modifiée"),
     })
     @PutMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    ResponseEntity<NoteDTO> updateNote(@PathVariable long id, @Valid @RequestBody int noteForm, @RequestParam long filmId) throws ControllerException;
+    ResponseEntity<NoteDTO> updateNote(@PathVariable long id, @Valid @RequestBody NoteForm noteForm, @RequestHeader String Authorization) throws ControllerException;
 
     /**
      * Supprime un note existant.
@@ -85,7 +80,7 @@ public interface NoteRessource {
             @ApiResponse(code = 404, message = "Note non trouvée"),
     })
     @DeleteMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    ResponseEntity<?> deleteNoteById(@PathVariable long id, @RequestParam long filmId) throws ControllerException;
+    ResponseEntity<?> deleteNoteById(@PathVariable long id, @RequestParam long filmId, @RequestHeader String Authorization) throws ControllerException;
 
     /**
      * Récupère une note en fonction du filmId et de l'username.

@@ -1,6 +1,7 @@
 package com.ensta.myfilmlist.dao;
 
 import java.util.List;
+import java.util.Optional;
 
 import com.ensta.myfilmlist.model.Commentaire;
 
@@ -29,14 +30,14 @@ public interface CommentaireDAO {
      * @return le commentaire récupéré
      */
 
-    public Commentaire findById(long id);
+    public Optional<Commentaire> findById(long id);
 
     /**
      * Supprime un commentaire.
      * @param commentaire le commentaire à supprimer
      */
 
-    public void delete(Commentaire commentaire);
+    public void delete(long id);
 
     /**
      * Met à jour un commentaire.

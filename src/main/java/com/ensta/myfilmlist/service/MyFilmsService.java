@@ -2,6 +2,7 @@ package com.ensta.myfilmlist.service;
 
 import java.util.List;
 
+import com.ensta.myfilmlist.form.*;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.ensta.myfilmlist.dto.CommentaireDTO;
@@ -12,9 +13,6 @@ import com.ensta.myfilmlist.dto.NoteDTO;
 import com.ensta.myfilmlist.dto.RealisateurDTO;
 import com.ensta.myfilmlist.dto.UtilisateurDTO;
 import com.ensta.myfilmlist.exception.ServiceException;
-import com.ensta.myfilmlist.form.FilmForm;
-import com.ensta.myfilmlist.form.RealisateurForm;
-import com.ensta.myfilmlist.form.UtilisateurForm;
 import com.ensta.myfilmlist.model.Film;
 import com.ensta.myfilmlist.model.Note;
 import com.ensta.myfilmlist.model.Page;
@@ -266,34 +264,37 @@ public interface MyFilmsService {
 
     /**
      * Ajouter un commentaire.
+     * @param commentaireForm
+     * @param username
      * @return commentaireDTO
      */
     @Transactional
-     CommentaireDTO addCommentaire(String content, long filmId, String username)throws ServiceException;
+    CommentaireDTO addCommentaire(CommentaireForm commentaireForm, String username)throws ServiceException;
 
     /**
      * Supprimer un commentaire.
      * @param id
      * @throws ServiceException
      */
+    @Transactional
     void deleteCommentaire(long id) throws ServiceException;
 
     /**
      * editer un commentaire.
-     * @param commentaireDTO
+     * @param commentaireForm
      * @return commentaireDTO
      */
     @Transactional
-    CommentaireDTO editCommentaire(CommentaireDTO commentaireDTO, long filmId, String username) throws ServiceException;
+    CommentaireDTO editCommentaire(CommentaireForm commentaireForm, String username, long id) throws ServiceException;
 
     /**
      * ajouter une note.
-     * @param note
-     * @param filmId
+     * @param noteForm
+     * @param username
      * @return noteDTO
      */
     @Transactional
-    NoteDTO addNote(NoteDTO noteDTO, long filmId, String username) throws ServiceException;
+    NoteDTO addNote(NoteForm noteForm, String username) throws ServiceException;
 
     /**
      * supprimer une note.
@@ -305,11 +306,12 @@ public interface MyFilmsService {
 
     /**
      * editer une note.
-     * @param note
+     * @param noteForm
+     * @param username
      * @return noteDTO
      */
     @Transactional
-    NoteDTO editNote (Note note, long filmId, String username) throws ServiceException;
+    NoteDTO editNote (NoteForm noteForm, String username, long id) throws ServiceException;
 
     /**
      * Récupère la liste des commentaires.
