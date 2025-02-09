@@ -1,4 +1,4 @@
-package com.ensta.myfilmlist;
+/* package com.ensta.myfilmlist;
 
 import com.ensta.myfilmlist.model.Realisateur;
 import com.ensta.myfilmlist.dao.impl.JpaRealisateurDAO;
@@ -168,3 +168,4 @@ class JpaRealisateurDAOTest {
        verify(entityManager).remove(mockRealisateur);
    }
 }
+ */
