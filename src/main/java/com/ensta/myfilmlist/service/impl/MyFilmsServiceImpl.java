@@ -4,7 +4,7 @@ import static java.lang.Math.pow;
 import static java.lang.Math.round;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.Arrays;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -12,27 +12,35 @@ import java.util.stream.Stream;
 
 import javax.xml.bind.DatatypeConverter;
 
+import com.ensta.myfilmlist.form.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.ensta.myfilmlist.dao.CommentaireDAO;
 import com.ensta.myfilmlist.dao.FilmDAO;
 import com.ensta.myfilmlist.dao.GenreDAO;
+import com.ensta.myfilmlist.dao.NoteDAO;
 import com.ensta.myfilmlist.dao.RealisateurDAO;
 import com.ensta.myfilmlist.dao.UtilisateurDAO;
+import com.ensta.myfilmlist.dao.VueDAO;
+import com.ensta.myfilmlist.dto.CommentaireDTO;
 import com.ensta.myfilmlist.dto.FilmDTO;
+import com.ensta.myfilmlist.dto.FilmDetailsDTO;
 import com.ensta.myfilmlist.dto.GenreDTO;
+import com.ensta.myfilmlist.dto.NoteDTO;
 import com.ensta.myfilmlist.dto.RealisateurDTO;
 import com.ensta.myfilmlist.dto.UtilisateurDTO;
 import com.ensta.myfilmlist.exception.ServiceException;
-import com.ensta.myfilmlist.form.FilmForm;
-import com.ensta.myfilmlist.form.RealisateurForm;
-import com.ensta.myfilmlist.form.UtilisateurForm;
+import com.ensta.myfilmlist.mapper.CommentaireMapper;
 import com.ensta.myfilmlist.mapper.FilmMapper;
 import com.ensta.myfilmlist.mapper.GenreMapper;
+import com.ensta.myfilmlist.mapper.NoteMapper;
 import com.ensta.myfilmlist.mapper.RealisateurMapper;
 import com.ensta.myfilmlist.mapper.UtilisateurMapper;
+import com.ensta.myfilmlist.model.Commentaire;
 import com.ensta.myfilmlist.model.Film;
 import com.ensta.myfilmlist.model.Genre;
+import com.ensta.myfilmlist.model.Note;
 import com.ensta.myfilmlist.model.Page;
 import com.ensta.myfilmlist.model.Realisateur;
 import com.ensta.myfilmlist.model.Utilisateur;
@@ -50,6 +58,12 @@ public class MyFilmsServiceImpl implements com.ensta.myfilmlist.service.MyFilmsS
     private UtilisateurDAO utilisateurDAO;
     @Autowired
     private GenreDAO genreDAO;
+    @Autowired
+    private NoteDAO noteDAO;
+    @Autowired
+    private VueDAO vueDAO;
+    @Autowired
+    private CommentaireDAO CommentaireDAO;
 
     private String tokenSecret = "FLAG{Th1s_1s_Th5_35cr5t_K5Y}";
 
@@ -78,12 +92,33 @@ public class MyFilmsServiceImpl implements com.ensta.myfilmlist.service.MyFilmsS
     }
 
     @Override
-    public double calculerNoteMoyenne(double[] notes){
-        if (notes == null) {
+    public double calculerNoteMoyenne(List<Note> notes){
+        if (notes == null || notes.isEmpty()) {
             return 0;
         }
-        double moyenne = Arrays.stream(notes).average().orElse(0.0);
+        double moyenne = notes.stream().mapToInt(Note::getNote).average().orElse(0);
         return round(moyenne * pow(10,2)) / pow(10,2);
+    }
+
+    @Override
+    public Film updateNoteMoyenne(Film film) throws ServiceException {
+        try {
+            List<Note> notes = this.noteDAO.findByFilmId(film.getId());
+            film.setNoteMoyenne(calculerNoteMoyenne(notes));
+            return film;
+        } catch (Exception e) {
+            throw new ServiceException("Erreur lors de la mise à jour du film", e);
+        }
+    }
+
+    @Override
+    public Film updateNbVues(Film film) throws ServiceException {
+        try {
+            film.setNbVues(this.vueDAO.findVuesByFilmId(film.getId()));
+            return film;
+        } catch (Exception e) {
+            throw new ServiceException("Erreur lors de la mise à jour du film", e);
+        }
     }
 
     @Override
@@ -103,11 +138,11 @@ public class MyFilmsServiceImpl implements com.ensta.myfilmlist.service.MyFilmsS
         }
     }
 
+
     @Override
     public List<FilmDTO> findAllFilms() throws ServiceException {
         try {
-            List<Film> films = this.filmDAO.findAll();
-            return FilmMapper.convertFilmToFilmDTOs(films);
+            return FilmMapper.convertFilmToFilmDTOs(this.filmDAO.findAll());
         } catch (RuntimeException e) {
             throw new ServiceException("Erreur lors de la récupération des films", e);
         }
@@ -119,7 +154,7 @@ public class MyFilmsServiceImpl implements com.ensta.myfilmlist.service.MyFilmsS
             Page<Film> films = this.filmDAO.findAll(page, size, query, sort, order);
             return new Page<>(films.getNumber(), films.getSize(), films.getTotal(), FilmMapper.convertFilmToFilmDTOs(films.getData()));
         } catch (RuntimeException e) {
-            throw new ServiceException("Erreur lors de la récupération des films", e);
+            throw new ServiceException("Erreur lors de la récupération des films"+ e.getMessage(), e);
         }
     }
 
@@ -136,6 +171,8 @@ public class MyFilmsServiceImpl implements com.ensta.myfilmlist.service.MyFilmsS
                 throw new ServiceException("Le genre n'existe pas");
             }
             film.setRealisateur(realisateur.get());
+            film.setNoteMoyenne(0);
+            film.setNbVues(0);
             film = this.filmDAO.save(film);
             this.updateRealisateurCelebre(realisateur.get());
             return FilmMapper.convertFilmToFilmDTO(film);
@@ -183,11 +220,10 @@ public class MyFilmsServiceImpl implements com.ensta.myfilmlist.service.MyFilmsS
     }
 
     @Override
-    public FilmDTO findFilmById(long id) throws ServiceException {
+    public FilmDetailsDTO findFilmById(long id) throws ServiceException {
         try {
             Optional<Film> film = this.filmDAO.findById(id);
-
-            return film.map(FilmMapper::convertFilmToFilmDTO).orElse(null);
+            return film.map(FilmMapper::convertFilmToFilmDetailsDTO).orElse(null);
         } catch (RuntimeException e) {
             throw new ServiceException("Erreur lors de la récupération du film", e);
         }
@@ -196,11 +232,11 @@ public class MyFilmsServiceImpl implements com.ensta.myfilmlist.service.MyFilmsS
     @Override
     public void deleteFilm(long id) throws ServiceException {
         try {
-            FilmDTO filmDTO = findFilmById(id);
+            FilmDetailsDTO filmDTO = findFilmById(id);
             if (filmDTO == null) {
                 throw new ServiceException("Le film n'existe pas");
             }
-            this.filmDAO.delete(FilmMapper.convertFilmDTOToFilm(filmDTO));
+            this.filmDAO.delete(FilmMapper.convertFilmDetailsDTOToFilm(filmDTO));
             this.updateRealisateurCelebre(RealisateurMapper.convertRealisateurDTOToRealisateur(filmDTO.getRealisateur()));
         } catch (RuntimeException e) {
             throw new ServiceException("Erreur lors de la suppression du film", e);
@@ -232,6 +268,8 @@ public class MyFilmsServiceImpl implements com.ensta.myfilmlist.service.MyFilmsS
     @Override
     public FilmDTO updateFilm(Film film) throws ServiceException {
         try {
+            film = this.updateNoteMoyenne(film);
+            film = this.updateNbVues(film);
             film = this.filmDAO.update(film);
             this.updateRealisateurCelebre(film.getRealisateur());
             return FilmMapper.convertFilmToFilmDTO(film);
@@ -250,9 +288,9 @@ public class MyFilmsServiceImpl implements com.ensta.myfilmlist.service.MyFilmsS
     }
 
     @Override
-    public UtilisateurDTO findUtilisateurById(long id) throws ServiceException {
+    public UtilisateurDTO findUtilisateurByUsername(String username) throws ServiceException {
         try {
-            Optional<Utilisateur> utilisateur = this.utilisateurDAO.findById(id);
+            Optional<Utilisateur> utilisateur = this.utilisateurDAO.findByUsername(username);
             return utilisateur.map(UtilisateurMapper::convertUtilisateurToUtilisateurDTO).orElse(null);
         } catch (RuntimeException e) {
             throw new ServiceException("Erreur lors de la récupération de l'utilisateur", e);
@@ -273,7 +311,6 @@ public class MyFilmsServiceImpl implements com.ensta.myfilmlist.service.MyFilmsS
     public UtilisateurDTO createUtilisateur(UtilisateurForm utilisateurForm) throws ServiceException {
         try {
             Utilisateur utilisateur = UtilisateurMapper.convertUtilisateurFormToUtilisateur(utilisateurForm);
-            System.out.println(utilisateur.getId());
             utilisateur = this.utilisateurDAO.save(utilisateur);
 
             return UtilisateurMapper.convertUtilisateurToUtilisateurDTO(utilisateur);
@@ -283,9 +320,9 @@ public class MyFilmsServiceImpl implements com.ensta.myfilmlist.service.MyFilmsS
     }
 
     @Override
-    public void deleteUtilisateur(long id) throws ServiceException {
+    public void deleteUtilisateur(String username) throws ServiceException {
         try {
-            UtilisateurDTO utilisateurDTO = findUtilisateurById(id);
+            UtilisateurDTO utilisateurDTO = findUtilisateurByUsername(username);
             if (utilisateurDTO == null) {
                 throw new ServiceException("Le utilisateur n'existe pas");
             }
@@ -351,7 +388,7 @@ public class MyFilmsServiceImpl implements com.ensta.myfilmlist.service.MyFilmsS
 
     @Override
     public String createToken(UtilisateurDTO userDTO) throws ServiceException {
-        String to_sign = userDTO.getUsername() + ";" + String.valueOf(userDTO.getId());
+        String to_sign = userDTO.getUsername() + ";" + String.valueOf(userDTO.getRoleId());
         return to_sign + "." + md5(this.tokenSecret + to_sign); 
     }
 
@@ -370,5 +407,96 @@ public class MyFilmsServiceImpl implements com.ensta.myfilmlist.service.MyFilmsS
         }
     }
 
+    @Override
+    public CommentaireDTO addCommentaire(CommentaireForm commentaireForm, String username) throws ServiceException {
+        try {
+            Commentaire commentaire = CommentaireMapper.convertCommentaireFormToCommentaire(commentaireForm);
+            commentaire.setDate(LocalDate.now());
+            commentaire.setFilm(this.filmDAO.findById(commentaireForm.getFilmId()).orElse(null));
+            commentaire.setUtilisateur(this.utilisateurDAO.findByUsername(username).orElse(null));
+            commentaire = this.CommentaireDAO.save(commentaire);
+            return CommentaireMapper.convertCommentaireToCommentaireDTO(commentaire);
+        } catch (Exception e) {
+            throw new ServiceException("Impossible d'ajouter le commentaire : " + e.getMessage());
+        }
+    }
+
+    @Override
+    public void deleteCommentaire(long id) throws ServiceException {
+        try {
+            System.out.println("id : " + id);
+            this.CommentaireDAO.delete(id);
+        } catch (RuntimeException e) {
+            throw new ServiceException("Erreur lors de la suppression du commentaire", e);
+        }
+    }
+
+    @Override
+    public CommentaireDTO editCommentaire(CommentaireForm commentaireForm, String username, long id) throws ServiceException {
+        try {
+            Commentaire commentaire = CommentaireMapper.convertCommentaireFormToCommentaire(commentaireForm);
+            commentaire.setFilm(this.filmDAO.findById(commentaireForm.getFilmId()).orElse(null));
+            commentaire.setUtilisateur(this.utilisateurDAO.findByUsername(username).orElse(null));
+            commentaire.setDate(LocalDate.now());
+            System.out.println("Commentaire modifié : " + commentaire.toString());
+            commentaire = this.CommentaireDAO.edit(commentaire);
+            return CommentaireMapper.convertCommentaireToCommentaireDTO(commentaire);
+        } catch (Exception e) {
+            throw new ServiceException("Impossible de mettre à jour le commentaire : " + e.getMessage());
+        }
+    }
+
+    @Override
+    public NoteDTO addNote(NoteForm noteForm, String username) throws ServiceException {
+        try {
+            Note note = NoteMapper.convertNoteFormToNote(noteForm);
+            note.setFilm(this.filmDAO.findById(noteForm.getFilmId()).orElse(null));
+            note.setUtilisateur(this.utilisateurDAO.findByUsername(username).orElse(null));
+            note = this.noteDAO.save(note);
+            updateNoteMoyenne(note.getFilm());
+            System.out.println("Note ajoutée : " + note.toString());
+            return NoteMapper.convertNoteToNoteDTO(note);
+        } catch (Exception e) {
+            throw new ServiceException("Impossible d'ajouter la note : " + e.getMessage());
+        }
+    }
+
+    @Override
+    public void deleteNote (long id,long filmId, String username ) throws ServiceException {
+        try {
+            Note note = noteDAO.getNote(id, username);
+            System.out.println("Note supprimée : " + note.toString());
+            this.noteDAO.delete(note);
+            updateNoteMoyenne(this.filmDAO.findById(filmId).orElse(null));
+        } catch (RuntimeException e) {
+            throw new ServiceException("Erreur lors de la suppression de la note", e);
+        }
+    }
+
+    @Override
+    public NoteDTO editNote (NoteForm noteForm, String username, long id) throws ServiceException {
+        try {
+            Note note = NoteMapper.convertNoteFormToNote(noteForm);
+            note.setFilm(filmDAO.findById(noteForm.getFilmId()).orElse(null));
+            note.setUtilisateur(utilisateurDAO.findByUsername(username).orElse(null));
+            System.out.println("Note modifiée : " + note.toString());
+            note = this.noteDAO.update(note);
+            System.out.println("Note modifiée : " + note.toString());
+            updateNoteMoyenne(note.getFilm());
+            return NoteMapper.convertNoteToNoteDTO(note);
+        } catch (Exception e) {
+            throw new ServiceException("Impossible de mettre à jour la note : " + e.getMessage());
+        }
+    }
+    
+    @Override
+    public NoteDTO getNote (long filmId, String username) throws ServiceException {
+        try {
+            Note note = this.noteDAO.getNote(filmId, username);
+            return NoteMapper.convertNoteToNoteDTO(note);
+        } catch (Exception e) {
+            throw new ServiceException("Impossible de récupérer la note : " + e.getMessage());
+        }
+    }
 
 }

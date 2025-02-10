@@ -24,7 +24,7 @@ export default function RealisateurCard(props) {
 
 
     const handleEditSubmit = (updatedRealisateur) => {
-        updateRealisateur(props.realisateur.id ,updatedRealisateur).then(response => {
+        updateRealisateur(props.realisateur.id ,updatedRealisateur, props.token).then(response => {
             console.log('Realisateur edited successfully:', response.data);
             props.setRealisateurs((prevRealisateurs) => prevRealisateurs.map((realisateur) => {
                 if (realisateur.id === response.data.id) {
@@ -42,7 +42,7 @@ export default function RealisateurCard(props) {
 
     const handleClickOnDeleteButton = () => {
         const id = props.realisateur.id;
-        deleteRealisateur(id)
+        deleteRealisateur(id, props.token)
             .then(() => {
                 props.setRealisateurs((prevRealisateurs) => prevRealisateurs.filter((realisateur) => realisateur.id !== id));
             })

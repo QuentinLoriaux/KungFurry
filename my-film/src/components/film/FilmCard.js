@@ -11,13 +11,15 @@ import DialogContent from '@mui/material/DialogContent';
 import { deleteFilm, putFilm} from '../../api/FilmApi';
 import CreateFilmForm from './CreateFilmForm';
 import {useNavigate} from "react-router-dom";
+import {Grade, RemoveRedEyeRounded} from "@mui/icons-material";
+import {Box, Icon} from "@mui/material";
 
 
 
 
 export default function FilmCard(props) {
     const [open, setOpen] = useState(false);
-
+    const role = props.token && props.token.token ? props.token.token.split(';')[1].split('.')[0] : -1;
     const handleClickOnEditButton = (film) => {
         setOpen(true); // Open the dialog
     };
@@ -26,7 +28,7 @@ export default function FilmCard(props) {
     };
 
     const handleEditSubmit = (updatedFilm) => {
-        putFilm(props.film.id ,updatedFilm).then(response => {
+        putFilm(props.film.id ,updatedFilm, props.token).then(response => {
             props.setFilms((prevFilms) => {
                 const updatedFilms = prevFilms.map((film) =>
                     film.id === response.data.id ? response.data : film
@@ -38,13 +40,13 @@ export default function FilmCard(props) {
         }).catch(error => {
             console.error('Error editing film:', error);
             alert('An error occurred while editing the film.');
-            handleClose(); // Close the dialog even if an error occurred
+            handleClose();
         });
     };
 
     const handleClickOnDeleteButton = () => {
         const id = props.film.id;
-        deleteFilm(id)
+        deleteFilm(id, props.token)
             .then(() => {
                 props.setFilms((prevFilms) => {
                     const updatedFilms = prevFilms.filter((film) => film.id !== id);
@@ -74,20 +76,32 @@ export default function FilmCard(props) {
         <Typography variant="body1">
           {props.film.duree} minutes
         </Typography>
+          <Box sx={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginTop: 1 }}>
+              <Box sx={{ display: "flex", alignItems: "center", gap: 0.5 }}>
+                  <Grade color={"warning"} />
+                  <Typography variant="body2">{props.film.noteMoyenne}</Typography>
+              </Box>
+              <Box sx={{ display: "flex", alignItems: "center", gap: 0.5 }}>
+                  <RemoveRedEyeRounded />
+                  <Typography variant="body2">{props.film.nbVues === undefined ? 0 : props.film.nbVues}</Typography>
+              </Box>
+          </Box>
       </CardContent>
+        { role == 2 ?
+            <IconButton onClick={handleClickOnDeleteButton}>
+                <DeleteIcon/>
+            </IconButton> : null}
+        { role == 2 ?
+            <IconButton onClick={handleClickOnEditButton}>
+                <Dialog onClose={handleClose} open={open}>
+                    <DialogTitle>Editer un film</DialogTitle>
+                    <DialogContent>
+                        <CreateFilmForm film={props.film} onSubmit={handleEditSubmit}/>
+                    </DialogContent>
+                </Dialog>
+                <EditIcon/>
+            </IconButton> : null}
 
-    <IconButton onClick={handleClickOnDeleteButton}>
-        <DeleteIcon/>
-    </IconButton>
-    <IconButton onClick={handleClickOnEditButton}>
-          <Dialog onClose={handleClose} open={open}>
-          <DialogTitle>Editer un film</DialogTitle>
-          <DialogContent>
-              <CreateFilmForm film={props.film} onSubmit={handleEditSubmit}/>
-          </DialogContent>
-          </Dialog>
-          <EditIcon/>
-    </IconButton>
     </Card>
     );
 }

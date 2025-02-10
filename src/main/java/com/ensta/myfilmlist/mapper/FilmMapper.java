@@ -1,16 +1,15 @@
 package com.ensta.myfilmlist.mapper;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
-import com.ensta.myfilmlist.dto.FilmDTO;
-import com.ensta.myfilmlist.dto.GenreDTO;
-import com.ensta.myfilmlist.dto.RealisateurDTO;
+import com.ensta.myfilmlist.dto.*;
 import com.ensta.myfilmlist.form.FilmForm;
 import com.ensta.myfilmlist.model.Film;
 import com.ensta.myfilmlist.model.Genre;
 import com.ensta.myfilmlist.model.Realisateur;
+
 
 /**
  * Effectue les conversions des Films entre les couches de l'application.
@@ -40,15 +39,32 @@ public class FilmMapper {
 		filmDTO.setId(film.getId());
 		filmDTO.setTitre(film.getTitre());
 		filmDTO.setDuree(film.getDuree());
+		filmDTO.setAffiche(film.getAffiche());
+		filmDTO.setNoteMoyenne(film.getNoteMoyenne());
+		filmDTO.setNbVues(film.getNbVues());
+		return filmDTO;
+	}
+
+	public static FilmDetailsDTO convertFilmToFilmDetailsDTO(Film film){
+		FilmDetailsDTO filmDetailsDTO = new FilmDetailsDTO();
+		filmDetailsDTO.setId(film.getId());
+		filmDetailsDTO.setTitre(film.getTitre());
+		filmDetailsDTO.setDuree(film.getDuree());
 		Realisateur realisateur = film.getRealisateur();
 		if (realisateur != null) {
-			filmDTO.setRealisateur(RealisateurMapper.convertRealisateurToRealisateurDTO(realisateur));
+			filmDetailsDTO.setRealisateur(RealisateurMapper.convertRealisateurToRealisateurDTO(realisateur));
 		}
 		Genre genre = film.getGenre();
 		if (genre != null) {
-			filmDTO.setGenre(GenreMapper.convertGenreToGenreDTO(genre));
+			filmDetailsDTO.setGenre(GenreMapper.convertGenreToGenreDTO(genre));
 		}
-		return filmDTO;
+		filmDetailsDTO.setCommentaires(CommentaireMapper.convertCommentairesToCommentaireDTOs(film.getCommentaires()));
+		filmDetailsDTO.setDescription(film.getSynopsis());
+		filmDetailsDTO.setNoteMoyenne(film.getNoteMoyenne());
+		filmDetailsDTO.setNbVues(film.getNbVues());
+		filmDetailsDTO.setDateSortie(film.getDateSortie());
+		filmDetailsDTO.setAffiche(film.getAffiche());
+		return filmDetailsDTO;
 	}
 
 	/**
@@ -62,14 +78,9 @@ public class FilmMapper {
 		film.setId(filmDTO.getId());
 		film.setTitre(filmDTO.getTitre());
 		film.setDuree(filmDTO.getDuree());
-		RealisateurDTO realisateurDTO = filmDTO.getRealisateur();
-		if (realisateurDTO != null){
-			film.setRealisateur(RealisateurMapper.convertRealisateurDTOToRealisateur(realisateurDTO));
-		}
-		GenreDTO genreDTO = filmDTO.getGenre();
-		if (genreDTO != null){
-			film.setGenre(GenreMapper.convertGenreDTOToGenre(genreDTO));
-		}
+		film.setAffiche(filmDTO.getAffiche());
+		film.setNoteMoyenne(filmDTO.getNoteMoyenne());
+		film.setNbVues(filmDTO.getNbVues());
 		return film;
 	}
 
@@ -83,7 +94,9 @@ public class FilmMapper {
 		Film film = new Film();
 		film.setTitre(filmForm.getTitre());
 		film.setDuree(filmForm.getDuree());
-
+		film.setDateSortie(filmForm.getDateSortie());
+		film.setAffiche(filmForm.getAffiche());
+		film.setSynopsis(filmForm.getSynopsis());
 		return film;
 	}
 
@@ -91,11 +104,26 @@ public class FilmMapper {
 	 * Convertit une liste de DTO en liste de films.
 	 *
 	 * @param filmsDTO la liste des DTO
-	 *                 @return Une liste non nulle de films construite a partir de la liste des DTO.
+	 *                 @return Une liste non nulle de films construite à partir de la liste des DTO.
 	 */
 	public static List<Film> convertFilmsDTOToFilms(List<FilmDTO> filmsDTO) {
 		return filmsDTO.stream()
 				.map(FilmMapper::convertFilmDTOToFilm)
 				.collect(Collectors.toList());
+	}
+
+	public static Film convertFilmDetailsDTOToFilm(FilmDetailsDTO filmDetailsDTO){
+		Film film = new Film();
+		film.setId(filmDetailsDTO.getId());
+		film.setTitre(filmDetailsDTO.getTitre());
+		film.setDuree(filmDetailsDTO.getDuree());
+		film.setRealisateur(RealisateurMapper.convertRealisateurDTOToRealisateur(filmDetailsDTO.getRealisateur()));
+		film.setGenre(GenreMapper.convertGenreDTOToGenre(filmDetailsDTO.getGenre()));
+		film.setNoteMoyenne(filmDetailsDTO.getNoteMoyenne());
+		film.setNbVues(filmDetailsDTO.getNbVues());
+		film.setDateSortie(filmDetailsDTO.getDateSortie());
+		film.setAffiche(filmDetailsDTO.getAffiche());
+		film.setSynopsis(filmDetailsDTO.getDescription());
+		return film;
 	}
 }

@@ -1,31 +1,22 @@
 package com.ensta.myfilmlist.model;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.List;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.xml.bind.DatatypeConverter;
 
 @Entity
 @Table(name = "utilisateur")
 public class Utilisateur {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
-    private long role_id;
     private String username;
+
+    @Column
+    private long role_id;
+
+    @Column
     private String md5hex;
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public long getId() {
-        return id;
-    }
 
     public void setRoleId(long role_id) {
         this.role_id = role_id;
@@ -49,10 +40,9 @@ public class Utilisateur {
             md = MessageDigest.getInstance("MD5");
             md.update(password.getBytes());
             byte[] digest = md.digest();
-            String hash = DatatypeConverter
+            this.md5hex = DatatypeConverter
             .printHexBinary(digest).toLowerCase();
-            this.md5hex = hash;
-        } catch (NoSuchAlgorithmException e) {}
+        } catch (NoSuchAlgorithmException ignored) {}
     }
 
     public void setMd5Hex(String md5hex) {

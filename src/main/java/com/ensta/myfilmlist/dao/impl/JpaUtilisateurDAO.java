@@ -47,13 +47,13 @@ public class JpaUtilisateurDAO implements com.ensta.myfilmlist.dao.UtilisateurDA
     }
 
     @Override
-    public Optional<Utilisateur> findById(long id) {
-        return Optional.ofNullable(entityManager.find(Utilisateur.class, id));
+    public Optional<Utilisateur> findByUsername(String username) {
+        return Optional.ofNullable(entityManager.find(Utilisateur.class, username));
     }
 
     @Override
     public void delete(Utilisateur user) {
-        if (entityManager.find(Utilisateur.class, user.getId()) != null) {
+        if (entityManager.find(Utilisateur.class, user.getUsername()) != null) {
             if (!entityManager.contains(user)) {
                 user = entityManager.merge(user);
             }
@@ -63,7 +63,6 @@ public class JpaUtilisateurDAO implements com.ensta.myfilmlist.dao.UtilisateurDA
 
     @Override
     public Utilisateur update(Utilisateur user) {
-        System.out.println(user.getId());
         return entityManager.merge(user);
     }
 }

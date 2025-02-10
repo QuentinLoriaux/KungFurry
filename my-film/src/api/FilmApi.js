@@ -18,17 +18,25 @@ export function getAllFilms( page, size, query, sort, order) {
 /**
  * Create a new film.
  * @param {Object} film - The film object to be created.
+ * @param {string} token - The JWT token.
  * @returns {Promise} Axios response promise.
  */
 
-export function postFilm(film) {
+export function postFilm(film, token) {
     const payload = {
         titre: film.title,
         duree: parseInt(film.duration),
         realisateurId: film.realisateurId,
-        genreId: film.genreId
+        genreId: film.genreId,
+        dateSortie: film.releaseDate,
+        synopsis: film.synopsis,
+        affiche: film.coverImage
     };
-    return axios.post(FILM_URI, payload);
+    return axios.post(FILM_URI, payload, { headers: { Authorization: `Bearer ${token.token}` } })
+        .catch(error => {
+            console.error('Erreur lors de la création du film', error);
+            throw error;
+        });
 }
 
 
@@ -36,25 +44,38 @@ export function postFilm(film) {
  * Update an existing film.
  * @param {number} filmId - The ID of the film to be updated.
  * @param {Object} film - The updated film object.
+ * @param {string} token - The JWT token.
  * @returns {Promise} Axios response promise.
  */
-export function putFilm(filmId, film) {
+export function putFilm(filmId, film, token) {
     const payload = {
         titre: film.title,
         duree: parseInt(film.duration),
         realisateurId: film.realisateurId,
-        genreId: film.genreId
+        genreId: film.genreId,
+        dateSortie: film.releaseDate,
+        synopsis: film.synopsis,
+        affiche: film.coverImage
     }
-    return axios.put(`${FILM_URI}/${filmId}`, payload);
+    return axios.put(`${FILM_URI}/${filmId}`, payload, { headers: { Authorization: `Bearer ${token.token}` } })
+        .catch(error => {
+            console.error('Erreur lors de la mise à jour du film', error);
+            throw error;
+        });
 }
 
 /**
  * Delete a film by ID.
  * @param {number} id - The ID of the film to be deleted.
+ * @param {string} token - The JWT token.
  * @returns {Promise} Axios response promise.
  */
-export function deleteFilm(id) {
-    return axios.delete(`${FILM_URI}/${id}`);
+export function deleteFilm(id, token) {
+    return axios.delete(`${FILM_URI}/${id}`, { headers: { Authorization: `Bearer ${token.token}` } })
+        .catch(error => {
+            console.error('Erreur lors de la suppression du film', error);
+            throw error;
+        });
 }
 
 /**

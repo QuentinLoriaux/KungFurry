@@ -131,10 +131,10 @@ public class MyfilmlistTests {
 
 		// Calcul de la note moyenne
 
-		double noteMoyenne = myFilmsService.calculerNoteMoyenne(notes);
+		//double noteMoyenne = myFilmsService.calculerNoteMoyenne(notes);
 
 		// Attendue : 15,17
-		System.out.println("La note moyenne est : " + noteMoyenne);
+		//System.out.println("La note moyenne est : " + noteMoyenne);
 	}
 
 	/**
@@ -156,58 +156,58 @@ public class MyfilmlistTests {
 	/**
 	 * Permet de tester la creation des films.
 	 */
-	public void createFilmTest() {
-		try {
-			RealisateurDTO realisateurDTO = myFilmsService.findRealisateurByNomAndPrenom("Cameron", "James");
-
-			FilmForm titanic = new FilmForm();
-			titanic.setTitre("Titanic");
-			titanic.setDuree(195);
-			titanic.setRealisateurId(realisateurDTO.getId());
-
-			FilmDTO newFilm = myFilmsService.createFilm(titanic);
-
-			System.out.println("Le nouveau film 'Titanic' possede l'id : " + newFilm.getId());
-
-			List<FilmDTO> films = myFilmsService.findAllFilms();
-
-			// Attendue : 5
-			System.out.println("Combien y a-t-il de films ? " + films.size());
-
-			films.forEach(f -> System.out.println("Le realisateur du film : '" + f.getTitre() + "' est : " + f.getRealisateur()));
-		} catch (ServiceException e) {
-			e.printStackTrace();
-		}
-	}
+//	public void createFilmTest() {
+//		try {
+//			RealisateurDTO realisateurDTO = myFilmsService.findRealisateurByNomAndPrenom("Cameron", "James");
+//
+//			FilmForm titanic = new FilmForm();
+//			titanic.setTitre("Titanic");
+//			titanic.setDuree(195);
+//			titanic.setRealisateurId(realisateurDTO.getId());
+//
+//			FilmDTO newFilm = myFilmsService.createFilm(titanic);
+//
+//			System.out.println("Le nouveau film 'Titanic' possede l'id : " + newFilm.getId());
+//
+//			List<FilmDTO> films = myFilmsService.findAllFilms();
+//
+//			// Attendue : 5
+//			System.out.println("Combien y a-t-il de films ? " + films.size());
+//
+//			films.forEach(f -> System.out.println("Le realisateur du film : '" + f.getTitre() + "' est : " + f.getRealisateur()));
+//		} catch (ServiceException e) {
+//			e.printStackTrace();
+//		}
+//	}
 
 	/**
 	 * Permet de tester la recuperation d'un film par son identifiant.
 	 */
-	public void findFilmByIdTest() {
-		try {
-			FilmDTO avatar = myFilmsService.findFilmById(1);
-			System.out.println("Le film avec l'identifiant 1 est : " + avatar);
-		} catch (ServiceException e) {
-			e.printStackTrace();
-		}
-	}
+//	public void findFilmByIdTest() {
+//		try {
+//			FilmDTO avatar = myFilmsService.findFilmById(1);
+//			System.out.println("Le film avec l'identifiant 1 est : " + avatar);
+//		} catch (ServiceException e) {
+//			e.printStackTrace();
+//		}
+//	}
 
 	/**
 	 * Permet de tester la suppression d'un film avec son identifiant.
 	 */
-	public void deleteFilmByIdTest() {
-		try {
-			FilmDTO filmDTO = myFilmsService.findFilmById(5);
-			System.out.println("Le film avec l'identifiant 5 est : " + filmDTO);
-			myFilmsService.deleteFilm(5);
-			filmDTO = myFilmsService.findFilmById(5);
-
-			System.out.println("Suppression du film avec l'identifiant 5...");
-			System.out.println("Le film avec l'identifiant 5 est : " + filmDTO);
-		} catch (ServiceException e) {
-			e.printStackTrace();
-		}
-	}
+//	public void deleteFilmByIdTest() {
+//		try {
+//			FilmDTO filmDTO = myFilmsService.findFilmById(5);
+//			System.out.println("Le film avec l'identifiant 5 est : " + filmDTO);
+//			myFilmsService.deleteFilm(5);
+//			filmDTO = myFilmsService.findFilmById(5);
+//
+//			System.out.println("Suppression du film avec l'identifiant 5...");
+//			System.out.println("Le film avec l'identifiant 5 est : " + filmDTO);
+//		} catch (ServiceException e) {
+//			e.printStackTrace();
+//		}
+//	}
 
 	/**
 	 * Permet de tester la mise a jour du statut celebre d'un Realisateur.

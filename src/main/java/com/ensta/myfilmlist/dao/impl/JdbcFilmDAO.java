@@ -1,9 +1,12 @@
 package com.ensta.myfilmlist.dao.impl;
 
-import com.ensta.myfilmlist.dao.RealisateurDAO;
-import com.ensta.myfilmlist.dao.GenreDAO;
-import com.ensta.myfilmlist.model.Film;
-import com.ensta.myfilmlist.model.Page;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -12,10 +15,11 @@ import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.Statement;
-import java.util.*;
+import com.ensta.myfilmlist.dao.GenreDAO;
+import com.ensta.myfilmlist.dao.RealisateurDAO;
+import com.ensta.myfilmlist.model.Commentaire;
+import com.ensta.myfilmlist.model.Film;
+import com.ensta.myfilmlist.model.Page;
 
 @Repository
 public class JdbcFilmDAO implements com.ensta.myfilmlist.dao.FilmDAO {
@@ -167,4 +171,16 @@ public class JdbcFilmDAO implements com.ensta.myfilmlist.dao.FilmDAO {
             throw new RuntimeException("Erreur lors de la mise à jour du film", e);
         }
     }
+
+//    @Override
+//    public List<Commentaire> findCommentairesByFilmId(long filmId){
+//        String query = "SELECT id, text, film FROM commentaire WHERE film_id = ?";
+//        return jdbcTemplate.query(query, (ResultSet rs, int rowNum) -> {
+//            Commentaire commentaire = new Commentaire();
+//            commentaire.setId(rs.getInt("id"));
+//            commentaire.setText(rs.getString("text"));
+//            return commentaire;
+//        }, filmId);
+//    }
+
 }

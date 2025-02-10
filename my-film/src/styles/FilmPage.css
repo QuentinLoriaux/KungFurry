@@ -1,0 +1,53 @@
+.film-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 20px;
+}
+
+/* Organisation en ligne pour le bloc d'infos et l'image */
+.film-content {
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+}
+
+.film-info {
+    flex: 1;
+    padding: 20px;
+}
+
+.film-description {
+    margin: 10px 0;
+    font-style: italic;
+}
+
+.film-cover {
+    flex: 0.5;
+    max-width: 300px;
+}
+
+.watch-button, .add-to-list {
+    margin-top: 10px;
+    width: 100%;
+}
+
+/* Alignement horizontal des étoiles et du texte */
+.film-info .MuiBox-root {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 5px;
+}
+
+/* Section des commentaires */
+.comments-section {
+    margin-top: 20px;
+}
+
+.comment {
+    margin-top: 10px;
+    background-color: #f4f4f4;
+    padding: 10px;
+    border-radius: 5px;
+}

@@ -15,8 +15,9 @@ const Login = ({ setAuth }) => {
                 roleId: 0,
             }
 
-            const response = await axios.post('http://localhost:8080/user/login', payload, { withCredentials: true });            
-            alert('Connexion réussie!' + response.data);
+            const response = await axios.post('http://localhost:8080/user/login', payload, { withCredentials: true });
+            setAuth(response.data);
+            alert('Connexion réussie!'+response.data);
         } catch (error) {
             console.error('Erreur lors de la connexion:', error);
             alert('Échec de la connexion. Veuillez réessayer.');

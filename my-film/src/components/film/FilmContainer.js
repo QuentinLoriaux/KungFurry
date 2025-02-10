@@ -9,10 +9,11 @@ import Dialog from "@mui/material/Dialog";
 import DialogContent from "@mui/material/DialogContent";
 import PageSelector from "../PageSelector";
 
-const FilmContainer = () => {
+const FilmContainer = (token) => {
     const [currentPage, setCurrentPage] = useState(1);
     const [totalPages, setTotalPages] = useState(1);
     const pageSize = 2;
+    const role = token && token.token ? token.token.split(';')[1].split('.')[0] : -1;
 
     const [open, setOpen] = useState(false);
     const [Films, setFilms] = useState([]);
@@ -50,7 +51,7 @@ const FilmContainer = () => {
     };
 
     const handleCreateFilm = (newFilm) => {
-        postFilm(newFilm)
+        postFilm(newFilm, token)
             .then(() => {
                 fetchFilms();
             })
@@ -63,6 +64,7 @@ const FilmContainer = () => {
 
     const handleSearch = (query) => {
         setSearchQuery(query);
+        setCurrentPage(1)
     };
 
     const handleSort = (option) => {
@@ -125,31 +127,33 @@ const FilmContainer = () => {
                     </IconButton>
                 </div>
 
-                <div style={{ margin: "10px" }}>
-                    <Button
-                        variant="contained"
-                        color="primary"
-                        size="small"
-                        style={{ whiteSpace: 'nowrap' }}
-                        onClick={handleOpen}
-                    >
-                        Ajouter
-                    </Button>
-                    <Dialog open={open} onClose={handleClose}>
-                        <DialogContent>
-                            <CreateFilmForm film={null} onSubmit={handleCreateFilm} />
-                        </DialogContent>
-                    </Dialog>
-                </div>
+                {role == 2 ?
+                    <div style={{margin: "10px"}}>
+                        <Button
+                            variant="contained"
+                            color="primary"
+                            size="small"
+                            style={{whiteSpace: 'nowrap'}}
+                            onClick={handleOpen}
+                        >
+                            Ajouter
+                        </Button>
+                        <Dialog open={open} onClose={handleClose}>
+                            <DialogContent>
+                                <CreateFilmForm film={null} onSubmit={handleCreateFilm}/>
+                            </DialogContent>
+                        </Dialog>
+                    </div> : null}
             </div>
 
-            <div style={{ flex: 1, marginLeft: "20px", display: "flex", justifyContent: "center" }}>
+            <div style={{flex: 1, marginLeft: "20px", display: "flex", justifyContent: "center"}}>
                 <FilmList
                     films={Films}
                     setFilms={setFilms}
                     applyFilters={(newFilms) =>
                         fetchFilms()
                     }
+                    token={token}
                 />
             </div>
 

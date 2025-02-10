@@ -3,7 +3,7 @@ import RealisateurList from "./RealisateurList";
 import { useState, useEffect } from "react";
 import {getAllRealisateurs, postRealisateur} from "../../api/RealisateurApi";
 
-const RealisateurContainer = () => {
+const RealisateurContainer = (token) => {
     const [realisateurs, setRealisateurs] = useState([])
 
     useEffect(() => {
@@ -15,7 +15,7 @@ const RealisateurContainer = () => {
     }, []);
 
     const handleCreateRealisateur = (newRealisateur) => {
-        postRealisateur(newRealisateur).then(response => {
+        postRealisateur(newRealisateur, token).then(response => {
             setRealisateurs([...realisateurs, response.data])
         }).catch(err => {
             alert("Une erreur est survenue lors de l'ajout du réalisateur")
@@ -29,7 +29,7 @@ const RealisateurContainer = () => {
                 <CreateRealisateurForm realisateur={null} onSubmit={handleCreateRealisateur}/>
             </div>
             <div style={{flex: 1, marginLeft: "20px", display: "flex", justifyContent: "center"}}>
-                <RealisateurList realisateurs={realisateurs} setRealisateurs={setRealisateurs}/>
+                <RealisateurList realisateurs={realisateurs} setRealisateurs={setRealisateurs} token={token}/>
             </div>
         </div>
     );

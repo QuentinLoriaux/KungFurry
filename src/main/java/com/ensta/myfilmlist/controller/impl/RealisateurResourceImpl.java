@@ -72,7 +72,7 @@ public class RealisateurResourceImpl implements RealisateurResource {
 
     @Override
     @PostMapping
-    public ResponseEntity<RealisateurDTO> createRealisateur(@RequestBody @Valid RealisateurForm realisateurForm) throws ControllerException {
+    public ResponseEntity<RealisateurDTO> createRealisateur(@RequestBody @Valid RealisateurForm realisateurForm, @RequestHeader String Authorization) throws ControllerException {
         try {
             RealisateurDTO realisateur = myFilmsService.createRealisateur(realisateurForm);
             return ResponseEntity.ok(realisateur);
@@ -83,7 +83,7 @@ public class RealisateurResourceImpl implements RealisateurResource {
 
     @Override
     @PutMapping("/{id}")
-    public ResponseEntity<RealisateurDTO> updateRealisateur(@PathVariable long id, @RequestBody @Valid RealisateurForm realisateurForm) throws ControllerException {
+    public ResponseEntity<RealisateurDTO> updateRealisateur(@PathVariable long id, @RequestBody @Valid RealisateurForm realisateurForm, @RequestHeader String Authorization) throws ControllerException {
         try {
             Realisateur realisateur = convertRealisateurFormToRealisateur(realisateurForm);
             realisateur.setId(id);
@@ -96,7 +96,7 @@ public class RealisateurResourceImpl implements RealisateurResource {
 
     @Override
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteRealisateur(@PathVariable long id) throws ControllerException {
+    public ResponseEntity<?> deleteRealisateur(@PathVariable long id, @RequestHeader String Authorization) throws ControllerException {
         try {
             myFilmsService.deleteRealisateur(id);
             return ResponseEntity.ok().build();

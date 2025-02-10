@@ -2,17 +2,19 @@ package com.ensta.myfilmlist.service;
 
 import java.util.List;
 
+import com.ensta.myfilmlist.form.*;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.ensta.myfilmlist.dto.CommentaireDTO;
 import com.ensta.myfilmlist.dto.FilmDTO;
+import com.ensta.myfilmlist.dto.FilmDetailsDTO;
 import com.ensta.myfilmlist.dto.GenreDTO;
+import com.ensta.myfilmlist.dto.NoteDTO;
 import com.ensta.myfilmlist.dto.RealisateurDTO;
 import com.ensta.myfilmlist.dto.UtilisateurDTO;
 import com.ensta.myfilmlist.exception.ServiceException;
-import com.ensta.myfilmlist.form.FilmForm;
-import com.ensta.myfilmlist.form.RealisateurForm;
-import com.ensta.myfilmlist.form.UtilisateurForm;
 import com.ensta.myfilmlist.model.Film;
+import com.ensta.myfilmlist.model.Note;
 import com.ensta.myfilmlist.model.Page;
 import com.ensta.myfilmlist.model.Realisateur;
 import com.ensta.myfilmlist.model.Utilisateur;
@@ -41,7 +43,25 @@ public interface MyFilmsService {
      * @param notes la liste des notes à additionner.
      * @return la note moyenne des notes.
      */
-    double calculerNoteMoyenne(double[] notes);
+    double calculerNoteMoyenne(List<Note> notes);
+
+    /**
+     * Met à jour la note moyenne d'un film.
+     *
+     * @param film le film à mettre à jour, contenant la liste non nulle des notes.
+     * @return le film mis à jour avec sa note moyenne.
+     * @throws ServiceException si une erreur survient pendant la mise à jour ou si le film est invalide.
+     */
+    Film updateNoteMoyenne(Film film) throws ServiceException;
+
+    /**
+     * Met à jour le nombre de vues d'un film.
+     *
+     * @param film le film à mettre à jour.
+     * @return le film mis à jour avec son nombre de vues.
+     * @throws ServiceException si une erreur survient pendant la mise à jour ou si le film est invalide.
+     */
+    Film updateNbVues(Film film) throws ServiceException;
 
     /**
      * Met à jour le statut "celebre" des réalisateurs en fonction du nombre de films réalisés.
@@ -58,6 +78,7 @@ public interface MyFilmsService {
      * @return la liste des films.
      * @throws ServiceException si une erreur survient pendant la récupération.
      */
+    @Transactional
     List<FilmDTO> findAllFilms() throws ServiceException;
 
     /**
@@ -70,6 +91,7 @@ public interface MyFilmsService {
      * @return Page<FilmDTO>
      * @throws ServiceException
      */
+    @Transactional
     Page<FilmDTO> findAllFilms(int page, int size, String query, String sort, String order) throws ServiceException;
 
     /**
@@ -109,10 +131,11 @@ public interface MyFilmsService {
     /**
      * Récupère un film par son id.
      * @param id
-     * @return FilmDTO
+     * @return FilmDetailsDTO
      * @throws ServiceException
      */
-    FilmDTO findFilmById(long id) throws ServiceException;
+    @Transactional
+    FilmDetailsDTO findFilmById(long id) throws ServiceException;
 
     /**
      * Supprime un film par son id.
@@ -153,10 +176,10 @@ public interface MyFilmsService {
 
     /**
      * Récupère un utilisateur par son id.
-     * @param id
+     * @param username l'identifiant du utilisateur à récupérer
      * @return UtilisateurDTO
      */
-    UtilisateurDTO findUtilisateurById(long id) throws ServiceException;
+    UtilisateurDTO findUtilisateurByUsername(String username) throws ServiceException;
 
     /**
      * Récupère un utilisateur par son username/password.
@@ -177,12 +200,12 @@ public interface MyFilmsService {
 
     /**
      * Supprime un utilisateur par son id.
-     * @param id
+     * @param username
      * @throws ServiceException
      */
 
     @Transactional
-    void deleteUtilisateur(long id) throws ServiceException;
+    void deleteUtilisateur(String username) throws ServiceException;
 
     /**
      * Met à jour un utilisateur.
@@ -238,5 +261,63 @@ public interface MyFilmsService {
     String createToken(UtilisateurDTO userDTO) throws ServiceException;
 
     public String md5(String tohash) throws ServiceException;
+
+    /**
+     * Ajouter un commentaire.
+     * @param commentaireForm
+     * @param username
+     * @return commentaireDTO
+     */
+    @Transactional
+    CommentaireDTO addCommentaire(CommentaireForm commentaireForm, String username)throws ServiceException;
+
+    /**
+     * Supprimer un commentaire.
+     * @param id
+     * @throws ServiceException
+     */
+    @Transactional
+    void deleteCommentaire(long id) throws ServiceException;
+
+    /**
+     * editer un commentaire.
+     * @param commentaireForm
+     * @return commentaireDTO
+     */
+    @Transactional
+    CommentaireDTO editCommentaire(CommentaireForm commentaireForm, String username, long id) throws ServiceException;
+
+    /**
+     * ajouter une note.
+     * @param noteForm
+     * @param username
+     * @return noteDTO
+     */
+    @Transactional
+    NoteDTO addNote(NoteForm noteForm, String username) throws ServiceException;
+
+    /**
+     * supprimer une note.
+     * @param id
+     * @throws ServiceException
+     */
+    @Transactional
+    void deleteNote (long id, long filmId, String username) throws ServiceException;
+
+    /**
+     * editer une note.
+     * @param noteForm
+     * @param username
+     * @return noteDTO
+     */
+    @Transactional
+    NoteDTO editNote (NoteForm noteForm, String username, long id) throws ServiceException;
+
+    /**
+     * Récupère la liste des commentaires.
+     * @param filmId
+     * @return la liste des commentaires.
+     */
+    NoteDTO getNote(long filmId, String username) throws ServiceException;
 
 }

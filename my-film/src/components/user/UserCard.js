@@ -25,7 +25,7 @@ export default function UserCard(props) {
 
 
     const handleEditSubmit = (updatedUser) => {
-        updateUser(props.user.id , updatedUser).then(response => {
+        updateUser(props.user.id , updatedUser, props.token).then(response => {
             props.setUsers((prevUsers) => prevUsers.map((user) => {
                 if (user.id === response.data.id) {
                     return response.data;
@@ -42,7 +42,7 @@ export default function UserCard(props) {
 
     const handleClickOnDeleteButton = () => {
         const id = props.user.id;
-        deleteUser(id)
+        deleteUser(id, props.token)
             .then(() => {
                 props.setUsers((prevUsers) => prevUsers.filter((user) => user.id !== id));
             })

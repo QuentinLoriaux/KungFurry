@@ -1,6 +1,7 @@
 package com.ensta.myfilmlist.controller.impl;
 
 import com.ensta.myfilmlist.controller.FilmResource;
+import com.ensta.myfilmlist.dto.FilmDetailsDTO;
 import com.ensta.myfilmlist.exception.ControllerException;
 import com.ensta.myfilmlist.dto.FilmDTO;
 import com.ensta.myfilmlist.model.Film;
@@ -60,15 +61,15 @@ public class FilmResourceImpl implements FilmResource {
             }
             return ResponseEntity.ok(films);
         } catch (Exception e) {
-            throw new ControllerException("Erreur lors de la récupération des films", e);
+            throw new ControllerException("Erreur lors de la récupération des films"+ e.getMessage(), e);
         }
     }
 
     @Override
     @GetMapping("/{id}")
-    public ResponseEntity<FilmDTO> getFilmById(@PathVariable long id) throws ControllerException {
+    public ResponseEntity<FilmDetailsDTO> getFilmById(@PathVariable long id) throws ControllerException {
         try {
-            FilmDTO film = myFilmsService.findFilmById(id);
+            FilmDetailsDTO film = myFilmsService.findFilmById(id);
             if (film == null) {
                 return ResponseEntity.notFound().build();
             }
@@ -80,7 +81,7 @@ public class FilmResourceImpl implements FilmResource {
 
     @Override
     @PostMapping
-    public ResponseEntity<FilmDTO> createFilm(@RequestBody @Valid FilmForm filmForm) throws ControllerException {
+    public ResponseEntity<FilmDTO> createFilm(@RequestBody @Valid FilmForm filmForm, @RequestHeader String Authorization) throws ControllerException {
         try {
             FilmDTO film = myFilmsService.createFilm(filmForm);
             return ResponseEntity.ok(film);
@@ -91,7 +92,7 @@ public class FilmResourceImpl implements FilmResource {
 
     @Override
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteFilm(@PathVariable long id) throws ControllerException {
+    public ResponseEntity<?> deleteFilm(@PathVariable long id, @RequestHeader String Authorization) throws ControllerException {
         try {
             myFilmsService.deleteFilm(id);
             return ResponseEntity.ok().build();
@@ -104,7 +105,7 @@ public class FilmResourceImpl implements FilmResource {
 
     @Override
     @PutMapping("/{id}")
-    public ResponseEntity<FilmDTO> updateFilm(@PathVariable long id, @RequestBody @Valid FilmForm filmForm) throws ControllerException {
+    public ResponseEntity<FilmDTO> updateFilm(@PathVariable long id, @RequestBody @Valid FilmForm filmForm, @RequestHeader String Authorization) throws ControllerException {
         try {
             Film film = convertFilmFormToFilm(filmForm);
             film.setId(id);

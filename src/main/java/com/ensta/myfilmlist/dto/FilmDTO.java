@@ -8,8 +8,9 @@ public class FilmDTO {
 	private long id;
 	private String titre;
 	private int duree;
-	private RealisateurDTO realisateur;
-	private GenreDTO genre;
+	private String affiche;
+	private double noteMoyenne;
+	private int nbVues;
 
 	public long getId() {
 		return id;
@@ -32,23 +33,33 @@ public class FilmDTO {
 		this.duree = duree;
 	}
 
-	public RealisateurDTO getRealisateur(){
-		return realisateur;
+	public String getAffiche() {
+		return affiche;
 	}
-	public void setRealisateur(RealisateurDTO realisateur){
-		this.realisateur = realisateur;
-	}
-
-	public GenreDTO getGenre(){
-		return genre;
-	}
-	public void setGenre(GenreDTO genre){
-		this.genre = genre;
+	public void setAffiche(String affiche) {
+		this.affiche = affiche;
 	}
 
 	@Override
 	public String toString() {
 		return "FilmDTO [id=" + id + ", titre=" + titre + ", duree=" + duree + "]";
 	}
+
+	public double getNoteMoyenne() {
+		return noteMoyenne;
+	}
+
+	public void setNoteMoyenne(double noteMoyenne) {
+		this.noteMoyenne = noteMoyenne;
+	}
+
+	public int getNbVues() {
+		return nbVues;
+	}
+
+	public void setNbVues(int nbVues) {
+		this.nbVues = nbVues;
+	}
+
 
 }
