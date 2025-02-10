@@ -99,7 +99,7 @@ public interface UtilisateurResource {
             @ApiResponse(code = 204, message = "Utilisateur supprimé avec succès"),
             @ApiResponse(code = 404, message = "Utilisateur non trouvé"),
     })
-    @DeleteMapping(value = "/{id}")
+    @DeleteMapping(value = "/{username}")
     ResponseEntity<?> deleteUtilisateur(@PathVariable String username, @RequestHeader String Authorization) throws ControllerException;
 
     /**
@@ -120,7 +120,7 @@ public interface UtilisateurResource {
             @ApiResponse(code = 200, message = "Utilisateur mis à jour avec succès"),
             @ApiResponse(code = 404, message = "Utilisateur non trouvé"),
     })
-    @PutMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @PutMapping(value = "/{username}", produces = MediaType.APPLICATION_JSON_VALUE)
     ResponseEntity<UtilisateurDTO> updateUtilisateur(@PathVariable String username, @RequestBody @Valid UtilisateurForm utilisateurForm, @RequestHeader String Authorization) throws ControllerException;
 
     /**

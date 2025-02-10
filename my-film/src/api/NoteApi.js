@@ -12,9 +12,10 @@ const NOTE_URI = 'http://localhost:8080/notes';
  */
 export function postNote(note, token, filmId) {
     const payload = {
-        noteForm: note,
+        note: note,
+        filmId: filmId
     };
-    return axios.post(NOTE_URI, payload, { headers: { Authorization: `Bearer ${token.token}` }, params: { filmId: filmId } })
+    return axios.post(NOTE_URI, payload, { headers: { Authorization: `Bearer ${token.token}` }})
         .catch(error => {
             console.error('Erreur lors de la création de la note', error);
             throw error;
@@ -48,12 +49,22 @@ export function deleteNote(noteId, token) {
  */
 export function putNote(noteId, note, filmId, token){
     const payload = {
-        noteForm: note,
+        note: note,
+        filmId: filmId
     };
-    return axios.put(`${NOTE_URI}/${noteId}`, payload, { headers: { Authorization: `Bearer ${token.token}` }, params: { filmId: filmId } })
+    return axios.put(`${NOTE_URI}/${noteId}`, payload, { headers: { Authorization: `Bearer ${token.token}` } })
         .catch(error => {
             console.error('Erreur lors de la mise à jour de la note', error);
             throw error;
         });
 }
+
+/**
+ * Get the note of a film by a user.
+ * @param {number} filmId - The ID of the film.
+ * @param {string} token - The JWT token.
+ *
+ * @returns {Promise} Axios response promise.
+ */
+
 

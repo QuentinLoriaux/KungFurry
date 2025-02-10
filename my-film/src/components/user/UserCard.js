@@ -25,9 +25,9 @@ export default function UserCard(props) {
 
 
     const handleEditSubmit = (updatedUser) => {
-        updateUser(props.user.id , updatedUser, props.token).then(response => {
+        updateUser(props.user.username , updatedUser, props.token).then(response => {
             props.setUsers((prevUsers) => prevUsers.map((user) => {
-                if (user.id === response.data.id) {
+                if (user.username === response.data.username) {
                     return response.data;
                 }
                 return user;
@@ -41,10 +41,10 @@ export default function UserCard(props) {
     };
 
     const handleClickOnDeleteButton = () => {
-        const id = props.user.id;
+        const id = props.user.username;
         deleteUser(id, props.token)
             .then(() => {
-                props.setUsers((prevUsers) => prevUsers.filter((user) => user.id !== id));
+                props.setUsers((prevUsers) => prevUsers.filter((user) => user.username !== id));
             })
             .catch((error) => {
                 console.error('Erreur lors de la suppression de l\'utilisateur :', error);

@@ -69,7 +69,7 @@ public class UtilisateurResourceImpl implements UtilisateurResource {
     }
 
     @Override
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/{username}")
     public ResponseEntity<?> deleteUtilisateur(@PathVariable String username, @RequestHeader String Authorization) throws ControllerException {
         try {
             myFilmsService.deleteUtilisateur(username);
@@ -82,7 +82,7 @@ public class UtilisateurResourceImpl implements UtilisateurResource {
     }
 
     @Override
-    @PutMapping("/{id}")
+    @PutMapping("/{username}")
     public ResponseEntity<UtilisateurDTO> updateUtilisateur(@PathVariable String username, @RequestBody @Valid UtilisateurForm userForm, @RequestHeader String Authorization) throws ControllerException {
         try {
             Utilisateur user = convertUtilisateurFormToUtilisateur(userForm);
